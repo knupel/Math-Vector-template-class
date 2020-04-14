@@ -18,6 +18,7 @@ private:
 
 public:
 	vec3();
+	vec3(T const &arg);
 	vec3(T const &x, T const &y, T const &z);
 	vec3(vec3<T> const &src);
 	~vec3();
@@ -39,6 +40,8 @@ public:
 	T y() const;
 	T z() const;
 	vec3 copy() const;
+	T * array() const;
+	std::vector<T*> list();
 }; 
 
 template <class T>
@@ -55,6 +58,8 @@ std::ostream & operator<<(std::ostream &out, vec3<T> const &rhs);
 // construtor / destructor
 template <class T>
 vec3<T>::vec3() : _x(0), _y(0), _z(0) {
+	this->size = 3;
+	set_list(this->v_list, &_x, &_y, &_z); 
 	if(vec3<T>::_warning) {
 		std::cout << "Default constructor vec3" << std::endl;
 		vec3<T>::instance++;
@@ -63,7 +68,21 @@ vec3<T>::vec3() : _x(0), _y(0), _z(0) {
 }
 
 template <class T>
+vec3<T>::vec3(T const &arg) : _x(arg), _y(arg), _z(arg) {
+	this->size = 3;
+	set_list(this->v_list, &_x, &_y, &_z);
+	if(vec3<T>::_warning) {
+		std::cout << "Parametric constructor vec3" << std::endl;
+		vec3<T>::instance++;
+	}
+	return;
+}
+
+
+template <class T>
 vec3<T>::vec3(T const &x, T const &y, T const &z) : _x(x), _y(y), _z(z) {
+	this->size = 3;
+	set_list(this->v_list, &_x, &_y, &_z); 
 	if(vec3<T>::_warning) {
 		std::cout << "Parametric constructor vec3" << std::endl;
 		vec3<T>::instance++;
@@ -73,6 +92,8 @@ vec3<T>::vec3(T const &x, T const &y, T const &z) : _x(x), _y(y), _z(z) {
 
 template <class T>
 vec3<T>::vec3(vec3<T> const &src) : _x(src.x()), _y(src.y()), _z(src.z()) {
+	this->size = 3;
+	set_list(this->v_list, &_x, &_y, &_z); 
 	if(vec3<T>::_warning) {
 		std::cout << "Copy constructor  vec3" << std::endl;
 		vec3<T>::instance++;
@@ -151,6 +172,31 @@ template <class T>
 vec3<T> vec3<T>::copy() const {
 	return *this;
 }
+
+template <class T>
+T * vec3<T>::array() const {
+	// size_t const length = this->v_list.size();
+	// T arg[length];
+	// int temp = this->size;
+	// static T *arg;
+	if(this->arg == nullptr) {
+	  // printf("malloc");
+		this->arg = (T*)malloc(this->size * sizeof(T));
+	}
+	size_t length = (sizeof(this->arg)/sizeof(*this->arg));
+	for(size_t i = 0 ; i < length ; i++) {
+		this->arg[i] = *this->v_list.at(i);
+	}
+	printf(" %p > ", &this->arg);
+	return this->arg;
+}
+
+template <class T>
+std::vector<T*> vec3<T>::list() {
+	return this->v_list;
+}
+
+
 
 // return info
 template <class T>

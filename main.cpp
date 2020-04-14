@@ -28,6 +28,9 @@ int main() {
 	vec2<double>::warning(true);
 	vec2<float>::warning(true);
 	vec2<int>::warning(true);
+	vec3<double>::warning(true);
+	vec3<float>::warning(true);
+	vec3<int>::warning(true);
 
 	// vec2<double> a(13.03,0);
 	// vec2<double> b(1.23,3.14);
@@ -38,26 +41,44 @@ int main() {
 	vec2<float> c;
 	vec2<float> d(-1.0f,0.0f);
 	// vec2<float> b(2,2);
-	float f = 3.14f;
+	// float value_f = 3.14f;
 	double d1 = 12.3;
 	double d2 = 4.5;
+	vec2<double> e(d1,d2);
+	vec3<double> f(d1,d2,d2);
 
 
 	//std::cout <<"pow: " << pow(d1,d2) << std::endl;
 	// float array [a.get_size()] = a.array();
 	// for(int i = 0 ; i < 100 ; i++) {
+
+	for(int i = 0 ; i < f.get_size() ; i++) {
+		std::cout <<"f array()[" << i << "] = " << f.array()[i] << std::endl;
+	}
+
+	for(size_t i = 0 ; i < f.get_size() ; i++) {
+		std::cout <<"f list().at(" << i << ") = " << f.list().at(i)[0] << std::endl;
+	}
+
+	std::cout << f << std::endl;
+
 	for(int i = 0 ; i < a.get_size() ; i++) {
-		std::cout <<"array[" << i << "] = " << a.array()[i] << std::endl;
-		a.array()[i] = 12.0f;
+		std::cout <<"a array()[" << i << "] = " << a.array()[i] << std::endl;
+	}
+
+	for(int i = 0 ; i < b.get_size() ; i++) {
+		std::cout <<"b array()[" << i << "] = " << b.array()[i] << std::endl;
 	}
 
 
+
+
   //printf("pointer adress a._x: %p\n", &(a._x));
-	std::cout << "list ref: " << a.list().at(0) << std::endl;
-	std::cout << "list arg: " << a.list().at(0)[0] << std::endl;
-	a.x(43.0f);
-	std::cout << "list ref: " << a.list().at(0) << std::endl;
-	std::cout << "list arg: " << a.list().at(0)[0] << std::endl;
+	// std::cout << "list ref: " << a.list().at(0) << std::endl;
+	// std::cout << "list arg: " << a.list().at(0)[0] << std::endl;
+	// a.x(43.0f);
+	// std::cout << "list ref: " << a.list().at(0) << std::endl;
+	// std::cout << "list arg: " << a.list().at(0)[0] << std::endl;
 
 
 	// std::cout <<"vec2 a: " << a << std::endl;
@@ -111,6 +132,9 @@ int main() {
 	printf("num of instance vec2 int: %i\n", vec2<int>::get_instance());
 	printf("num of instance vec2 float: %i\n", vec2<float>::get_instance());
 	printf("num of instance vec2 double: %i\n", vec2<double>::get_instance());
+	printf("num of instance vec3 int: %i\n", vec3<int>::get_instance());
+	printf("num of instance vec3 float: %i\n", vec3<float>::get_instance());
+	printf("num of instance vec3 double: %i\n", vec3<double>::get_instance());
 
 	return (0);
 }

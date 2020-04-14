@@ -1,6 +1,9 @@
 #ifndef VEC2_H
 # define VEC2_H
-
+/**
+* vec2 0.0.1
+* 2020-2020
+*/ 
 #include "vec.cpp"
 #include "rt_utils.cpp"
 
@@ -63,26 +66,27 @@ public:
 
 	vec2 operator+(vec2<T> const &rhs) const;
 	vec2 operator+(T const &rhs) const;
-	vec2 operator+=(vec2<T> const &rhs);
-	vec2 operator+=(T const &rhs);
+	vec2 & operator+=(vec2<T> const &rhs);
+	vec2 & operator+=(T const &rhs);
 
 	vec2 operator-(vec2<T> const &rhs) const;
 	vec2 operator-(T const &rhs) const;
-	vec2 operator-=(vec2<T> const &rhs);
-	vec2 operator-=(T const &rhs);
+	vec2 & operator-=(vec2<T> const &rhs);
+	vec2 & operator-=(T const &rhs);
 
 	vec2 operator*(vec2<T> const &rhs) const;
 	vec2 operator*(T const &rhs) const;
-	vec2 operator*=(vec2<T> const &rhs);
-	vec2 operator*=(T const &rhs);
+	vec2 & operator*=(vec2<T> const &rhs);
+	vec2 & operator*=(T const &rhs);
 
 	vec2 operator/(vec2<T> const &rhs) const;
 	vec2 operator/(T const &rhs) const;
-	vec2 operator/=(vec2<T> const &rhs);
-	vec2 operator/=(T const &rhs);
+	vec2 & operator/=(vec2<T> const &rhs);
+	vec2 & operator/=(T const &rhs);
 
 	// static
 	static void warning(bool is);
+	static int get_instance();
 }; 
 
 
@@ -101,9 +105,10 @@ std::ostream & operator<<(std::ostream &out, vec2<T> const &rhs);
 template <class T>
 vec2<T>::vec2() : _x(0), _y(0) {
 	this->size = 2;
-  set_list(this->v_list, &_x, &_y); // further : no matching member function for call to 'push_back'
+  set_list(this->v_list, &_x, &_y); 
 	if(vec2<T>::_warning) {
 		std::cout << "Default constructor vec2" << std::endl;
+		vec2<T>::instance++;
 	}	
 	return;
 }
@@ -114,6 +119,7 @@ vec2<T>::vec2(T const &arg) : _x(arg), _y(arg) {
 	set_list(this->v_list, &_x, &_y);
 	if(vec2<T>::_warning) {
 		std::cout << "Parametric constructor vec2" << std::endl;
+		vec2<T>::instance++;
 	}
 	return;
 }
@@ -124,6 +130,7 @@ vec2<T>::vec2(T const &x, T const &y) : _x(x), _y(y) {
 	set_list(this->v_list, &_x, &_y);
 	if(vec2<T>::_warning) {
 		std::cout << "Parametric constructor vec2" << std::endl;
+		vec2<T>::instance++;
 	}
 	return;
 }
@@ -134,6 +141,7 @@ vec2<T>::vec2(vec2<T> const &src) : _x(src.x()), _y(src.y()) {
 	set_list(this->v_list, &_x, &_y);
 	if(vec2<T>::_warning) {
 		std::cout << "Copy constructor vec2" << std::endl;
+		vec2<T>::instance++;
 	}
 	return;
 }
@@ -142,6 +150,7 @@ template <class T>
 vec2<T>::~vec2() {
 	if(vec2<T>::_warning) {
 		std::cout << "Destructor vec2" << std::endl;
+		vec2<T>::instance--;
 	}
 	return;
 }
@@ -231,14 +240,14 @@ vec2<T> vec2<T>::operator+(T const &rhs) const {
 }
 
 template <class T>
-vec2<T> vec2<T>::operator+=(vec2<T> const &rhs) {
+vec2<T> & vec2<T>::operator+=(vec2<T> const &rhs) {
 	this->_x += rhs.x();
 	this->_y += rhs.y();
 	return *this;
 }
 
 template <class T>
-vec2<T> vec2<T>::operator+=(T const &rhs) {
+vec2<T> & vec2<T>::operator+=(T const &rhs) {
 	this->_x += rhs;
 	this->_y += rhs;
 	return *this;
@@ -260,14 +269,14 @@ vec2<T> vec2<T>::operator-(T const &rhs) const {
 
 
 template <class T>
-vec2<T> vec2<T>::operator-=(vec2<T> const &rhs) {
+vec2<T> & vec2<T>::operator-=(vec2<T> const &rhs) {
 	this->_x -= rhs.x();
 	this->_y -= rhs.y();
 	return *this;
 }
 
 template <class T>
-vec2<T> vec2<T>::operator-=(T const &rhs) {
+vec2<T> & vec2<T>::operator-=(T const &rhs) {
 	this->_x -= rhs;
 	this->_y -= rhs;
 	return *this;
@@ -287,14 +296,14 @@ vec2<T> vec2<T>::operator*(T const &rhs) const {
 }
 
 template <class T>
-vec2<T> vec2<T>::operator*=(vec2<T> const &rhs) {
+vec2<T> & vec2<T>::operator*=(vec2<T> const &rhs) {
 	this->_x *= rhs.x();
 	this->_y *= rhs.y();
 	return *this;
 }
 
 template <class T>
-vec2<T> vec2<T>::operator*=(T const &rhs) {
+vec2<T> & vec2<T>::operator*=(T const &rhs) {
 	this->_x *= rhs;
 	this->_y *= rhs;
 	return *this;
@@ -314,14 +323,14 @@ vec2<T> vec2<T>::operator/(T const &rhs) const {
 }
 
 template <class T>
-vec2<T> vec2<T>::operator/=(vec2<T> const &rhs) {
+vec2<T> & vec2<T>::operator/=(vec2<T> const &rhs) {
 	this->_x /= rhs.x();
 	this->_y /= rhs.y();
 	return *this;
 }
 
 template <class T>
-vec2<T> vec2<T>::operator/=(T const &rhs) {
+vec2<T> & vec2<T>::operator/=(T const &rhs) {
 	this->_x /= rhs;
 	this->_y /= rhs;
 	return *this;
@@ -360,10 +369,20 @@ vec2<T> vec2<T>::copy() const {
 
 template <class T>
 T * vec2<T>::array() const {
-	static T arg[2];
-	arg[0] = this->x();
-	arg[1] = this->y();
-	return arg;
+	// size_t const length = this->v_list.size();
+	// T arg[length];
+	// int temp = this->size;
+	// static T *arg;
+	if(this->arg == nullptr) {
+	  printf("malloc");
+		this->arg = (T*)malloc(this->size * sizeof(T));
+	}
+	size_t length = (sizeof(this->arg)/sizeof(*this->arg));
+	for(size_t i = 0 ; i < length ; i++) {
+		this->arg[i] = *this->v_list.at(i);
+	}
+	printf(" %p > ", &this->arg);
+	return this->arg;
 }
 
 template <class T>
@@ -386,6 +405,16 @@ std::ostream & operator<<(std::ostream & out, vec2<T> const & rhs) {
 }
 
 template <class T>
+int vec2<T>::get_instance() {
+	return vec2<T>::instance;
+}
+
+
+// static instantiation
+template <class T>
 bool vec2<T>::_warning = false;
+
+template <class T>
+int vec2<T>::instance = 0;
 
 #endif
