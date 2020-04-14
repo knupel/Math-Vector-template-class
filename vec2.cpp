@@ -37,6 +37,10 @@ public:
 	vec2 copy() const;
 	T * array() const;
 	std::vector<T*> list();
+	T * min_ref();
+	T min() const;
+	T max() const;
+
 
 	// common algorithm for all vec
 
@@ -152,6 +156,8 @@ vec2<T>::~vec2() {
 		std::cout << "Destructor vec2" << std::endl;
 		vec2<T>::instance--;
 	}
+	// if(this->arg != nullptr)
+	// 	free(this->arg);
 	return;
 }
 
@@ -369,20 +375,11 @@ vec2<T> vec2<T>::copy() const {
 
 template <class T>
 T * vec2<T>::array() const {
-	// size_t const length = this->v_list.size();
-	// T arg[length];
-	// int temp = this->size;
-	// static T *arg;
-	if(this->arg == nullptr) {
-	  printf("malloc");
-		this->arg = (T*)malloc(this->size * sizeof(T));
+	static T arg[2];
+	for(size_t i = 0 ; i < this->size ; i++) {
+		arg[i] = *this->v_list.at(i);
 	}
-	size_t length = (sizeof(this->arg)/sizeof(*this->arg));
-	for(size_t i = 0 ; i < length ; i++) {
-		this->arg[i] = *this->v_list.at(i);
-	}
-	printf(" %p > ", &this->arg);
-	return this->arg;
+	return arg;
 }
 
 template <class T>
@@ -390,8 +387,33 @@ std::vector<T*> vec2<T>::list() {
 	return this->v_list;
 }
 
+template <class T>
+T * vec2<T>::min_ref() {
+	return *std::min_element(this->v_list.begin(), this->v_list.end());
+}
+
+template <class T>
+T vec2<T>::min() const {
+	// std::cout << "list size: " << this->v_list.size() << std::endl;
+	// for(size_t i = 0 ; i < this->v_list.size() ; i++) {
+	// 	std::cout <<"this->v_list.at(" << i << ") = " << this->v_list.at(i)[0] << std::endl;
+	// }
+	std::cout << "T vec2<T>::min() const: " << *std::min_element(this->v_list.begin(), this->v_list.end())[0] << std::endl;
+	return *std::min_element(this->v_list.begin(), this->v_list.end())[0];
+}
+
+template <class T>
+T vec2<T>::max() const {
+	return *std::max_element(this->v_list.begin(), this->v_list.end())[0];
+}
+
+// template <class T>
+// T vec2<T>::max() const {
+// 	return *std::max_element(this->v_list.begin(), this->v_list.end());
+// }
 
 
+// info
 template <class T>
 void vec2<T>::warning(bool is) {
 	vec2<T>::_warning = is;

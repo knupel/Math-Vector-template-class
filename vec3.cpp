@@ -42,6 +42,8 @@ public:
 	vec3 copy() const;
 	T * array() const;
 	std::vector<T*> list();
+	T min() const;
+	T max() const;
 }; 
 
 template <class T>
@@ -108,6 +110,8 @@ vec3<T>::~vec3(){
 		std::cout << "Destructor vec3" << std::endl;
 		vec3<T>::instance--;
 	}
+	// if(this->arg != nullptr)
+	// 	free(this->arg);
 	return;
 }
 
@@ -175,25 +179,26 @@ vec3<T> vec3<T>::copy() const {
 
 template <class T>
 T * vec3<T>::array() const {
-	// size_t const length = this->v_list.size();
-	// T arg[length];
-	// int temp = this->size;
-	// static T *arg;
-	if(this->arg == nullptr) {
-	  // printf("malloc");
-		this->arg = (T*)malloc(this->size * sizeof(T));
+	static T arg[3];
+	for(size_t i = 0 ; i < this->size ; i++) {
+		arg[i] = *this->v_list.at(i);
 	}
-	size_t length = (sizeof(this->arg)/sizeof(*this->arg));
-	for(size_t i = 0 ; i < length ; i++) {
-		this->arg[i] = *this->v_list.at(i);
-	}
-	printf(" %p > ", &this->arg);
-	return this->arg;
+	return arg;
 }
 
 template <class T>
 std::vector<T*> vec3<T>::list() {
 	return this->v_list;
+}
+
+template <class T>
+T vec3<T>::min() const {
+	return *std::min_element(this->v_list.begin(), this->v_list.end())[0];
+}
+
+template <class T>
+T vec3<T>::max() const {
+	return *std::max_element(this->v_list.begin(), this->v_list.end())[0];
 }
 
 

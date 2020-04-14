@@ -13,7 +13,6 @@ template <class T>
 class vec {
 protected:
 	unsigned short size = 0;
-	static T *arg;
 public:
 	vec ();
 	std::vector<T*> v_list;
@@ -28,8 +27,6 @@ vec<T>::vec() {
 
 template <class T>
 vec<T>::~vec() {
-	if(arg != nullptr)
-		free(arg);
 	//
 }
 
@@ -37,9 +34,5 @@ template <class T>
 unsigned short vec<T>::get_size() const {
 	return size;
 }
-
-template <class T>
-T  *vec<T>::arg = nullptr;
-
 
 #endif

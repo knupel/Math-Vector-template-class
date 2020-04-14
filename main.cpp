@@ -25,12 +25,12 @@ void show_data(vec<T> &v) {
 
 int main() {
 	// set static warning to display info about Constructor and destructor
-	vec2<double>::warning(true);
-	vec2<float>::warning(true);
-	vec2<int>::warning(true);
-	vec3<double>::warning(true);
-	vec3<float>::warning(true);
-	vec3<int>::warning(true);
+	// vec2<double>::warning(true);
+	// vec2<float>::warning(true);
+	// vec2<int>::warning(true);
+	// vec3<double>::warning(true);
+	// vec3<float>::warning(true);
+	// vec3<int>::warning(true);
 
 	// vec2<double> a(13.03,0);
 	// vec2<double> b(1.23,3.14);
@@ -42,33 +42,48 @@ int main() {
 	vec2<float> d(-1.0f,0.0f);
 	// vec2<float> b(2,2);
 	// float value_f = 3.14f;
-	double d1 = 12.3;
-	double d2 = 4.5;
+	double d1 = 100.3;
+	double d2 = 32.5;
+	double d3 = 8.5;
 	vec2<double> e(d1,d2);
-	vec3<double> f(d1,d2,d2);
+	vec3<double> f(d1,d2,d3);
+
+	for(int i = 0 ; i < e.get_size() ; i++) {
+		std::cout <<"e array()[" << i << "] = " << e.array()[i] << std::endl;
+	}
+	std::cout << "e min_ref: " << e.min_ref()[0] << std::endl;
+	std::cout << "e min: " << e.min() << std::endl;
+	std::cout << "e max: " << e.max() << std::endl;
+
+	for(int i = 0 ; i < f.get_size() ; i++) {
+		std::cout <<"f array()[" << i << "] = " << f.array()[i] << std::endl;
+	}
+	std::cout << "f min: " << f.min() << std::endl;
+	std::cout << "f max: " << f.max() << std::endl;
+	// std::cout << "max: " << e.max() << std::endl;
 
 
 	//std::cout <<"pow: " << pow(d1,d2) << std::endl;
 	// float array [a.get_size()] = a.array();
 	// for(int i = 0 ; i < 100 ; i++) {
 
-	for(int i = 0 ; i < f.get_size() ; i++) {
-		std::cout <<"f array()[" << i << "] = " << f.array()[i] << std::endl;
-	}
+	// for(int i = 0 ; i < f.get_size() ; i++) {
+	// 	std::cout <<"f array()[" << i << "] = " << f.array()[i] << std::endl;
+	// }
 
-	for(size_t i = 0 ; i < f.get_size() ; i++) {
-		std::cout <<"f list().at(" << i << ") = " << f.list().at(i)[0] << std::endl;
-	}
+	// for(size_t i = 0 ; i < f.get_size() ; i++) {
+	// 	std::cout <<"f list().at(" << i << ") = " << f.list().at(i)[0] << std::endl;
+	// }
 
-	std::cout << f << std::endl;
+	// std::cout << f << std::endl;
 
-	for(int i = 0 ; i < a.get_size() ; i++) {
-		std::cout <<"a array()[" << i << "] = " << a.array()[i] << std::endl;
-	}
+	// for(int i = 0 ; i < a.get_size() ; i++) {
+	// 	std::cout <<"a array()[" << i << "] = " << a.array()[i] << std::endl;
+	// }
 
-	for(int i = 0 ; i < b.get_size() ; i++) {
-		std::cout <<"b array()[" << i << "] = " << b.array()[i] << std::endl;
-	}
+	// for(int i = 0 ; i < b.get_size() ; i++) {
+	// 	std::cout <<"b array()[" << i << "] = " << b.array()[i] << std::endl;
+	// }
 
 
 
