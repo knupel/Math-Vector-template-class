@@ -51,7 +51,7 @@ int main() {
 	for(int i = 0 ; i < e.get_size() ; i++) {
 		std::cout <<"e array()[" << i << "] = " << e.array()[i] << std::endl;
 	}
-	std::cout << "e min_ref: " << e.min_ref()[0] << std::endl;
+	// std::cout << "e min_ref: " << e.min_ref()[0] << std::endl;
 	std::cout << "e min: " << e.min() << std::endl;
 	std::cout << "e max: " << e.max() << std::endl;
 
@@ -71,9 +71,13 @@ int main() {
 	// 	std::cout <<"f array()[" << i << "] = " << f.array()[i] << std::endl;
 	// }
 
-	// for(size_t i = 0 ; i < f.get_size() ; i++) {
-	// 	std::cout <<"f list().at(" << i << ") = " << f.list().at(i)[0] << std::endl;
-	// }
+	for(size_t i = 0 ; i < f.get_size() ; i++) {
+		std::cout <<"f list().at(" << i << ") = " << f.list().at(i) << std::endl;
+	}
+
+	for(size_t i = 0 ; i < f.get_size() ; i++) {
+		std::cout <<"f ref().at(" << i << ") = " << f.ref().at(i) << std::endl;
+	}
 
 	// std::cout << f << std::endl;
 

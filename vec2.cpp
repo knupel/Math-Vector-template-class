@@ -36,11 +36,6 @@ public:
 	T y() const;
 	vec2 copy() const;
 	T * array() const;
-	std::vector<T*> list();
-	T * min_ref();
-	T min() const;
-	T max() const;
-
 
 	// common algorithm for all vec
 
@@ -156,8 +151,6 @@ vec2<T>::~vec2() {
 		std::cout << "Destructor vec2" << std::endl;
 		vec2<T>::instance--;
 	}
-	// if(this->arg != nullptr)
-	// 	free(this->arg);
 	return;
 }
 
@@ -381,36 +374,6 @@ T * vec2<T>::array() const {
 	}
 	return arg;
 }
-
-template <class T>
-std::vector<T*> vec2<T>::list() {
-	return this->v_list;
-}
-
-template <class T>
-T * vec2<T>::min_ref() {
-	return *std::min_element(this->v_list.begin(), this->v_list.end());
-}
-
-template <class T>
-T vec2<T>::min() const {
-	// std::cout << "list size: " << this->v_list.size() << std::endl;
-	// for(size_t i = 0 ; i < this->v_list.size() ; i++) {
-	// 	std::cout <<"this->v_list.at(" << i << ") = " << this->v_list.at(i)[0] << std::endl;
-	// }
-	std::cout << "T vec2<T>::min() const: " << *std::min_element(this->v_list.begin(), this->v_list.end())[0] << std::endl;
-	return *std::min_element(this->v_list.begin(), this->v_list.end())[0];
-}
-
-template <class T>
-T vec2<T>::max() const {
-	return *std::max_element(this->v_list.begin(), this->v_list.end())[0];
-}
-
-// template <class T>
-// T vec2<T>::max() const {
-// 	return *std::max_element(this->v_list.begin(), this->v_list.end());
-// }
 
 
 // info

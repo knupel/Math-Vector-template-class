@@ -41,9 +41,6 @@ public:
 	T z() const;
 	vec3 copy() const;
 	T * array() const;
-	std::vector<T*> list();
-	T min() const;
-	T max() const;
 }; 
 
 template <class T>
@@ -110,8 +107,6 @@ vec3<T>::~vec3(){
 		std::cout << "Destructor vec3" << std::endl;
 		vec3<T>::instance--;
 	}
-	// if(this->arg != nullptr)
-	// 	free(this->arg);
 	return;
 }
 
@@ -184,21 +179,6 @@ T * vec3<T>::array() const {
 		arg[i] = *this->v_list.at(i);
 	}
 	return arg;
-}
-
-template <class T>
-std::vector<T*> vec3<T>::list() {
-	return this->v_list;
-}
-
-template <class T>
-T vec3<T>::min() const {
-	return *std::min_element(this->v_list.begin(), this->v_list.end())[0];
-}
-
-template <class T>
-T vec3<T>::max() const {
-	return *std::max_element(this->v_list.begin(), this->v_list.end())[0];
 }
 
 
