@@ -36,33 +36,148 @@ int main() {
 	// vec2<double> b(1.23,3.14);
 
 
-	vec2<float> a(13.03f,4.01f);
+	vec2<float> a(13.03f,1.0f);
 	vec2<float> b(1.23f,3.14f);
-	vec2<float> c;
-	vec2<float> d(-1.0f,0.0f);
+	vec2<float> c(0.0f,0.0f);
+	vec2<float> d(2.0f,2.0f);
+	int i1 = 1;
+	int i2 = 2;
+	int i3 = 3;
+	float f1 = 100.3f;
+	float f2 = 32.5f;
+	float f3 = 8.5f;
 	// vec2<float> b(2,2);
 	// float value_f = 3.14f;
 	double d1 = 100.3;
 	double d2 = 32.5;
 	double d3 = 8.5;
 	vec2<double> e(d1,d2);
-	vec3<double> f(d1,d2,d3);
+	vec2<double> f(d1,d2);
 
-	for(int i = 0 ; i < e.get_size() ; i++) {
-		std::cout <<"e array()[" << i << "] = " << e.array()[i] << std::endl;
-	}
-	// std::cout << "e min_ref: " << e.min_ref()[0] << std::endl;
-	std::cout << "e min: " << e.min() << std::endl;
-	std::cout << "e max: " << e.max() << std::endl;
+	vec3<double> a_3(0,0,0);
+	vec3<double> b_3(1,1,1);
+	vec3<double> f_3(d1,d2,d3);
 
-	for(int i = 0 ; i < f.get_size() ; i++) {
-		std::cout <<"f array()[" << i << "] = " << f.array()[i] << std::endl;
-	}
-	std::cout << "f min: " << f.min() << std::endl;
-	std::cout << "f max: " << f.max() << std::endl;
-	// std::cout << "max: " << e.max() << std::endl;
+	/**
+	* Normal DIR
+	*/
+	std::cout << "a:" << a << " normal a.dir(): " << a.dir() << std::endl;
+	std::cout << "a:" << a << " b:" << b << " normal a.dir(b): " << a.dir(b) << std::endl;
+	std::cout << "vec2(-2,2):" << vec2<float>(1,0) << " normal dir: " << vec2<float>(-2,2).dir() << std::endl;
 
 
+  /**
+  * OPERATOR
+  */
+  // vec2<float> dup;
+  // dup = a;
+  // printf("ref a: %p\n",&a);
+  // printf("ref dup: %p\n",&dup);
+  // std::cout << "a: " << a << " dup: " << dup << std::endl;
+  // a += dup;
+  // std::cout << "a += dup: " << a << std::endl;
+  // a += 10;
+  // std::cout << "a += 10: " << a << std::endl;
+
+	// vec2<float> add_vec = a + b;
+	// std::cout << add_vec << " = " << a << " + " << b  << std::endl;
+	// std::cout << "a: " << a << std::endl;
+
+	// vec2<float> add_single = a + f1;
+	// std::cout << add_single << " = " << a << " + " << f1 << std::endl;
+
+ //  vec2<float> temp = add_single;
+	// a -= f1;
+	// std::cout << "result: " << a << std::endl;
+
+	// vec2<float> sub = a - b;
+	// std::cout << sub << " = " << a << " - " << b  << std::endl;
+
+	// vec2<float> mult = a * b;
+	// std::cout << mult << " = " << a << " * " << b  << std::endl;
+
+	// vec2<float> div = a / b;
+	// std::cout << div << " = " << a << " / " << b  << std::endl;
+
+
+
+
+
+
+	/**
+	* DISTANCE / MAG
+	*/
+	// std::cout << c << d << std::endl;
+	// std::cout <<"c.dist(d): " << c.dist(d) << std::endl;
+	// std::cout << a_3 << b_3 << std::endl;
+	// std::cout << "a_3.dist(b_3): " << a_3.dist(b_3) << std::endl;
+
+	// std::cout <<"a.mag(): " << a.mag() << std::endl;
+	// std::cout <<"a.mag(b): " << a.mag(b) << std::endl;
+  
+	// std::cout <<"a.magSq(): " << b.magSq() << std::endl;
+	// std::cout <<"a.magSq(b): " << b.magSq(a) << std::endl;
+
+
+
+	/**
+	* SUM & AVERAGE
+	*/
+	// std::cout << e << std::endl;
+	// std::cout << e.sum() << std::endl;
+	// std::cout << e.average() << std::endl;
+	// std::cout << f_3 << std::endl;
+	// std::cout << f_3.sum() << std::endl;
+	// std::cout << f_3.average() << std::endl;
+	// std::cout << "sum int: " << vec3<int>(2,2,1).sum() << std::endl;
+	// std::cout << "sum int: " << vec3<int>(i1,i2,i3).sum() << std::endl;
+	// std::cout << "average int: " << vec3<int> (2,1,1).average() << std::endl;
+	// std::cout << "average float: " << vec3<float> (2,1,3).average() << std::endl;
+
+	/**
+	* LIMIT
+	*/
+	// std::cout << e << std::endl;
+	// std::cout << e.limit(10) << std::endl;
+	// std::cout << e << std::endl;
+
+
+	/**
+	* NORMALIZE
+	*/
+	// std::cout << e << std::endl;
+	// std::cout << e.normalize() << std::endl;
+	// std::cout << "vec2::normalize(vec2(100,50))" << std::endl;
+	// std::cout << vec2<float>::normalize(vec2<float>(100.0f,50.0f)) << std::endl;
+
+
+  /**
+  * LIST
+  */
+	// for(int i = 0 ; i < e.get_size() ; i++) {
+	// 	std::cout <<"e array()[" << i << "] = " << e.array()[i] << std::endl;
+	// }
+
+	// std::cout << "e min: " << e.min() << std::endl;
+	// std::cout << "e max: " << e.max() << std::endl;
+
+	// for(int i = 0 ; i < f.get_size() ; i++) {
+	// 	std::cout <<"f array()[" << i << "] = " << f.array()[i] << std::endl;
+	// }
+	// std::cout << "f min: " << f.min() << std::endl;
+	// std::cout << "f max: " << f.max() << std::endl;
+
+	// for(size_t i = 0 ; i < f.get_size() ; i++) {
+	// 	std::cout <<"f list().at(" << i << ") = " << f.list().at(i) << std::endl;
+	// }
+
+	// for(size_t i = 0 ; i < f.get_size() ; i++) {
+	// 	std::cout <<"f ref().at(" << i << ") = " << f.ref().at(i) << std::endl;
+	// }
+
+  /**
+  * POW
+  */
 	//std::cout <<"pow: " << pow(d1,d2) << std::endl;
 	// float array [a.get_size()] = a.array();
 	// for(int i = 0 ; i < 100 ; i++) {
@@ -71,13 +186,7 @@ int main() {
 	// 	std::cout <<"f array()[" << i << "] = " << f.array()[i] << std::endl;
 	// }
 
-	for(size_t i = 0 ; i < f.get_size() ; i++) {
-		std::cout <<"f list().at(" << i << ") = " << f.list().at(i) << std::endl;
-	}
 
-	for(size_t i = 0 ; i < f.get_size() ; i++) {
-		std::cout <<"f ref().at(" << i << ") = " << f.ref().at(i) << std::endl;
-	}
 
 	// std::cout << f << std::endl;
 
@@ -107,17 +216,14 @@ int main() {
 
 
 	// // std::cout <<"a.pow(d1): " << a.pow(2) << std::endl;
-	// std::cout <<"a.mag(): " << a.mag() << std::endl;
-	// std::cout <<"a.mag(b): " << a.mag(b) << std::endl;
-  
- //  // float temp = c.dist(d);
-	// std::cout <<"c.dist(d): " << c.dist(d) << std::endl;
-
-	// std::cout <<"a.magSq(): " << b.magSq() << std::endl;
-	// std::cout <<"a.magSq(b): " << b.magSq(a) << std::endl;
 
 
 
+
+
+	/**
+	* DOT
+	*/
 	// std::cout <<"a.dot(b): " << a.dot(b) << std::endl;
 
 	// std::cout <<"a.dot(1,2): " << a.dot(d1,d2) << std::endl;
@@ -128,24 +234,7 @@ int main() {
 	// a.x(2);
 	// show_data(a);
   
-	// vec2<float> add_vec = a + b;
-	// std::cout << add_vec << " = " << a << " + " << b  << std::endl;
 
-	// vec2<float> add_single = a + f;
-	// std::cout << add_single << " = " << a << " + " << f << std::endl;
-
-  // vec2<float> temp = add_single;
-	// a -= f;
-	// std::cout << "result: " << a << std::endl;
-
-	// vec2<float> sub = a - b;
-	// std::cout << sub << " = " << a << " - " << b  << std::endl;
-
-	// vec2<float> mult = a * b;
-	// std::cout << mult << " = " << a << " * " << b  << std::endl;
-
-	// vec2<float> div = a / b;
-	// std::cout << div << " = " << a << " / " << b  << std::endl;
 
 
 	printf("num of instance vec2 int: %i\n", vec2<int>::get_instance());

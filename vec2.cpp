@@ -43,6 +43,12 @@ public:
 	T dot(vec2<T> const &v) const;
 	T dot(T const &x, T const &y) const;
 
+	// dir > return normal cartesian direction
+	vec2 dir();
+	vec2 dir(T const &a_x, T const &a_y);
+	vec2 dir(vec2<T> const &origin);
+
+
 	// square length can be usefull and faster when the real length is not necessary
 	T magSq() const;
 	T magSq(vec2<T> const &v) const;
@@ -59,33 +65,50 @@ public:
 	vec2 pow(T const &pow);
 	vec2 pow(T const &pow_x, T const &pow_y);
 
+	//normalize
+	vec2 normalize();
+	static vec2 normalize(vec2<T> target);
 
+	// limit
+	vec2 limit(T const &max);
+	
 	// operator
+	// vec2 & operator=(vec2<T> const &rhs) const;
 	vec2 & operator=(vec2<T> const &rhs);
+	// vec2 & operator=(vec2<T> &rhs);
 
 	vec2 operator+(vec2<T> const &rhs) const;
 	vec2 operator+(T const &rhs) const;
+	// vec2 add(vec2<T> const &rhs) const;
+	// vec2 add(T const &rhs) const;
 	vec2 & operator+=(vec2<T> const &rhs);
 	vec2 & operator+=(T const &rhs);
 
 	vec2 operator-(vec2<T> const &rhs) const;
 	vec2 operator-(T const &rhs) const;
+	// vec2 sub(vec2<T> const &rhs) const;
+	// vec2 sub(T const &rhs) const;
 	vec2 & operator-=(vec2<T> const &rhs);
 	vec2 & operator-=(T const &rhs);
 
 	vec2 operator*(vec2<T> const &rhs) const;
 	vec2 operator*(T const &rhs) const;
+	// vec2 mult(vec2<T> const &rhs) const;
+	// vec2 mult(T const &rhs) const;
 	vec2 & operator*=(vec2<T> const &rhs);
 	vec2 & operator*=(T const &rhs);
 
 	vec2 operator/(vec2<T> const &rhs) const;
 	vec2 operator/(T const &rhs) const;
+	// vec2 div(vec2<T> const &rhs) const;
+	// vec2 div(T const &rhs) const;
 	vec2 & operator/=(vec2<T> const &rhs);
 	vec2 & operator/=(T const &rhs);
 
-	// static
+	// info
 	static void warning(bool is);
 	static int get_instance();
+	
 }; 
 
 
@@ -155,9 +178,10 @@ vec2<T>::~vec2() {
 }
 
 
-
 // COMMMON ALGORITHM FOR VEC
-// dot
+/**
+* dot
+*/
 template <class T>
 T vec2<T>::dot(vec2<T> const &v) const {
 	return this->x()*v.x() + this->y()*v.y();
@@ -168,30 +192,62 @@ T vec2<T>::dot(T const &x, T const &y) const {
 	return this->x()*x + this->y()*y;
 }
 
-// magSq
+/**
+* DIRECTION NORMAL
+*/
+template <class T>
+vec2<T>	vec2<T>::dir() {
+	return vec2<T>::dir(vec2<T>());
+}
+
+template <class T>
+vec2<T>	vec2<T>::dir(T const &a_x, T const &a_y) {
+	return vec2<T>::dir(vec2<T>(a_x, a_y));
+}
+
+template <class T>
+vec2<T>	vec2<T>::dir(vec2<T> const &origin) {
+	vec2 temp = *this;
+	T dist = vec2<T>::dist(origin);
+	temp -= origin;
+	temp /= dist;
+	return temp;
+}
+
+
+
+
+
+/**
+* MAG / DIST
+*/
 template <class T>
 T vec2<T>::magSq() const {
-	return (this->x()*this->x() + this->y()*this->y());
+	T res = 0;
+	for(size_t i = 0 ; i < this->v_list.size() ; i++) {
+		res += (this->v_list.at(i)[0] * this->v_list.at(i)[0]);
+	}
+	return res;
 }
 
 template <class T>
 T vec2<T>::magSq(vec2<T> const &v) const {
-	T temp_x = (v.x() - this->x()) * (v.x() - this->x());
-	T temp_y = (v.y() - this->y()) * (v.y() - this->y());
-	return (temp_x + temp_y);
+	T res = 0;
+	for(size_t i = 0 ; i < this->v_list.size() ; i++) {
+		res += ((v.v_list.at(i)[0] - this->v_list.at(i)[0]) * (v.v_list.at(i)[0] - this->v_list.at(i)[0]));
+	}
+	return res;
 }
 
 // mag
 template <class T>
 double vec2<T>::mag() const {
-	return ::sqrt(this->x()*this->x() + this->y()*this->y());
+	return ::sqrt(vec2<T>::magSq());
 }
 
 template <class T>
 double vec2<T>::mag(vec2<T> const &v) const {
-	T temp_x = (v.x() - this->x()) * (v.x() - this->x());
-	T temp_y = (v.y() - this->y()) * (v.y() - this->y());
-	return ::sqrt(temp_x + temp_y);
+	return ::sqrt(vec2<T>::magSq(v));
 }
 
 // dist
@@ -204,6 +260,7 @@ template <class T>
 double vec2<T>::dist(vec2<T> const &v) const {
 	return vec2<T>::mag(v);
 }
+
 
 // pow
 template <class T>
@@ -218,11 +275,36 @@ vec2<T>	vec2<T>::pow(T const &pow_x, T const &pow_y) {
 	return *this;
 }
 
+//normalize
+template <class T>
+vec2<T>	vec2<T>::normalize(vec2<T> target) {
+	return target.normalize();
+}
+
+template <class T>
+vec2<T>	vec2<T>::normalize() {
+	T m = vec2<T>::mag();
+	if (m != 0 && m != 1) {
+		*this /= m;
+	}
+	return *this;
+}
+
+template <class T>
+vec2<T>	vec2<T>::limit(T const &max) {
+	if (vec2<T>::magSq() > max*max) {
+		vec2<T>::normalize();
+		*this *= max;
+	}
+	return *this;
+}
+
 // OPERATOR
 template <class T>
 vec2<T> & vec2<T>::operator=(vec2<T> const &rhs) {
-	this->x = rhs.x();
-	this->y = rhs.y();
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] = rhs.ref().at(i)[0];
+	}
 	return *this;
 }
 
@@ -230,25 +312,35 @@ vec2<T> & vec2<T>::operator=(vec2<T> const &rhs) {
 // op add
 template <class T>
 vec2<T> vec2<T>::operator+(vec2<T> const &rhs) const {
-	return vec2(this->x() + rhs.x(), this->y() + rhs.y());
+	vec2 temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] + rhs.ref().at(i)[0];
+	}
+	return temp;
 }
 
 template <class T>
 vec2<T> vec2<T>::operator+(T const &rhs) const {
-	return vec2(this->x() + rhs, this->y() + rhs);
+	vec2 temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] + rhs;
+	}
+	return temp;
 }
 
 template <class T>
 vec2<T> & vec2<T>::operator+=(vec2<T> const &rhs) {
-	this->_x += rhs.x();
-	this->_y += rhs.y();
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] += rhs.ref().at(i)[0];
+	}
 	return *this;
 }
 
 template <class T>
 vec2<T> & vec2<T>::operator+=(T const &rhs) {
-	this->_x += rhs;
-	this->_y += rhs;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] += rhs;
+	}
 	return *this;
 }
 
@@ -258,26 +350,36 @@ vec2<T> & vec2<T>::operator+=(T const &rhs) {
 // op sub
 template <class T>
 vec2<T> vec2<T>::operator-(vec2<T> const &rhs) const {
-	return vec2(this->x() - rhs.x(), this->y() - rhs.y());
+	vec2 temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] - rhs.ref().at(i)[0];
+	}
+	return temp;
 }
 
 template <class T>
 vec2<T> vec2<T>::operator-(T const &rhs) const {
-	return vec2(this->x() - rhs, this->y() - rhs);
+	vec2 temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] - rhs;
+	}
+	return temp;
 }
 
 
 template <class T>
 vec2<T> & vec2<T>::operator-=(vec2<T> const &rhs) {
-	this->_x -= rhs.x();
-	this->_y -= rhs.y();
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] -= rhs.ref().at(i)[0];
+	}
 	return *this;
 }
 
 template <class T>
 vec2<T> & vec2<T>::operator-=(T const &rhs) {
-	this->_x -= rhs;
-	this->_y -= rhs;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] -= rhs;
+	}
 	return *this;
 }
 
@@ -286,25 +388,35 @@ vec2<T> & vec2<T>::operator-=(T const &rhs) {
 // op mult
 template <class T>
 vec2<T> vec2<T>::operator*(vec2<T> const &rhs) const {
-	return vec2(this->x() * rhs.x(), this->y() * rhs.y());
+	vec2 temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] * rhs.ref().at(i)[0];
+	}
+	return temp;
 }
 
 template <class T>
 vec2<T> vec2<T>::operator*(T const &rhs) const {
-	return vec2(this->x() * rhs, this->y() * rhs);
+	vec2 temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] * rhs;
+	}
+	return temp;
 }
 
 template <class T>
 vec2<T> & vec2<T>::operator*=(vec2<T> const &rhs) {
-	this->_x *= rhs.x();
-	this->_y *= rhs.y();
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] *= rhs.ref().at(i)[0];
+	}
 	return *this;
 }
 
 template <class T>
 vec2<T> & vec2<T>::operator*=(T const &rhs) {
-	this->_x *= rhs;
-	this->_y *= rhs;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] *= rhs;
+	}
 	return *this;
 }
 
@@ -313,25 +425,35 @@ vec2<T> & vec2<T>::operator*=(T const &rhs) {
 // op div
 template <class T>
 vec2<T> vec2<T>::operator/(vec2<T> const &rhs) const {
-	return vec2(this->x() / rhs.x(), this->y() / rhs.y());
+	vec2 temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] / rhs.ref().at(i)[0];
+	}
+	return temp;
 }
 
 template <class T>
 vec2<T> vec2<T>::operator/(T const &rhs) const {
-	return vec2(this->x() / rhs, this->y() / rhs);
+	vec2 temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] / rhs;
+	}
+	return temp;
 }
 
 template <class T>
 vec2<T> & vec2<T>::operator/=(vec2<T> const &rhs) {
-	this->_x /= rhs.x();
-	this->_y /= rhs.y();
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] /= rhs.ref().at(i)[0];
+	}
 	return *this;
 }
 
 template <class T>
 vec2<T> & vec2<T>::operator/=(T const &rhs) {
-	this->_x /= rhs;
-	this->_y /= rhs;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] /= rhs;
+	}
 	return *this;
 }
 
@@ -369,7 +491,7 @@ vec2<T> vec2<T>::copy() const {
 template <class T>
 T * vec2<T>::array() const {
 	static T arg[2];
-	for(size_t i = 0 ; i < this->size ; i++) {
+	for(size_t i = 0 ; i < this->get_size() ; i++) {
 		arg[i] = *this->v_list.at(i);
 	}
 	return arg;

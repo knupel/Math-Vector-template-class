@@ -18,10 +18,13 @@ public:
 	std::vector<T*> v_list;
 	virtual ~vec();
 	unsigned short get_size() const;
-	std::vector<T*> ref();
+	std::vector<T*> ref() const;
 	std::vector<T> list();
+	T sum() const;
+	T average() const;
 	T min() const;
 	T max() const;
+
 };
 
 template <class T>
@@ -49,8 +52,22 @@ std::vector<T> vec<T>::list() {
 }
 
 template <class T>
-std::vector<T*> vec<T>::ref() {
+std::vector<T*> vec<T>::ref() const {
 	return v_list;
+}
+
+template <class T>
+T vec<T>::sum() const {
+	T res = 0;
+	for(size_t i = 0 ; i < v_list.size() ; i++) {
+		res += v_list.at(i)[0];
+	}
+	return res;
+}
+
+template <class T>
+T vec<T>::average() const {
+	return vec<T>::sum() * (1.0 / vec<T>::get_size());
 }
 
 template <class T>
@@ -70,5 +87,9 @@ T vec<T>::max() const {
 	}
 	return *std::max_element(temp.begin(), temp.end());
 }
+
+
+
+
 
 #endif

@@ -41,6 +41,32 @@ public:
 	T z() const;
 	vec3 copy() const;
 	T * array() const;
+
+
+		// square length can be usefull and faster when the real length is not necessary
+	T magSq() const;
+	T magSq(vec3<T> const &v) const;
+	// Calculate the magnitude, distance or length of the vector or between two vectors.
+	// mag and dist is a same methode
+	double mag() const;
+	double mag(vec3<T> const &v) const;
+	// Calculate the magnitude, distance or length of the vector or between two vectors.
+	// call mag to calculate the the dist
+	double dist() const;
+	double dist(vec3<T> const &v) const;
+
+	// mist
+	/**
+	* CROSS PRODUCT
+	* Calculates and returns a vector composed of the cross product between
+  * two vectors.
+  */
+  /*
+  vec3 cross(vec3<T> const &v) const;
+  // vec<T> target to store the result
+  vec3 cross(vec3<T> const &v, vec3<T> const &target) const;
+  static vec3 cross(vec3<T> const &v1, vec3<T> const &v2, vec3<T> const &target) const;
+  */
 }; 
 
 template <class T>
@@ -115,10 +141,79 @@ vec3<T>::~vec3(){
 // OPERATOR
 template <class T>
 vec3<T> & vec3<T>::operator=(vec3<T> const &rhs) {
-	this->x = rhs.x();
-	this->y = rhs.y();
-	this->z = rhs.z();
+	this->_x = rhs.x();
+	this->_y = rhs.y();
+	this->_z = rhs.z();
 	return *this;
+}
+
+/*
+// cross
+vec3<T>	vec3<T>::cross(vec3<T> const &v) const {
+	return vec3<T>::cross(v, nullptr):
+
+}
+  // vec<T> target to store the result
+vec3<T>	vec3<T>::cross(vec3<T> const &v, vec3<T> &target) const {
+	T cross_x = this->y() * v.z() - v.y() * this->z();
+  T cross_y = this->z() * v.x() - v.z() * this->x();
+  T cross_z = this->x() * v.y() - v.x() * this->y();
+
+  if (target == nullptr) {
+		target = vec3<T>(cross_x, cross_y, cross_z);
+	} else {
+		target->set(cross_x, cross_y, cross_z);
+	}
+	return target;
+}
+
+
+//  static vec3 cross(vec3<T> const &v1, vec3<T> const &v2, vec3<T> &target);
+*/
+
+
+
+/**
+* MAG / DIST
+*/
+template <class T>
+T vec3<T>::magSq() const {
+	T res = 0;
+	for(size_t i = 0 ; i < this->v_list.size() ; i++) {
+		res += (this->v_list.at(i)[0] * this->v_list.at(i)[0]);
+	}
+	return res;
+}
+
+template <class T>
+T vec3<T>::magSq(vec3<T> const &v) const {
+	T res = 0;
+	for(size_t i = 0 ; i < this->v_list.size() ; i++) {
+		res += ((v.v_list.at(i)[0] - this->v_list.at(i)[0]) * (v.v_list.at(i)[0] - this->v_list.at(i)[0]));
+	}
+	return res;
+}
+
+// mag
+template <class T>
+double vec3<T>::mag() const {
+	return ::sqrt(vec3<T>::magSq());
+}
+
+template <class T>
+double vec3<T>::mag(vec3<T> const &v) const {
+	return ::sqrt(vec3<T>::magSq(v));
+}
+
+// dist
+template <class T>
+double vec3<T>::dist() const {
+	return vec3<T>::mag();
+}
+
+template <class T>
+double vec3<T>::dist(vec3<T> const &v) const {
+	return vec3<T>::mag(v);
 }
 
 
