@@ -61,14 +61,42 @@ int main() {
 	/**
 	* Normal DIR
 	*/
-	std::cout << "a:" << a << " normal a.dir(): " << a.dir() << std::endl;
-	std::cout << "a:" << a << " b:" << b << " normal a.dir(b): " << a.dir(b) << std::endl;
-	std::cout << "vec2(-2,2):" << vec2<float>(1,0) << " normal dir: " << vec2<float>(-2,2).dir() << std::endl;
+	// std::cout << "a:" << a << " normal a.dir(): " << a.dir() << std::endl;
+	// std::cout << "a:" << a << " b:" << b << " normal a.dir(b): " << a.dir(b) << std::endl;
+	// std::cout << "vec2(-2,2):" << vec2<float>(1,0) << " normal dir: " << vec2<float>(-2,2).dir() << std::endl;
+
+
+	/**
+	* COMPARE
+	*/
+	vec2<float> aa = a + 0.5f;
+	std::cout << "a: " << a << std::endl;
+	std::cout << "aa: " << aa << std::endl;
+	std::cout << "a.compare(aa, vec2<float>(1)) > " << a.compare(aa, vec2<float>(1)) << std::endl;
+	std::cout << "a.compare(aa, vec2<float>(0.25)) > " << a.compare(aa, vec2<float>(0.25)) << std::endl;
+	std::cout << "a.compare(aa, vec2<float>(0.25, 2)) > " << a.compare(aa, vec2<float>(0.25, 2)) << std::endl;
+	std::cout << "a.compare(aa, 1.0f) > " << a.compare(aa, 1.0f) << std::endl;
+	std::cout << "a.compare(aa, 0.25f) > " << a.compare(aa, 0.25f) << std::endl;
+
+
+
 
 
   /**
   * OPERATOR
   */
+  // std::cout << " a == a > " << (a == a) << std::endl;
+  // std::cout << " a == b > " << (a == b) << std::endl;
+
+  // std::cout << " a != a > " << (a != a) << std::endl;
+  // std::cout << " a != b > " << (a != b) << std::endl;
+
+  // std::cout << " vec2(1) == vec2(0,1) > " << (vec2<int>(1) == vec2<int>(0,1)) << std::endl;
+  // std::cout << " vec2(1) == 1 > " << (vec2<int>(1) == 1) << std::endl;
+  // std::cout << " vec2(1,0) != 1 > " << (vec2<int>(1,0) != 1) << std::endl;
+  // std::cout << " vec2(1,1) != 1 > " << (vec2<int>(1) != 1) << std::endl;
+
+
   // vec2<float> dup;
   // dup = a;
   // printf("ref a: %p\n",&a);
@@ -115,8 +143,8 @@ int main() {
 	// std::cout <<"a.mag(): " << a.mag() << std::endl;
 	// std::cout <<"a.mag(b): " << a.mag(b) << std::endl;
   
-	// std::cout <<"a.magSq(): " << b.magSq() << std::endl;
-	// std::cout <<"a.magSq(b): " << b.magSq(a) << std::endl;
+	// std::cout <<"a.mag_sq(): " << b.mag_sq() << std::endl;
+	// std::cout <<"a.mag_sq(b): " << b.mag_sq(a) << std::endl;
 
 
 

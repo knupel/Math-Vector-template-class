@@ -50,8 +50,8 @@ public:
 
 
 	// square length can be usefull and faster when the real length is not necessary
-	T magSq() const;
-	T magSq(vec2<T> const &v) const;
+	T mag_sq() const;
+	T mag_sq(vec2<T> const &v) const;
 	// Calculate the magnitude, distance or length of the vector or between two vectors.
 	// mag and dist is a same methode
 	double mag() const;
@@ -67,15 +67,44 @@ public:
 
 	//normalize
 	vec2 normalize();
-	static vec2 normalize(vec2<T> target);
+	static vec2 normalize(vec2<T> &target);
 
 	// limit
 	vec2 limit(T const &max);
 	
 	// operator
-	// vec2 & operator=(vec2<T> const &rhs) const;
+
+
+  bool compare(vec2<T> const &target, vec2<T> const &area);
+  bool compare(vec2<T> const &target, T const &area);
+
+	// public vec2 map(float minIn, float maxIn, float minOut, float maxOut);
+	// public vec2 map(vec2 minIn, vec2 maxIn, vec2 minOut, vec2 maxOut);
+	// public vec2 rand(float max);
+	// public vec2 rand(float min, float max);
+	// public vec2 rand(vec2 mx, vec2 my);
+	// public vec2 constrain(float min, float max);
+	// public vec2 constrain(vec2 min, vec2 max);
+	// public vec2 cos_wave(int value, float s);
+	// public vec2 cos_wave(int value, float sx, float sy);
+	// public vec2 sin_wave(int value, float s);
+	// public vec2 sin(int value, float sx, float sy):
+
+	//VEC 2
+	// public vec2 tan();
+	// public vec2 tan(float a_x, float a_y);
+	// public vec2 tan(vec2 target);
+	// public float angle();
+	// public float angle(vec2 target);
+	// public float heading();
+
+	bool operator==(vec2<T> const &rhs);
+	bool operator==(T const &rhs);
+
+	bool operator!=(vec2<T> const &rhs);
+	bool operator!=(T const &rhs);
+
 	vec2 & operator=(vec2<T> const &rhs);
-	// vec2 & operator=(vec2<T> &rhs);
 
 	vec2 operator+(vec2<T> const &rhs) const;
 	vec2 operator+(T const &rhs) const;
@@ -222,16 +251,12 @@ vec2<T>	vec2<T>::dir(vec2<T> const &origin) {
 * MAG / DIST
 */
 template <class T>
-T vec2<T>::magSq() const {
-	T res = 0;
-	for(size_t i = 0 ; i < this->v_list.size() ; i++) {
-		res += (this->v_list.at(i)[0] * this->v_list.at(i)[0]);
-	}
-	return res;
+T vec2<T>::mag_sq() const {
+	return vec<T>::mag_sq();
 }
 
 template <class T>
-T vec2<T>::magSq(vec2<T> const &v) const {
+T vec2<T>::mag_sq(vec2<T> const &v) const {
 	T res = 0;
 	for(size_t i = 0 ; i < this->v_list.size() ; i++) {
 		res += ((v.v_list.at(i)[0] - this->v_list.at(i)[0]) * (v.v_list.at(i)[0] - this->v_list.at(i)[0]));
@@ -242,12 +267,12 @@ T vec2<T>::magSq(vec2<T> const &v) const {
 // mag
 template <class T>
 double vec2<T>::mag() const {
-	return ::sqrt(vec2<T>::magSq());
+	return vec<T>::mag();
 }
 
 template <class T>
 double vec2<T>::mag(vec2<T> const &v) const {
-	return ::sqrt(vec2<T>::magSq(v));
+	return ::sqrt(vec2<T>::mag_sq(v));
 }
 
 // dist
@@ -277,11 +302,6 @@ vec2<T>	vec2<T>::pow(T const &pow_x, T const &pow_y) {
 
 //normalize
 template <class T>
-vec2<T>	vec2<T>::normalize(vec2<T> target) {
-	return target.normalize();
-}
-
-template <class T>
 vec2<T>	vec2<T>::normalize() {
 	T m = vec2<T>::mag();
 	if (m != 0 && m != 1) {
@@ -289,6 +309,13 @@ vec2<T>	vec2<T>::normalize() {
 	}
 	return *this;
 }
+
+template <class T>
+vec2<T>	vec2<T>::normalize(vec2<T> &target) {
+	return target.normalize();
+}
+
+
 
 template <class T>
 vec2<T>	vec2<T>::limit(T const &max) {
@@ -300,6 +327,7 @@ vec2<T>	vec2<T>::limit(T const &max) {
 }
 
 // OPERATOR
+// op =
 template <class T>
 vec2<T> & vec2<T>::operator=(vec2<T> const &rhs) {
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
@@ -309,7 +337,7 @@ vec2<T> & vec2<T>::operator=(vec2<T> const &rhs) {
 }
 
 
-// op add
+// op +
 template <class T>
 vec2<T> vec2<T>::operator+(vec2<T> const &rhs) const {
 	vec2 temp;
@@ -344,10 +372,7 @@ vec2<T> & vec2<T>::operator+=(T const &rhs) {
 	return *this;
 }
 
-
-
-
-// op sub
+// op -
 template <class T>
 vec2<T> vec2<T>::operator-(vec2<T> const &rhs) const {
 	vec2 temp;
@@ -385,7 +410,7 @@ vec2<T> & vec2<T>::operator-=(T const &rhs) {
 
 
 
-// op mult
+// op *
 template <class T>
 vec2<T> vec2<T>::operator*(vec2<T> const &rhs) const {
 	vec2 temp;
@@ -422,7 +447,7 @@ vec2<T> & vec2<T>::operator*=(T const &rhs) {
 
 
 
-// op div
+// op /
 template <class T>
 vec2<T> vec2<T>::operator/(vec2<T> const &rhs) const {
 	vec2 temp;
@@ -455,6 +480,72 @@ vec2<T> & vec2<T>::operator/=(T const &rhs) {
 		this->ref().at(i)[0] /= rhs;
 	}
 	return *this;
+}
+
+// op ==
+template <class T>
+bool vec2<T>::operator==(vec2<T> const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		if(this->ref().at(i)[0] != rhs.ref().at(i)[0])
+			return false;
+	}
+	return true;
+}
+
+
+template <class T>
+bool vec2<T>::operator==(T const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		if(this->ref().at(i)[0] != rhs)
+			return false;
+	}
+	return true;
+}
+
+// op !=
+template <class T>
+bool vec2<T>::operator!=(vec2<T> const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		if(this->ref().at(i)[0] != rhs.ref().at(i)[0]) {
+			return true;
+		}
+	}
+	return false;
+}
+
+
+template <class T>
+bool vec2<T>::operator!=(T const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		if(this->ref().at(i)[0] != rhs) {
+			return true;
+		}
+	}
+	return false;
+}
+
+
+// COMPARE
+template <class T>
+bool vec2<T>::compare(vec2<T> const &target, vec2<T> const &area) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		if((	this->ref().at(i)[0] < target.ref().at(i)[0] - area.ref().at(i)[0] 
+					|| this->ref().at(i)[0] > target.ref().at(i)[0] + area.ref().at(i)[0])) { 
+			return false;
+		}
+	}
+	return true;
+}
+
+template <class T>
+bool vec2<T>::compare(vec2<T> const &target, T const &area) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		if((	this->ref().at(i)[0] < target.ref().at(i)[0] - area 
+					|| this->ref().at(i)[0] > target.ref().at(i)[0] + area)) {
+			return false;
+		}
+	}
+	return true;
 }
 
 

@@ -25,6 +25,9 @@ public:
 	T min() const;
 	T max() const;
 
+	T mag_sq() const;
+	double mag() const;
+
 };
 
 template <class T>
@@ -87,6 +90,23 @@ T vec<T>::max() const {
 	}
 	return *std::max_element(temp.begin(), temp.end());
 }
+
+
+template <class T>
+T vec<T>::mag_sq() const {
+	T res = 0;
+	for(size_t i = 0 ; i < v_list.size() ; i++) {
+		res += (v_list.at(i)[0] * v_list.at(i)[0]);
+	}
+	return res;
+}
+
+template <class T>
+double vec<T>::mag() const {
+	return ::sqrt(vec<T>::mag_sq());
+}
+
+
 
 
 
