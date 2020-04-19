@@ -67,16 +67,28 @@ int main() {
 
 
 	/**
+	* random ec generator
+	*/
+	std::cout << "a: " << a << " type: " << a.get_type() << " random: " << a.rand(0,1) <<std::endl;
+	std::cout << "e: " << e << " type: " << e.get_type() << " random: " << e.rand(-10,10) << std::endl;
+
+	/**
+	* get ype
+	*/
+	// std::cout << "a: " << a << " type: " << a.get_type() << std::endl;
+	// std::cout << "e: " << e << " type: " << e.get_type() << std::endl;
+
+	/**
 	* COMPARE
 	*/
-	vec2<float> aa = a + 0.5f;
-	std::cout << "a: " << a << std::endl;
-	std::cout << "aa: " << aa << std::endl;
-	std::cout << "a.compare(aa, vec2<float>(1)) > " << a.compare(aa, vec2<float>(1)) << std::endl;
-	std::cout << "a.compare(aa, vec2<float>(0.25)) > " << a.compare(aa, vec2<float>(0.25)) << std::endl;
-	std::cout << "a.compare(aa, vec2<float>(0.25, 2)) > " << a.compare(aa, vec2<float>(0.25, 2)) << std::endl;
-	std::cout << "a.compare(aa, 1.0f) > " << a.compare(aa, 1.0f) << std::endl;
-	std::cout << "a.compare(aa, 0.25f) > " << a.compare(aa, 0.25f) << std::endl;
+	// vec2<float> aa = a + 0.5f;
+	// std::cout << "a: " << a << std::endl;
+	// std::cout << "aa: " << aa << std::endl;
+	// std::cout << "a.compare(aa, vec2<float>(1)) > " << a.compare(aa, vec2<float>(1)) << std::endl;
+	// std::cout << "a.compare(aa, vec2<float>(0.25)) > " << a.compare(aa, vec2<float>(0.25)) << std::endl;
+	// std::cout << "a.compare(aa, vec2<float>(0.25, 2)) > " << a.compare(aa, vec2<float>(0.25, 2)) << std::endl;
+	// std::cout << "a.compare(aa, 1.0f) > " << a.compare(aa, 1.0f) << std::endl;
+	// std::cout << "a.compare(aa, 0.25f) > " << a.compare(aa, 0.25f) << std::endl;
 
 
 

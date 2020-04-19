@@ -5,9 +5,9 @@
 * 2020-2020
 */ 
 #include "vec.cpp"
-#include "rt_utils.cpp"
+#include "r_t_utils.cpp"
 
-#include "rope.hpp"
+
 
 
 /**
@@ -34,6 +34,8 @@ public:
   // get
 	T x() const;	
 	T y() const;
+	T min() const;	
+	T max() const;
 	vec2 copy() const;
 	T * array() const;
 
@@ -73,22 +75,26 @@ public:
 	vec2 limit(T const &max);
 	
 	// operator
-
-
   bool compare(vec2<T> const &target, vec2<T> const &area);
   bool compare(vec2<T> const &target, T const &area);
 
+  vec2 rand();
+	vec2 rand(T const &max);
+	vec2 rand(T const &min, T const &max);
+	vec2 rand(vec2<T> const &min_max_x, vec2<T> const &min_max_y);
+
 	// public vec2 map(float minIn, float maxIn, float minOut, float maxOut);
 	// public vec2 map(vec2 minIn, vec2 maxIn, vec2 minOut, vec2 maxOut);
-	// public vec2 rand(float max);
-	// public vec2 rand(float min, float max);
-	// public vec2 rand(vec2 mx, vec2 my);
+
 	// public vec2 constrain(float min, float max);
 	// public vec2 constrain(vec2 min, vec2 max);
+
+	// public vec2 wave(int value, float s);
+	// public vec2 wave(int value, float sx, float sy);
 	// public vec2 cos_wave(int value, float s);
 	// public vec2 cos_wave(int value, float sx, float sy);
 	// public vec2 sin_wave(int value, float s);
-	// public vec2 sin(int value, float sx, float sy):
+	// public vec2 sin_wave(int value, float sx, float sy);
 
 	//VEC 2
 	// public vec2 tan();
@@ -297,6 +303,73 @@ template <class T>
 vec2<T>	vec2<T>::pow(T const &pow_x, T const &pow_y) {
 	this->_x = ::pow(this->x(), pow_x);
 	this->_y = ::pow(this->y(), pow_y);
+	return *this;
+}
+
+// random
+template <class T>
+vec2<T>	vec2<T>::rand() {
+	return rand(::vec2<T>(0,1), ::vec2<T>(0,1));
+	// vec2<T> arg = ::vec2<T>(0,1);
+	// return rand(arg,arg);
+}
+
+
+template <class T>
+vec2<T>	vec2<T>::rand(T const &max) {
+	return rand(::vec2<T>(0, max), ::vec2<T>(0, max));
+	// vec2<T> arg = ::vec2<T>(0, max);
+	// return rand(arg,arg);
+}
+
+template <class T>
+vec2<T>	vec2<T>::rand(T const &min, T const &max) {
+	return rand(::vec2<T>(min, max), ::vec2<T>(min, max));
+	// vec2<T> arg = ::vec2<T>(min, max);
+	// return rand(arg,arg);
+}
+
+template <class T>
+vec2<T>	vec2<T>::rand(vec2<T> const &min_max_x, vec2<T> const &min_max_y) {
+	switch(vec<T>::get_type()) {
+		case 'c':
+			this->_x = random_char(min_max_x.min(), min_max_x.max());
+			this->_y = random_char(min_max_y.min(), min_max_y.max());
+			break;
+		case 'b':
+			this->_x = random_bool();
+			this->_y = random_bool();
+			break;
+		case 's':
+			this->_x = random_int(min_max_x.min(), min_max_x.max());
+			this->_y = random_int(min_max_y.min(), min_max_y.max());
+			break;
+		case 'i':
+			this->_x = random_int(min_max_x.min(), min_max_x.max());
+			this->_y = random_int(min_max_y.min(), min_max_y.max());
+			break;
+		case 'l':
+			this->_x = random_long(min_max_x.min(), min_max_x.max());
+			this->_y = random_long(min_max_y.min(), min_max_y.max());
+			break;
+		case 'f':
+			this->_x = random(min_max_x.min(), min_max_x.max());
+			this->_y = random(min_max_y.min(), min_max_y.max());
+			break;
+		case 'd':
+			this->_x = random_double(min_max_x.min(), min_max_x.max());
+			this->_y = random_double(min_max_y.min(), min_max_y.max());
+			break;
+		default:
+			if(vec2<T>::_warning) {
+				std::cout << "vec2<T>::rand(); wait <T arg> like bool, char, int, float, double" << std::endl;
+			}
+			abort();
+
+	}
+
+	// this->_x = random(min_max_x.min(), min_max_x.max());
+	// this->_y = random(min_max_y.min(), min_max_y.max());
 	return *this;
 }
 
@@ -571,6 +644,16 @@ T vec2<T>::x() const {
 
 template <class T>
 T vec2<T>::y() const {
+	return this->_y;
+}
+
+template <class T>
+T vec2<T>::min() const {
+	return this->_x;
+}
+
+template <class T>
+T vec2<T>::max() const {
 	return this->_y;
 }
 
