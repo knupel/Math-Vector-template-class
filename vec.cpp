@@ -4,11 +4,13 @@
 * vec2 0.0.1
 * Template Vec adapted from Rope Vector and Processing PVector
 */
+// #pragma once
 
 #include <iostream>
 #include <cmath>
 #include <vector>
 #include <string>
+#include <random>
 
 #include "rope.hpp"
 
@@ -38,6 +40,7 @@ public:
 
 template <class T>
 vec<T>::vec() {
+	// set type
 	if(std::is_same<T, char>::value) {
 		type = 'c';
 	} else if(std::is_same<T, bool>::value) {
