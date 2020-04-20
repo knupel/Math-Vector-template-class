@@ -28,8 +28,9 @@ public:
 	~vec2();
 
 	// set
-	void x(T x);
-	void y(T y);
+	vec2 set(T const &x, T const &y);
+	vec2 x(T const &x);
+	vec2 y(T const &y);
   
   // get
 	T x() const;	
@@ -77,6 +78,10 @@ public:
 
 	// limit
 	vec2 limit(T const &max);
+
+	// constrain
+	vec2 constrain(T const &min, T const &max);
+	vec2 constrain(vec2<T> const &min, vec2<T> const &max);
 	
 	// operator
   bool compare(vec2<T> const &target, vec2<T> const &area);
@@ -85,19 +90,16 @@ public:
   vec2 rand();
 	vec2 rand(T const &max);
 	vec2 rand(T const &min, T const &max);
-	vec2 rand(vec2<T> const &x_mm, vec2<T> const &y_mm);
+	vec2 rand(vec2<T> const &min, vec2<T> const &max);
 	vec2 rand(T const &x_min, T const &x_max, T const &y_min, T const &y_max);
 
 	vec2 rand(std::default_random_engine &generator);
 	vec2 rand(T const &max, std::default_random_engine &generator);
 	vec2 rand(T const &min, T const &max, std::default_random_engine &generator);
-	vec2 rand(vec2<T> const &x_mm, vec2<T> const &y_mm, std::default_random_engine &generator);
+	vec2 rand(vec2<T> const &min, vec2<T> const &max, std::default_random_engine &generator);
 	vec2 rand(T const &x_min, T const &x_max, T const &y_min, T const &y_max, std::default_random_engine &generator);
 
 
-
-	// public vec2 constrain(float min, float max);
-	// public vec2 constrain(vec2 min, vec2 max);
 
 	// public vec2 wave(int value, float s);
 	// public vec2 wave(int value, float sx, float sy);
@@ -153,7 +155,6 @@ public:
 	// info
 	static void warning(bool is);
 	static int get_instance();
-	
 }; 
 
 
@@ -351,13 +352,13 @@ vec2<T>	vec2<T>::rand(T const &min, T const &max, std::default_random_engine &ge
 
 //
 template <class T>
-vec2<T>	vec2<T>::rand(vec2<T> const &x_mm, vec2<T> const &y_mm) {
-	return rand(x_mm.min(),x_mm.max(), y_mm.min(),y_mm.max());
+vec2<T>	vec2<T>::rand(vec2<T> const &min, vec2<T> const &max) {
+	return rand(min.x(),max.x(), min.y(),max.y());
 }
 
 template <class T>
-vec2<T>	vec2<T>::rand(vec2<T> const &x_mm, vec2<T> const &y_mm, std::default_random_engine &generator) {
-	return rand(x_mm.min(),x_mm.max(), y_mm.min(),y_mm.max(), generator);
+vec2<T>	vec2<T>::rand(vec2<T> const &min, vec2<T> const &max, std::default_random_engine &generator) {
+	return rand(min.x(),max.x(), min.y(),max.y(), generator);
 }
 
 //
@@ -415,7 +416,7 @@ vec2<T>	vec2<T>::rand(T const &x_min, T const &x_max,
 }
 
 
-//normalize
+// normalize
 template <class T>
 vec2<T>	vec2<T>::normalize() {
 	T m = vec2<T>::mag();
@@ -430,13 +431,13 @@ vec2<T>	vec2<T>::normalize(vec2<T> &target) {
 	return target.normalize();
 }
 
-
+// map
 template <class T>
 vec2<T>	vec2<T>::map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst) {
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		this->ref().at(i)[0] = ::map(	this->list().at(i),
-																start_src,stop_src, 
-																start_dst,stop_dst);
+																	start_src,stop_src, 
+																	start_dst,stop_dst);
 	}
 	return *this;
 }
@@ -445,8 +446,8 @@ template <class T>
 vec2<T>	vec2<T>::map(vec2<T> const &start_src, vec2<T> const &stop_src, vec2<T> const &start_dst, vec2<T> const &stop_dst) {
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		this->ref().at(i)[0] = ::map(	this->list().at(i), 
-																start_src.ref().at(i)[0],stop_src.ref().at(i)[0], 
-																start_dst.ref().at(i)[0],stop_dst.ref().at(i)[0]);
+																	start_src.ref().at(i)[0],stop_src.ref().at(i)[0], 
+																	start_dst.ref().at(i)[0],stop_dst.ref().at(i)[0]);
 	}
 	return *this;
 }
@@ -458,6 +459,34 @@ vec2<T>	vec2<T>::limit(T const &max) {
 	if (vec2<T>::magSq() > max*max) {
 		vec2<T>::normalize();
 		*this *= max;
+	}
+	return *this;
+}
+
+
+// constrain
+template <class T>
+vec2<T>	vec2<T>::constrain(T const &min, T const &max) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		if(this->list().at(i) < min ) {
+			this->ref().at(i)[0] = min;
+		}
+		if(this->list().at(i) > max ) {
+			this->ref().at(i)[0] = max;
+		}
+	}
+	return *this;
+}
+
+template <class T>
+vec2<T>	vec2<T>::constrain(vec2<T> const &min, vec2<T> const &max) {
+for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		if(this->list().at(i) < min.ref().at(i)[0]) {
+			this->ref().at(i)[0] = min.ref().at(i)[0];
+		}
+		if(this->list().at(i) > max.ref().at(i)[0]) {
+			this->ref().at(i)[0] = max.ref().at(i)[0];
+		}
 	}
 	return *this;
 }
@@ -688,13 +717,22 @@ bool vec2<T>::compare(vec2<T> const &target, T const &area) {
 
 // set
 template <class T>
-void vec2<T>::x(T x) {
+vec2<T> vec2<T>::set(T const &x, T const &y) {
 	this->_x = x;
+	this->_y = y;
+	return *this;
 }
 
 template <class T>
-void vec2<T>::y(T y) {
+vec2<T> vec2<T>::x(T const &x) {
+	this->_x = x;
+	return *this;
+}
+
+template <class T>
+vec2<T> vec2<T>::y(T const &y) {
 	this->_y = y;
+	return *this;
 }
 
 

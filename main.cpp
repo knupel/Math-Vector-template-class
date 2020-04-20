@@ -67,13 +67,55 @@ int main() {
 	// std::cout << "a:" << a << " b:" << b << " normal a.dir(b): " << a.dir(b) << std::endl;
 	// std::cout << "vec2(-2,2):" << vec2<float>(1,0) << " normal dir: " << vec2<float>(-2,2).dir() << std::endl;
 
+	
+
+	/**
+	* constrain
+	*/
+	// a.set(-10, 12);
+	std::cout << a.rand(-15, 15) << std::endl;
+	std::cout << a.constrain(-10,10) << std::endl;
+	std::cout << a.rand(-20, 20) << std::endl;
+  
+  vec2<float> *a_truc = new vec2<float>(0);
+	std::cout << "rand a_truc: " << a_truc->rand(-1000, 1000) << std::endl;
+	printf("%p %p > ref a_truc \n", &a_truc->ref().at(0),  &a_truc->ref().at(1));
+	// vec2<float> a_min(-100,-100);
+	vec2<float> *a_min = new vec2<float>(-100,-100);
+	printf("%p %p > ref a_min\n", &a_min->ref().at(0),  &a_min->ref().at(1));
+	vec2<float> *a_max = new vec2<float>(100,100);
+	// vec2<float> a_max(100,100);
+	// printf("%p %p > ref a_min\n", &a_min.ref().at(0),  &a_min.ref().at(1));
+	printf("%p %p > ref a_max\n", &a_max->ref().at(0),  &a_max->ref().at(1));
+	std::cout << a_truc->constrain(*a_min,*a_max) << std::endl;
+	printf("%p %p > ref a_truc\n", &a_truc->ref().at(0),  &a_truc->ref().at(1));
+	std::cout << "a_max: " << *a_max << std::endl;
+	std::cout << "a_truc: " << *a_truc << std::endl;
+	delete a_min;
+	delete a_max;
+	delete a_truc;
+
+
+
+	// printf("%p %p > ref a \n", &a.ref().at(0),  &a.ref().at(1));
+	// vec2<float> a_min(-100,-100);
+	// printf("%p %p > ref a_min\n", &a_min.ref().at(0),  &a_min.ref().at(1));
+	// vec2<float> a_max(100,100);
+	// // printf("%p %p > ref a_min\n", &a_min.ref().at(0),  &a_min.ref().at(1));
+	// printf("%p %p > ref a_max\n", &a_max.ref().at(0),  &a_max.ref().at(1));
+	// // std::cout << a.constrain(a_min,a_max) << std::endl;
+	// printf("%p %p > ref a\n", &a.ref().at(0),  &a.ref().at(1));
+
+
+
+
 	/**
 	* map
 	*/
-	std::cout << d << std::endl;
-	std::cout << d.map(0,10,0,100) << std::endl;
-	std::cout << d.map(	vec2<float>(0), vec2<float>(1), 
-											vec2<float>(10), vec2<float>(100,1000)) << std::endl;
+	// std::cout << d << std::endl;
+	// std::cout << d.map(0,10,0,100) << std::endl;
+	// std::cout << d.map(	vec2<float>(0), vec2<float>(1), 
+	// 										vec2<float>(10), vec2<float>(100,1000)) << std::endl;
 
 
 
