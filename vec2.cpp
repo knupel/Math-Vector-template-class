@@ -70,6 +70,10 @@ public:
 	//normalize
 	vec2 normalize();
 	static vec2 normalize(vec2<T> &target);
+	
+	//map
+	vec2 map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst);
+	vec2 map(vec2<T> const &start_src, vec2<T> const &stop_src, vec2<T> const &start_dst, vec2<T> const &stop_dst);
 
 	// limit
 	vec2 limit(T const &max);
@@ -77,7 +81,7 @@ public:
 	// operator
   bool compare(vec2<T> const &target, vec2<T> const &area);
   bool compare(vec2<T> const &target, T const &area);
-
+  // random
   vec2 rand();
 	vec2 rand(T const &max);
 	vec2 rand(T const &min, T const &max);
@@ -91,10 +95,6 @@ public:
 	vec2 rand(T const &x_min, T const &x_max, T const &y_min, T const &y_max, std::default_random_engine &generator);
 
 
-	// std::default_random_engine &generator
-
-	// public vec2 map(float minIn, float maxIn, float minOut, float maxOut);
-	// public vec2 map(vec2 minIn, vec2 maxIn, vec2 minOut, vec2 maxOut);
 
 	// public vec2 constrain(float min, float max);
 	// public vec2 constrain(vec2 min, vec2 max);
@@ -428,6 +428,27 @@ vec2<T>	vec2<T>::normalize() {
 template <class T>
 vec2<T>	vec2<T>::normalize(vec2<T> &target) {
 	return target.normalize();
+}
+
+
+template <class T>
+vec2<T>	vec2<T>::map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] = ::map(	this->list().at(i),
+																start_src,stop_src, 
+																start_dst,stop_dst);
+	}
+	return *this;
+}
+
+template <class T>
+vec2<T>	vec2<T>::map(vec2<T> const &start_src, vec2<T> const &stop_src, vec2<T> const &start_dst, vec2<T> const &stop_dst) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] = ::map(	this->list().at(i), 
+																start_src.ref().at(i)[0],stop_src.ref().at(i)[0], 
+																start_dst.ref().at(i)[0],stop_dst.ref().at(i)[0]);
+	}
+	return *this;
 }
 
 

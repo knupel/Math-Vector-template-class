@@ -67,17 +67,31 @@ int main() {
 	// std::cout << "a:" << a << " b:" << b << " normal a.dir(b): " << a.dir(b) << std::endl;
 	// std::cout << "vec2(-2,2):" << vec2<float>(1,0) << " normal dir: " << vec2<float>(-2,2).dir() << std::endl;
 
+	/**
+	* map
+	*/
+	std::cout << d << std::endl;
+	std::cout << d.map(0,10,0,100) << std::endl;
+	std::cout << d.map(	vec2<float>(0), vec2<float>(1), 
+											vec2<float>(10), vec2<float>(100,1000)) << std::endl;
+
+
+
+
+
 
 	/**
 	* random ec generator
 	*/
-	std::cout << "a: " << a << " type: " << a.get_type() << " random: " << a.rand(0,1) <<std::endl;
-	auto start = std::chrono::system_clock::now();
+	// // time
+	// std::cout << "a: " << a << " type: " << a.get_type() << " random: " << a.rand(0,1) <<std::endl;
+	// auto start = std::chrono::system_clock::now();
+
 	// SLOW with a lot of instance
-	for(int i = 0 ; i < 100000 ; i++) {
-		a.rand(0,1);
-		// std::cout << a.rand(0,1000) <<std::endl; 
-	}
+	// for(int i = 0 ; i < 100000 ; i++) {
+	// 	a.rand(0,1);
+	// 	// std::cout << a.rand(0,1000) <<std::endl; 
+	// }
 	// FASTER
 	// std::random_device seed;
 	// std::default_random_engine generator(seed());
@@ -85,9 +99,11 @@ int main() {
 	// 	a.rand(0,1,generator);
 	// 	// std::cout << a.rand(0,1000,generator) <<std::endl; 
 	// }
-	auto end = std::chrono::system_clock::now();
-	std::chrono::duration<double> elapsed_seconds = end-start;
-	std::cout << "elapsed time: " << elapsed_seconds.count() << std::endl;;
+
+  // // time
+	// auto end = std::chrono::system_clock::now();
+	// std::chrono::duration<double> elapsed_seconds = end-start;
+	// std::cout << "elapsed time: " << elapsed_seconds.count() << std::endl;
 
 	// std::cout << "e: " << e << " type: " << e.get_type() << " random: " << e.rand(-10,10) << std::endl;
 	// test time

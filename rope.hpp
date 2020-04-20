@@ -1,7 +1,9 @@
 /**
 * Rope C++
-* v 0.0.2
+* v 0.0.3
+* 2020-2020
 * Rope C++ library adaptation in the same way of Rope from Processing
+* Rope mean ROmanesco Processing Environment at the beginning !!!
 * https://github.com/StanLepunK/Rope
 */
 #ifndef ROPE_H
@@ -12,6 +14,11 @@
 #include <iostream>
 #include <cmath>
 #include <random>
+// #include <iostream>
+#include <vector>
+// #include <cmath>
+#include <limits>
+#include <string>
 
 // radnom declaration
 float random(float min, float max);

@@ -2,6 +2,11 @@
 /**
 * rope utils
 * v 0.0.1
+* 2020-2020
+*/
+
+/**
+*
 */
 
 /**
@@ -80,7 +85,6 @@ double random_normal(double min, double max) {
 	std::default_random_engine generator(seed());
 	return random_normal(min,max,generator);
 }
-
 
 double random_normal(double min, double max, std::default_random_engine &generator) {
 	std::normal_distribution<double> gen_rand_double(min,max);
