@@ -27,12 +27,12 @@ void show_data(vec<T> &v) {
 
 int main() {
 	// set static warning to display info about Constructor and destructor
-	// vec2<double>::warning(true);
-	// vec2<float>::warning(true);
-	// vec2<int>::warning(true);
-	// vec3<double>::warning(true);
-	// vec3<float>::warning(true);
-	// vec3<int>::warning(true);
+	vec2<double>::warning(true);
+	vec2<float>::warning(true);
+	vec2<int>::warning(true);
+	vec3<double>::warning(true);
+	vec3<float>::warning(true);
+	vec3<int>::warning(true);
 
 	// vec2<double> a(13.03,0);
 	// vec2<double> b(1.23,3.14);

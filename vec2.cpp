@@ -876,12 +876,10 @@ int vec2<T>::get_instance() {
 	return vec2<T>::instance;
 }
 
-
 // static instantiation
 template <class T>
 bool vec2<T>::_warning = false;
 
 template <class T>
 int vec2<T>::instance = 0;
-
 #endif
