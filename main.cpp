@@ -56,9 +56,21 @@ int main() {
 	vec2<double> e(d1,d2);
 	vec2<double> f(d1,d2);
 
-	vec3<double> a_3(0,0,0);
+	vec3<double> a_3(0,1,0);
 	vec3<double> b_3(1,1,1);
 	vec3<double> f_3(d1,d2,d3);
+
+  /**
+  * DISPLAY
+  */
+  std::cout << "a:" << a << std::endl;
+  std::cout << "a_3:" << a_3 << std::endl;
+
+
+
+
+
+
 	/**
 	* TIME
 	*/
@@ -84,15 +96,15 @@ int main() {
 	/**
 	* TAN
 	*/
-	std::cout << "vec2<int>(3,3).tan(): " << vec2<int>(3,3).tan() << std::endl;
-	std::cout << "vec2<float>(3,3).tan(): " << vec2<float>(3.0f,3.0f).tan() << std::endl;
-	std::cout << "vec2<long double>(3,3).tan(): " << vec2<long double>(3.0,3.0).tan() << std::endl;
+	// std::cout << "vec2<int>(3,3).tan(): " << vec2<int>(3,3).tan() << std::endl;
+	// std::cout << "vec2<float>(3,3).tan(): " << vec2<float>(3.0f,3.0f).tan() << std::endl;
+	// std::cout << "vec2<long double>(3,3).tan(): " << vec2<long double>(3.0,3.0).tan() << std::endl;
 
-	std::cout << "vec2<int>(0,1).angle(): " << vec2<int>(0,1).angle() << std::endl;
-	std::cout << "a: " << a.set(0.1f,0.25f) << std::endl;
-	std::cout << "vec2<float>(0,1).angle(a): " << vec2<float>(0,1).angle(a) << std::endl;
-	std::cout << "vec2<float>(0,0).angle(): " << vec2<float>(0,0).angle() << std::endl;
-	std::cout << "vec2<long double>(1,1).angle(): " << vec2<long double>(1,1).angle() << std::endl;
+	// std::cout << "vec2<int>(0,1).angle(): " << vec2<int>(0,1).angle() << std::endl;
+	// std::cout << "a: " << a.set(0.1f,0.25f) << std::endl;
+	// std::cout << "vec2<float>(0,1).angle(a): " << vec2<float>(0,1).angle(a) << std::endl;
+	// std::cout << "vec2<float>(0,0).angle(): " << vec2<float>(0,0).angle() << std::endl;
+	// std::cout << "vec2<long double>(1,1).angle(): " << vec2<long double>(1,1).angle() << std::endl;
 
 
 

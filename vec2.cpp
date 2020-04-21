@@ -1,23 +1,20 @@
 #ifndef VEC2_H
 # define VEC2_H
+// #pragma once
 /**
 * vec2 0.0.1
 * 2020-2020
 */ 
 #include "vec.cpp"
-#include "r_t_utils.cpp"
+// #include "r_t_utils.cpp"
 
 
-
-
-/**
-* TEMPLATE DECLARATION
-*/
 template <class T>
 class vec2 : public vec<T> {
 private:
 	static int instance;
 	static bool _warning;
+protected:
 	T _x;
 	T _y;
 public:

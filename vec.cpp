@@ -14,6 +14,8 @@
 
 #include "rope.hpp"
 
+#include "r_t_utils.cpp"
+
 template <class T>
 class vec {
 protected:
