@@ -28,6 +28,7 @@ public:
 	~vec2();
 
 	// set
+	vec2 set(T const &arg);
 	vec2 set(T const &x, T const &y);
 	vec2 x(T const &x);
 	vec2 y(T const &y);
@@ -40,8 +41,6 @@ public:
 	vec2 copy() const;
 	T * array() const;
 
-	// common algorithm for all vec
-
 	// Calcule the dot product of the vector
 	T dot(vec2<T> const &v) const;
 	T dot(T const &x, T const &y) const;
@@ -50,7 +49,6 @@ public:
 	vec2 dir();
 	vec2 dir(T const &a_x, T const &a_y);
 	vec2 dir(vec2<T> const &origin);
-
 
 	// square length can be usefull and faster when the real length is not necessary
 	T mag_sq() const;
@@ -100,22 +98,26 @@ public:
 	vec2 rand(T const &x_min, T const &x_max, T const &y_min, T const &y_max, std::default_random_engine &generator);
 
 
+	// wave
+	vec2 wave(T const &value, T const &s);
+	vec2 wave(T const &value, T const &sx, T const &sy);
 
-	// public vec2 wave(int value, float s);
-	// public vec2 wave(int value, float sx, float sy);
-	// public vec2 cos_wave(int value, float s);
-	// public vec2 cos_wave(int value, float sx, float sy);
-	// public vec2 sin_wave(int value, float s);
-	// public vec2 sin_wave(int value, float sx, float sy);
+	vec2 cos_wave(T const &value, T const &s);
+	vec2 cos_wave(T const &value, T const &sx, T const &sy);
 
-	//VEC 2
-	// public vec2 tan();
-	// public vec2 tan(float a_x, float a_y);
-	// public vec2 tan(vec2 target);
-	// public float angle();
-	// public float angle(vec2 target);
-	// public float heading();
+	vec2 sin_wave(T const &value, T const &s);
+	vec2 sin_wave(T const &value, T const &sx, T const &sy);
 
+	// vec2 specialize trigonometry
+	vec2<double> tan();
+	vec2<double> tan(vec2<T> const &target);
+	vec2<double> tan(T const &a_x, T const &a_y);
+
+	double angle();
+	double angle(vec2<T> const &target);
+	double heading();
+
+	// op
 	bool operator==(vec2<T> const &rhs);
 	bool operator==(T const &rhs);
 
@@ -259,6 +261,48 @@ vec2<T>	vec2<T>::dir(vec2<T> const &origin) {
 	temp /= dist;
 	return temp;
 }
+
+
+// vec2 specialize
+template <class T>
+vec2<double> vec2<T>::tan() {
+	return tan(this->x(),this->y());
+}
+
+template <class T>
+vec2<double> vec2<T>::tan(vec2<T> const &target) {
+	return tan(target.x(),target.y());
+}
+
+
+template <class T>
+vec2<double> vec2<T>::tan(T const &x, T const &y) {
+	double tx = x;
+	double ty = y;
+	double mag = vec<T>::mag();
+	tx /= mag;
+	ty /= mag;
+	return vec2<double>(-ty,tx);
+}
+
+
+
+template <class T>
+double vec2<T>::angle() {
+	return atan2(this->y(),this->x());
+}
+
+template <class T>
+double vec2<T>::angle(vec2<T> const &target) {
+	return atan2(this->y() - target.y(),this->x() - target.x());
+}
+
+template <class T>
+double vec2<T>::heading() {
+	return angle();
+
+}
+
 
 
 
@@ -491,6 +535,42 @@ for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 	return *this;
 }
 
+
+// wave
+template <class T>
+vec2<T>	vec2<T>::wave(T const &value, T const &s) {
+	return cos_wave(value,s,s);
+}
+
+template <class T>
+vec2<T>	vec2<T>::wave(T const &value, T const &sx, T const &sy) {
+	return cos_wave(value,sx,sy);
+}
+
+template <class T>
+vec2<T>	vec2<T>::cos_wave(T const &value, T const &s) {
+	return cos_wave(value,s,s);
+}
+
+template <class T>
+vec2<T>	vec2<T>::cos_wave(T const &value, T const &sx, T const &sy) {
+	T tx = cos(value * sx) + this->x();
+	T ty = cos(value * sy) + this->y();
+	return vec2<T>(tx,ty);
+}
+
+template <class T>
+vec2<T>	vec2<T>::sin_wave(T const &value, T const &s) {
+	return sin_wave(value,s,s);
+}
+
+template <class T>
+vec2<T>	vec2<T>::sin_wave(T const &value, T const &sx, T const &sy) {
+	T tx = sin(value * sx) + this->x();
+	T ty = sin(value * sy) + this->y();
+	return vec2<T>(tx,ty);
+}
+
 // OPERATOR
 // op =
 template <class T>
@@ -716,6 +796,14 @@ bool vec2<T>::compare(vec2<T> const &target, T const &area) {
 
 
 // set
+template <class T>
+vec2<T> vec2<T>::set(T const &arg) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] = arg;
+	}
+	return *this;
+}
+
 template <class T>
 vec2<T> vec2<T>::set(T const &x, T const &y) {
 	this->_x = x;

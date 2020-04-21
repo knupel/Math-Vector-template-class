@@ -25,6 +25,8 @@ void set_list(std::vector<V,A> &list, T ... elem) {
 
 
 /**
+* map
+* v 0.0.1
 * Map function inspired from Processing code, but reached in mode template to extend it.
 * line : 5068
 * https://github.com/processing/processing/blob/master/core/src/processing/core/PApplet.java

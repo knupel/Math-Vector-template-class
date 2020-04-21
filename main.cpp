@@ -59,6 +59,19 @@ int main() {
 	vec3<double> a_3(0,0,0);
 	vec3<double> b_3(1,1,1);
 	vec3<double> f_3(d1,d2,d3);
+	/**
+	* TIME
+	*/
+	// start
+	// auto start = std::chrono::system_clock::now();
+
+	// end
+	// auto end = std::chrono::system_clock::now();
+	// std::chrono::duration<double> elapsed_seconds = end-start;
+	// std::cout << "elapsed time: " << elapsed_seconds.count() << std::endl;
+
+
+
 
 	/**
 	* Normal DIR
@@ -67,33 +80,65 @@ int main() {
 	// std::cout << "a:" << a << " b:" << b << " normal a.dir(b): " << a.dir(b) << std::endl;
 	// std::cout << "vec2(-2,2):" << vec2<float>(1,0) << " normal dir: " << vec2<float>(-2,2).dir() << std::endl;
 
-	
+
+	/**
+	* TAN
+	*/
+	std::cout << "vec2<int>(3,3).tan(): " << vec2<int>(3,3).tan() << std::endl;
+	std::cout << "vec2<float>(3,3).tan(): " << vec2<float>(3.0f,3.0f).tan() << std::endl;
+	std::cout << "vec2<long double>(3,3).tan(): " << vec2<long double>(3.0,3.0).tan() << std::endl;
+
+	std::cout << "vec2<int>(0,1).angle(): " << vec2<int>(0,1).angle() << std::endl;
+	std::cout << "a: " << a.set(0.1f,0.25f) << std::endl;
+	std::cout << "vec2<float>(0,1).angle(a): " << vec2<float>(0,1).angle(a) << std::endl;
+	std::cout << "vec2<float>(0,0).angle(): " << vec2<float>(0,0).angle() << std::endl;
+	std::cout << "vec2<long double>(1,1).angle(): " << vec2<long double>(1,1).angle() << std::endl;
+
+
+
+	/**
+	* WAVE
+	*/
+	// a.set(10);
+	// b.set(0.1);
+	// auto start = std::chrono::system_clock::now();
+	// for(float i = 0 ; i < 10000000 ; i += 1.0f) {
+	// 	a.cos_wave(i,b.x(),b.y());
+	// 	// std::cout << (a.cos_wave(i,b.x(),b.y())) << std::endl; 
+	// }
+	// auto end = std::chrono::system_clock::now();
+	// std::chrono::duration<double> elapsed_seconds = end-start;
+	// std::cout << "elapsed time: " << elapsed_seconds.count() << std::endl;
+
+
+
+
 
 	/**
 	* constrain
 	*/
 	// a.set(-10, 12);
-	std::cout << a.rand(-15, 15) << std::endl;
-	std::cout << a.constrain(-10,10) << std::endl;
-	std::cout << a.rand(-20, 20) << std::endl;
+	// std::cout << a.rand(-15, 15) << std::endl;
+	// std::cout << a.constrain(-10,10) << std::endl;
+	// std::cout << a.rand(-20, 20) << std::endl;
   
-  vec2<float> *a_truc = new vec2<float>(0);
-	std::cout << "rand a_truc: " << a_truc->rand(-1000, 1000) << std::endl;
-	printf("%p %p > ref a_truc \n", &a_truc->ref().at(0),  &a_truc->ref().at(1));
-	// vec2<float> a_min(-100,-100);
-	vec2<float> *a_min = new vec2<float>(-100,-100);
-	printf("%p %p > ref a_min\n", &a_min->ref().at(0),  &a_min->ref().at(1));
-	vec2<float> *a_max = new vec2<float>(100,100);
-	// vec2<float> a_max(100,100);
-	// printf("%p %p > ref a_min\n", &a_min.ref().at(0),  &a_min.ref().at(1));
-	printf("%p %p > ref a_max\n", &a_max->ref().at(0),  &a_max->ref().at(1));
-	std::cout << a_truc->constrain(*a_min,*a_max) << std::endl;
-	printf("%p %p > ref a_truc\n", &a_truc->ref().at(0),  &a_truc->ref().at(1));
-	std::cout << "a_max: " << *a_max << std::endl;
-	std::cout << "a_truc: " << *a_truc << std::endl;
-	delete a_min;
-	delete a_max;
-	delete a_truc;
+ //  vec2<float> *a_truc = new vec2<float>(0);
+	// std::cout << "rand a_truc: " << a_truc->rand(-1000, 1000) << std::endl;
+	// printf("%p %p > ref a_truc \n", &a_truc->ref().at(0),  &a_truc->ref().at(1));
+	// // vec2<float> a_min(-100,-100);
+	// vec2<float> *a_min = new vec2<float>(-100,-100);
+	// printf("%p %p > ref a_min\n", &a_min->ref().at(0),  &a_min->ref().at(1));
+	// vec2<float> *a_max = new vec2<float>(100,100);
+	// // vec2<float> a_max(100,100);
+	// // printf("%p %p > ref a_min\n", &a_min.ref().at(0),  &a_min.ref().at(1));
+	// printf("%p %p > ref a_max\n", &a_max->ref().at(0),  &a_max->ref().at(1));
+	// std::cout << a_truc->constrain(*a_min,*a_max) << std::endl;
+	// printf("%p %p > ref a_truc\n", &a_truc->ref().at(0),  &a_truc->ref().at(1));
+	// std::cout << "a_max: " << *a_max << std::endl;
+	// std::cout << "a_truc: " << *a_truc << std::endl;
+	// delete a_min;
+	// delete a_max;
+	// delete a_truc;
 
 
 
@@ -151,11 +196,16 @@ int main() {
 	// test time
 
 
+
+
 	/**
 	* get ype
 	*/
 	// std::cout << "a: " << a << " type: " << a.get_type() << std::endl;
 	// std::cout << "e: " << e << " type: " << e.get_type() << std::endl;
+
+
+
 
 	/**
 	* COMPARE
@@ -253,6 +303,7 @@ int main() {
 	// std::cout << "average int: " << vec3<int> (2,1,1).average() << std::endl;
 	// std::cout << "average float: " << vec3<float> (2,1,3).average() << std::endl;
 
+
 	/**
 	* LIMIT
 	*/
@@ -294,6 +345,7 @@ int main() {
 	// 	std::cout <<"f ref().at(" << i << ") = " << f.ref().at(i) << std::endl;
 	// }
 
+
   /**
   * POW
   */
@@ -307,6 +359,10 @@ int main() {
 
 
 
+
+	/**
+	* array
+	*/
 	// std::cout << f << std::endl;
 
 	// for(int i = 0 ; i < a.get_size() ; i++) {
@@ -319,7 +375,9 @@ int main() {
 
 
 
-
+	/**
+	* list
+	*/
   //printf("pointer adress a._x: %p\n", &(a._x));
 	// std::cout << "list ref: " << a.list().at(0) << std::endl;
 	// std::cout << "list arg: " << a.list().at(0)[0] << std::endl;
