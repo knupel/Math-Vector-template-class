@@ -22,6 +22,11 @@ public:
 	vec3(vec3<T> const &src);
 	~vec3();
 
+  // set
+  vec3 set(T const &x, T const &y, T const &z);
+	vec3 z(T const &z);
+
+	//get
 	T z() const;
 
 
@@ -29,6 +34,10 @@ public:
 	vec3 dir();
 	vec3 dir(T const &a_x, T const &a_y, T const &a_z);
 	vec3 dir(vec3<T> const &origin);
+
+	// cacule the power of the vector for each component
+	vec3 pow(T const &pow);
+	vec3 pow(T const &pow_x, T const &pow_y, T const &pow_z);
 
 	//map
 	vec3 map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst);
@@ -108,6 +117,21 @@ vec3<T>	vec3<T>::map(T const &start_src, T const &stop_src, T const &start_dst, 
 template <class T>
 vec3<T>	vec3<T>::map(vec3<T> const &start_src, vec3<T> const &stop_src, vec3<T> const &start_dst, vec3<T> const &stop_dst) {
 	vec2<T>::map(start_src, stop_src, start_dst, stop_dst);
+	return *this;
+}
+
+
+// pow
+template <class T>
+vec3<T>	vec3<T>::pow(T const &pow) {
+	return vec3<T>::pow(pow, pow, pow);
+}
+
+template <class T>
+vec3<T>	vec3<T>::pow(T const &pow_x, T const &pow_y, T const &pow_z) {
+	this->_x = ::pow(this->x(), pow_x);
+	this->_y = ::pow(this->y(), pow_y);
+	this->_z = ::pow(this->z(), pow_z);
 	return *this;
 }
 
@@ -275,8 +299,20 @@ vec3<T>	vec3<T>::sin_wave(T const &value, T const &sx, T const &sy, T const &sz)
 	return vec3<T>(tx,ty,tz);
 }
 
+// set
+template <class T>
+vec3<T> vec3<T>::set(T const &x, T const &y, T const &z) {
+	this->_x = x;
+	this->_y = y;
+	this->_z = z;
+	return *this;
+}
 
-
+template <class T>
+vec3<T> vec3<T>::z(T const &z) {
+	this->_z = z;
+	return *this;
+}
 
 // get
 template <class T>

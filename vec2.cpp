@@ -230,8 +230,11 @@ vec2<T>::~vec2() {
 */
 template <class T>
 T vec2<T>::dot(vec2<T> const &v) const {
-	return this->x()*v.x() + this->y()*v.y();
-}
+	T res = 0;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		res += this->ref().at(i)[0] * v.ref().at(i)[0];
+	}
+	return res;}
 
 template <class T>
 T vec2<T>::dot(T const &x, T const &y) const {
@@ -359,48 +362,49 @@ vec2<T>	vec2<T>::pow(T const &pow_x, T const &pow_y) {
 	return *this;
 }
 
+
 // random
 template <class T>
 vec2<T>	vec2<T>::rand() {
-	return rand(0,1, 0,1);
+	return rand(0,0, 1,1);
 }
 
 template <class T>
 vec2<T>	vec2<T>::rand(std::default_random_engine &generator) {
-	return rand(0,1, 0,1, generator);
+	return rand(0,0, 1,1, generator);
 }
 
 //
 template <class T>
 vec2<T>	vec2<T>::rand(T const &max) {
-	return rand(0,max, 0,max);
+	return rand(0,0, max,max);
 }
 
 template <class T>
 vec2<T>	vec2<T>::rand(T const &max, std::default_random_engine &generator) {
-	return rand(0,max, 0,max, generator);
+	return rand(0,0, max,max, generator);
 }
 
 //
 template <class T>
 vec2<T>	vec2<T>::rand(T const &min, T const &max) {
-	return rand(min,max, min,max);
+	return rand(min,min, max,max);
 }
 
 template <class T>
 vec2<T>	vec2<T>::rand(T const &min, T const &max, std::default_random_engine &generator) {
-	return rand(min,max, min,max ,generator);
+	return rand(min,min, max,max, generator);
 }
 
 //
 template <class T>
 vec2<T>	vec2<T>::rand(vec2<T> const &min, vec2<T> const &max) {
-	return rand(min.x(),max.x(), min.y(),max.y());
+	return rand(min.x(),min.y(), max.x(),max.y());
 }
 
 template <class T>
 vec2<T>	vec2<T>::rand(vec2<T> const &min, vec2<T> const &max, std::default_random_engine &generator) {
-	return rand(min.x(),max.x(), min.y(),max.y(), generator);
+	return rand(min.x(),min.y(), max.x(),max.y(), generator);
 }
 
 //
@@ -409,8 +413,8 @@ vec2<T>	vec2<T>::rand(T const &x_min, T const &y_min,
 											T const &x_max, T const &y_max) {
 	std::random_device seed;
 	std::default_random_engine generator(seed());
-	return rand(x_min,x_max,
-							y_min,y_max,
+	return rand(x_min, y_min,
+							x_max, y_max,
 							generator);
 }
 

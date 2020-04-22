@@ -134,7 +134,7 @@ int main() {
 
 
 	/**
-	* constrain
+	* CONSTRAIN
 	*/
 	// a.set(-10, 12);
 	// std::cout << a.rand(-15, 15) << std::endl;
@@ -180,7 +180,7 @@ int main() {
 
 
 	/**
-	* map
+	* MAP
 	*/
 	// std::cout << d << std::endl;
 	// std::cout << d.map(0,10,0,100) << std::endl;
@@ -207,8 +207,8 @@ int main() {
 	// 	// std::cout << a.rand(0,1000) <<std::endl; 
 	// }
 	// FASTER
-	std::random_device seed;
-	std::default_random_engine generator(seed());
+	// std::random_device seed;
+	// std::default_random_engine generator(seed());
 	// for(int i = 0 ; i < 100000 ; i++) {
 	// 	a.rand(0,1,generator);
 	// 	// std::cout << a.rand(0,1000,generator) <<std::endl; 
@@ -222,13 +222,15 @@ int main() {
 	// std::cout << "e: " << e << " type: " << e.get_type() << " random: " << e.rand(-10,10) << std::endl;
 	// test time
 
-	std::cout << f_3.rand(0,1000,generator) <<std::endl; 
+	// std::cout << f_3.set(1,2,3) << std::endl;
+	// std::cout << f_3.z(8) << std::endl;
+	// std::cout << f_3.rand(0,1000,generator) <<std::endl; 
 
 
 
 
 	/**
-	* get ype
+	* GET TYPE
 	*/
 	// std::cout << "a: " << a << " type: " << a.get_type() << std::endl;
 	// std::cout << "e: " << e << " type: " << e.get_type() << std::endl;
@@ -392,7 +394,7 @@ int main() {
 
 
 	/**
-	* array
+	* ARRAY
 	*/
 	// std::cout << f << std::endl;
 
@@ -407,7 +409,7 @@ int main() {
 
 
 	/**
-	* list
+	* LIST
 	*/
   //printf("pointer adress a._x: %p\n", &(a._x));
 	// std::cout << "list ref: " << a.list().at(0) << std::endl;
@@ -432,9 +434,16 @@ int main() {
 	/**
 	* DOT
 	*/
-	// std::cout <<"a.dot(b): " << a.dot(b) << std::endl;
+	std::cout << "a: " << a << std::endl;
+	std::cout << "b: " << b << std::endl;
+	std::cout <<"a.dot(b): " << a.dot(b) << std::endl;
+	std::cout << "d1: " << d1 << std::endl;
+	std::cout << "d2: " << d2 << std::endl;
+	std::cout <<"a.dot(d1,d2): " << a.dot(d1,d2) << std::endl;
 
-	// std::cout <<"a.dot(1,2): " << a.dot(d1,d2) << std::endl;
+	// vec3<float> ff(10);
+	// std::cout <<"f_3.dot(ff): " << f_3.dot(ff) << std::endl;
+	// std::cout <<"f_3.dot(1,2,3): " << f_3.dot(1,2,3) << std::endl;
 
 
 
