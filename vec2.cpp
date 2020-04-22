@@ -1,12 +1,10 @@
 #ifndef VEC2_H
 # define VEC2_H
-// #pragma once
 /**
 * vec2 0.0.1
 * 2020-2020
 */ 
 #include "vec.cpp"
-// #include "r_t_utils.cpp"
 
 
 template <class T>
@@ -86,13 +84,16 @@ public:
 	vec2 rand(T const &max);
 	vec2 rand(T const &min, T const &max);
 	vec2 rand(vec2<T> const &min, vec2<T> const &max);
-	vec2 rand(T const &x_min, T const &x_max, T const &y_min, T const &y_max);
+	vec2 rand(T const &x_min, T const &y_min, 
+						T const &x_max, T const &y_max);
 
 	vec2 rand(std::default_random_engine &generator);
 	vec2 rand(T const &max, std::default_random_engine &generator);
 	vec2 rand(T const &min, T const &max, std::default_random_engine &generator);
 	vec2 rand(vec2<T> const &min, vec2<T> const &max, std::default_random_engine &generator);
-	vec2 rand(T const &x_min, T const &x_max, T const &y_min, T const &y_max, std::default_random_engine &generator);
+	vec2 rand(T const &x_min, T const &y_min, 
+						T const &x_max, T const &y_max, 
+						std::default_random_engine &generator);
 
 
 	// wave
@@ -404,8 +405,8 @@ vec2<T>	vec2<T>::rand(vec2<T> const &min, vec2<T> const &max, std::default_rando
 
 //
 template <class T>
-vec2<T>	vec2<T>::rand(T const &x_min, T const &x_max, 
-											T const &y_min, T const &y_max) {
+vec2<T>	vec2<T>::rand(T const &x_min, T const &y_min, 
+											T const &x_max, T const &y_max) {
 	std::random_device seed;
 	std::default_random_engine generator(seed());
 	return rand(x_min,x_max,
@@ -415,8 +416,8 @@ vec2<T>	vec2<T>::rand(T const &x_min, T const &x_max,
 
 
 template <class T>
-vec2<T>	vec2<T>::rand(T const &x_min, T const &x_max, 
-											T const &y_min, T const &y_max,
+vec2<T>	vec2<T>::rand(T const &x_min, T const &y_min, 
+											T const &x_max, T const &y_max,
 											std::default_random_engine &generator) {
 	switch(vec<T>::get_type()) {
 		case 'c':
@@ -521,7 +522,7 @@ vec2<T>	vec2<T>::constrain(T const &min, T const &max) {
 
 template <class T>
 vec2<T>	vec2<T>::constrain(vec2<T> const &min, vec2<T> const &max) {
-for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		if(this->list().at(i) < min.ref().at(i)[0]) {
 			this->ref().at(i)[0] = min.ref().at(i)[0];
 		}

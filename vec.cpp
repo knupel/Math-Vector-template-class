@@ -4,8 +4,6 @@
 * vec2 0.0.1
 * Template Vec adapted from Rope Vector and Processing PVector
 */
-// #pragma once
-
 #include <iostream>
 #include <cmath>
 #include <vector>

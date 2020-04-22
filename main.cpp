@@ -27,12 +27,12 @@ void show_data(vec<T> &v) {
 
 int main() {
 	// set static warning to display info about Constructor and destructor
-	vec2<double>::warning(true);
-	vec2<float>::warning(true);
-	vec2<int>::warning(true);
-	vec3<double>::warning(true);
-	vec3<float>::warning(true);
-	vec3<int>::warning(true);
+	// vec2<double>::warning(true);
+	// vec2<float>::warning(true);
+	// vec2<int>::warning(true);
+	// vec3<double>::warning(true);
+	// vec3<float>::warning(true);
+	// vec3<int>::warning(true);
 
 	// vec2<double> a(13.03,0);
 	// vec2<double> b(1.23,3.14);
@@ -48,8 +48,6 @@ int main() {
 	float f1 = 100.3f;
 	float f2 = 32.5f;
 	float f3 = 8.5f;
-	// vec2<float> b(2,2);
-	// float value_f = 3.14f;
 	double d1 = 100.3;
 	double d2 = 32.5;
 	double d3 = 8.5;
@@ -58,13 +56,13 @@ int main() {
 
 	vec3<double> a_3(0,1,0);
 	vec3<double> b_3(1,1,1);
-	vec3<double> f_3(d1,d2,d3);
+	vec3<float> f_3(d1,d2,200);
 
   /**
   * DISPLAY
   */
-  std::cout << "a:" << a << std::endl;
-  std::cout << "a_3:" << a_3 << std::endl;
+  // std::cout << "a:" << a << std::endl;
+  // std::cout << "a_3:" << a_3 << std::endl;
 
 
 
@@ -92,6 +90,10 @@ int main() {
 	// std::cout << "a:" << a << " b:" << b << " normal a.dir(b): " << a.dir(b) << std::endl;
 	// std::cout << "vec2(-2,2):" << vec2<float>(1,0) << " normal dir: " << vec2<float>(-2,2).dir() << std::endl;
 
+	// std::cout << "vec3(-2,2,1).dir(): " << vec3<float>(-2,2,1).dir() << std::endl;
+	// std::cout << "vec3(-2,2,1).dir(0.5,1,0.5):" << vec3<float>(-2,2,1).dir(0.5,1,0.5) << std::endl;
+	// std::cout << "vec3(-2,2,1).dir(a):" << vec3<float>(-2,2,1).dir(f_3) << std::endl;
+
 
 	/**
 	* TAN
@@ -106,6 +108,10 @@ int main() {
 	// std::cout << "vec2<float>(0,0).angle(): " << vec2<float>(0,0).angle() << std::endl;
 	// std::cout << "vec2<long double>(1,1).angle(): " << vec2<long double>(1,1).angle() << std::endl;
 
+	// std::cout << "vec3<int>(3).tan(): " << vec3<int>(3).tan() << std::endl;
+	// std::cout << "vec3<float>(3).tan(): " << vec3<float>(3.0f).tan() << std::endl;
+	// std::cout << "vec3<long double>(3).tan(): " << vec3<long double>(3.0).tan() << std::endl;
+
 
 
 	/**
@@ -114,8 +120,9 @@ int main() {
 	// a.set(10);
 	// b.set(0.1);
 	// auto start = std::chrono::system_clock::now();
-	// for(float i = 0 ; i < 10000000 ; i += 1.0f) {
-	// 	a.cos_wave(i,b.x(),b.y());
+	// for(float i = 0 ; i < 100 ; i += 1.0f) {
+	// 	//a.cos_wave(i,b.x(),b.y());
+	// 	std::cout << f_3.cos_wave(i,b.x(),b.y(), 3.5) << std::endl; 
 	// 	// std::cout << (a.cos_wave(i,b.x(),b.y())) << std::endl; 
 	// }
 	// auto end = std::chrono::system_clock::now();
@@ -133,6 +140,12 @@ int main() {
 	// std::cout << a.rand(-15, 15) << std::endl;
 	// std::cout << a.constrain(-10,10) << std::endl;
 	// std::cout << a.rand(-20, 20) << std::endl;
+  
+ //  vec3<float> min_f(0);
+ //  vec3<float> max_f(100);
+ //  std::cout << f_3.constrain(min_f,max_f) << std::endl;
+	// std::cout << f_3.constrain(-10,10) << std::endl;
+	// std::cout << f_3 << std::endl;
   
  //  vec2<float> *a_truc = new vec2<float>(0);
 	// std::cout << "rand a_truc: " << a_truc->rand(-1000, 1000) << std::endl;
@@ -174,6 +187,8 @@ int main() {
 	// std::cout << d.map(	vec2<float>(0), vec2<float>(1), 
 	// 										vec2<float>(10), vec2<float>(100,1000)) << std::endl;
 
+	// std::cout << f_3.map(0,10,0,100) << std::endl;
+
 
 
 
@@ -192,8 +207,8 @@ int main() {
 	// 	// std::cout << a.rand(0,1000) <<std::endl; 
 	// }
 	// FASTER
-	// std::random_device seed;
-	// std::default_random_engine generator(seed());
+	std::random_device seed;
+	std::default_random_engine generator(seed());
 	// for(int i = 0 ; i < 100000 ; i++) {
 	// 	a.rand(0,1,generator);
 	// 	// std::cout << a.rand(0,1000,generator) <<std::endl; 
@@ -206,6 +221,8 @@ int main() {
 
 	// std::cout << "e: " << e << " type: " << e.get_type() << " random: " << e.rand(-10,10) << std::endl;
 	// test time
+
+	std::cout << f_3.rand(0,1000,generator) <<std::endl; 
 
 
 
@@ -292,6 +309,8 @@ int main() {
 	// std::cout <<"c.dist(d): " << c.dist(d) << std::endl;
 	// std::cout << a_3 << b_3 << std::endl;
 	// std::cout << "a_3.dist(b_3): " << a_3.dist(b_3) << std::endl;
+	// std::cout << "a_3.mag(): " << a_3.mag() << std::endl;
+	// std::cout << "b_3.mag(): " << b_3.mag() << std::endl;
 
 	// std::cout <<"a.mag(): " << a.mag() << std::endl;
 	// std::cout <<"a.mag(b): " << a.mag(b) << std::endl;
