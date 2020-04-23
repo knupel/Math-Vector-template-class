@@ -1,6 +1,7 @@
 #include "vec.cpp"
 #include "vec2.cpp"
 #include "vec3.cpp"
+#include "vec4.cpp"
 
 //#include "rt_utils.cpp"
 
@@ -58,13 +59,21 @@ int main() {
 	vec3<double> b_3(1,1,1);
 	vec3<float> f_3(d1,d2,200);
 
+	vec4<long double> ld_4(10);
+
   /**
   * DISPLAY
   */
   // std::cout << "a:" << a << std::endl;
   // std::cout << "a_3:" << a_3 << std::endl;
 
+  // std::cout << "vec4<long double> ld_4: " << ld_4 << std::endl;
+
   // SET
+  // std::cout << "ld_4.set(0,1,2,3): " << ld_4.set(0,1,2,3) << std::endl;
+  // std::cout << "ld_4.hue(255): " << ld_4.hue(255) << std::endl;
+  // std::cout << "ld_4.alp(255): " << ld_4.alp(255) << std::endl;
+
   // std::cout << "a: " << a << std::endl;
   // std::cout << "a.min(2): " << a.min(2) << std::endl;
   // std::cout << "a.max(10): " << a.max(10) << std::endl;
@@ -108,10 +117,14 @@ int main() {
 	// std::cout << "vec3(-2,2,1).dir(): " << vec3<float>(-2,2,1).dir() << std::endl;
 	// std::cout << "vec3(-2,2,1).dir(a):" << vec3<float>(-2,2,1).dir(f_3) << std::endl;
 
+ 	// std::cout << "ld_4.dir(): " << ld_4.dir() << std::endl;
+ 	// std::cout << "ld_4.dir(vec4<long double>(1,2,3,4)): " << ld_4.dir(vec4<long double>(1,2,3,4)) << std::endl;
 	/**
 	* CROSS
 	*/
-	std::cout << "a_3.cross(b_3): " << a_3.cross(b_3) << std::endl;
+	// std::cout << "a_3.cross(b_3): " << a_3.cross(b_3) << std::endl;
+
+	// std::cout << "ld_4.cross(vec4<long double>(1,2,3,4)): " << ld_4.cross(vec4<long double>(1,2,3,4)) << std::endl;
 
 	/**
 	* TAN
@@ -129,6 +142,9 @@ int main() {
 	// std::cout << "vec3<int>(3).tan(): " << vec3<int>(3).tan() << std::endl;
 	// std::cout << "vec3<float>(3).tan(): " << vec3<float>(3.0f).tan() << std::endl;
 	// std::cout << "vec3<long double>(3).tan(): " << vec3<long double>(3.0).tan() << std::endl;
+
+	// std::cout << "vec4<long double>(3).tan(): " << vec4<long double>(3.0).tan() << std::endl;
+
 
 
 
@@ -148,6 +164,21 @@ int main() {
 	// std::cout << "elapsed time: " << elapsed_seconds.count() << std::endl;
 
 
+	// vec4<long double> ratio(0.1,0.2,0.3,0.4);
+	// auto start = std::chrono::system_clock::now();
+	// for(float i = 0 ; i < 1000000 ; i += 1.0f) {
+	// 	//a.cos_wave(i,b.x(),b.y());
+	// 	ld_4.wave(i,ratio.x(),ratio.y(), ratio.z(), ratio.w());
+	// 	// std::cout << ld_4.wave(i,ratio.x(),ratio.y(), ratio.z(), ratio.w()) << std::endl; 
+	// 	// std::cout << (a.cos_wave(i,b.x(),b.y())) << std::endl; 
+	// }
+	// auto end = std::chrono::system_clock::now();
+	// std::chrono::duration<double> elapsed_seconds = end-start;
+	// std::cout << "elapsed time: " << elapsed_seconds.count() << std::endl;
+
+
+
+
 	/**
 	* LIMIT
 	*/
@@ -157,6 +188,10 @@ int main() {
 
 	// std::cout << "f_3: " << f_3 << std::endl;
 	// std::cout << "f_3.limit(10): " << f_3.limit(10) << std::endl;
+
+
+	std::cout << "ld_4.set(10): " << ld_4.set(10) << std::endl;
+	std::cout << "ld_4.limit(10): " << ld_4.limit(10) << std::endl;
 
 
 	/**

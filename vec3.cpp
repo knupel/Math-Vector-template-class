@@ -23,6 +23,7 @@ public:
 	~vec3();
 
   // set
+  vec3 set(T const &arg);
   vec3 set(T const &x, T const &y, T const &z);
   vec3 x(T const &x);
   vec3 y(T const &y);
@@ -232,6 +233,14 @@ vec3<T>::~vec3() {
 
 
 // SET
+template <class T>
+vec3<T> vec3<T>::set(T const &arg) {
+	this->_x = arg;
+	this->_y = arg;
+	this->_z = arg;
+	return *this;
+}
+
 template <class T>
 vec3<T> vec3<T>::set(T const &x, T const &y, T const &z) {
 	this->_x = x;
