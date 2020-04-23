@@ -51,8 +51,8 @@ int main() {
 	double d1 = 100.3;
 	double d2 = 32.5;
 	double d3 = 8.5;
-	vec2<double> e(d1,d2);
-	vec2<double> f(d1,d2);
+	vec2<double> e(123,34);
+	vec2<double> f(13.5,-32.7);
 
 	vec3<double> a_3(0,1,0);
 	vec3<double> b_3(1,1,1);
@@ -63,6 +63,21 @@ int main() {
   */
   // std::cout << "a:" << a << std::endl;
   // std::cout << "a_3:" << a_3 << std::endl;
+
+  // SET
+  // std::cout << "a: " << a << std::endl;
+  // std::cout << "a.min(2): " << a.min(2) << std::endl;
+  // std::cout << "a.max(10): " << a.max(10) << std::endl;
+  // std::cout << "a.min(0).max(1): " << a.min(0).max(1) << std::endl;
+
+  // std::cout << "f_3: " << f_3 << std::endl;
+  // std::cout << "f_3.red(255): " << f_3.red(255) << std::endl;
+  // std::cout << "f_3.gre(255): " << f_3.gre(255) << std::endl;
+  // std::cout << "f_3.blu(255): " << f_3.blu(255) << std::endl;
+
+  // std::cout << "f_3.min(): " << f_3.min() << std::endl;
+  // std::cout << "f_3.min(0): " << f_3.min(0) << std::endl;
+  // std::cout << "f_3.hue(): " << f_3.hue() << std::endl;
 
 
 
@@ -91,9 +106,12 @@ int main() {
 	// std::cout << "vec2(-2,2):" << vec2<float>(1,0) << " normal dir: " << vec2<float>(-2,2).dir() << std::endl;
 
 	// std::cout << "vec3(-2,2,1).dir(): " << vec3<float>(-2,2,1).dir() << std::endl;
-	// std::cout << "vec3(-2,2,1).dir(0.5,1,0.5):" << vec3<float>(-2,2,1).dir(0.5,1,0.5) << std::endl;
 	// std::cout << "vec3(-2,2,1).dir(a):" << vec3<float>(-2,2,1).dir(f_3) << std::endl;
 
+	/**
+	* CROSS
+	*/
+	std::cout << "a_3.cross(b_3): " << a_3.cross(b_3) << std::endl;
 
 	/**
 	* TAN
@@ -130,7 +148,15 @@ int main() {
 	// std::cout << "elapsed time: " << elapsed_seconds.count() << std::endl;
 
 
+	/**
+	* LIMIT
+	*/
+	// std::cout << "e: " << e << std::endl;
+	// std::cout << "e.limit(10): " << e.limit(10) << std::endl;
+	// std::cout << e << std::endl;
 
+	// std::cout << "f_3: " << f_3 << std::endl;
+	// std::cout << "f_3.limit(10): " << f_3.limit(10) << std::endl;
 
 
 	/**
@@ -249,6 +275,9 @@ int main() {
 	// std::cout << "a.compare(aa, vec2<float>(0.25, 2)) > " << a.compare(aa, vec2<float>(0.25, 2)) << std::endl;
 	// std::cout << "a.compare(aa, 1.0f) > " << a.compare(aa, 1.0f) << std::endl;
 	// std::cout << "a.compare(aa, 0.25f) > " << a.compare(aa, 0.25f) << std::endl;
+ 
+	// vec3<float> fff = f_3 + 0.1f;
+	// std::cout << "f_3.compare(fff, 0.25f) > " << f_3.compare(fff, 0.25f) << std::endl;
 
 
 
@@ -267,6 +296,14 @@ int main() {
   // std::cout << " vec2(1) == 1 > " << (vec2<int>(1) == 1) << std::endl;
   // std::cout << " vec2(1,0) != 1 > " << (vec2<int>(1,0) != 1) << std::endl;
   // std::cout << " vec2(1,1) != 1 > " << (vec2<int>(1) != 1) << std::endl;
+
+
+  // std::cout << "a == a > " << (a == a) << std::endl;
+  // std::cout << "a == b > " << (a == b) << std::endl;
+
+  // std::cout << "f_3 == f_3 > " << (f_3 == f_3) << std::endl;
+  // std::cout << "a_3 == b_3 > " << (a_3 == b_3) << std::endl;
+
 
 
   // vec2<float> dup;
@@ -337,21 +374,18 @@ int main() {
 	// std::cout << "average float: " << vec3<float> (2,1,3).average() << std::endl;
 
 
-	/**
-	* LIMIT
-	*/
-	// std::cout << e << std::endl;
-	// std::cout << e.limit(10) << std::endl;
-	// std::cout << e << std::endl;
+
 
 
 	/**
 	* NORMALIZE
 	*/
 	// std::cout << e << std::endl;
-	// std::cout << e.normalize() << std::endl;
+	// std::cout << "e.normalize():" << e.normalize() << std::endl;
 	// std::cout << "vec2::normalize(vec2(100,50))" << std::endl;
 	// std::cout << vec2<float>::normalize(vec2<float>(100.0f,50.0f)) << std::endl;
+
+	// std::cout << "f_3.normalize():" << f_3.normalize() << std::endl;
 
 
   /**
@@ -434,12 +468,12 @@ int main() {
 	/**
 	* DOT
 	*/
-	std::cout << "a: " << a << std::endl;
-	std::cout << "b: " << b << std::endl;
-	std::cout <<"a.dot(b): " << a.dot(b) << std::endl;
-	std::cout << "d1: " << d1 << std::endl;
-	std::cout << "d2: " << d2 << std::endl;
-	std::cout <<"a.dot(d1,d2): " << a.dot(d1,d2) << std::endl;
+	// std::cout << "a: " << a << std::endl;
+	// std::cout << "b: " << b << std::endl;
+	// std::cout <<"a.dot(b): " << a.dot(b) << std::endl;
+	// std::cout << "d1: " << d1 << std::endl;
+	// std::cout << "d2: " << d2 << std::endl;
+	// std::cout <<"a.dot(d1,d2): " << a.dot(d1,d2) << std::endl;
 
 	// vec3<float> ff(10);
 	// std::cout <<"f_3.dot(ff): " << f_3.dot(ff) << std::endl;

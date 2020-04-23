@@ -24,16 +24,65 @@ public:
 
   // set
   vec3 set(T const &x, T const &y, T const &z);
+  vec3 x(T const &x);
+  vec3 y(T const &y);
 	vec3 z(T const &z);
 
+	vec3 min(T const &x);
+	vec3 max(T const &y);
+
+	vec3 red(T const &x);
+	vec3 gre(T const &y);
+	vec3 blu(T const &z);
+
+	vec3 hue(T const &x);
+	vec3 sat(T const &y);
+	vec3 bri(T const &z);
+
 	//get
+	T x() const;	
+	T y() const;
 	T z() const;
 
+	T min() const;	
+	T max() const;
+
+	T red() const;
+	T gre() const;
+	T blu() const;
+
+	T hue() const;
+	T sat() const;
+	T bri() const;
+
+
+	// dot 
+	// from vec2
+
+	// cross
+	vec3 cross(vec3<T> const &v);
 
 	// dir
 	vec3 dir();
-	vec3 dir(T const &a_x, T const &a_y, T const &a_z);
 	vec3 dir(vec3<T> const &origin);
+
+	// tan
+	// from vec2
+
+	// angle
+	// from vec2
+
+	// heading
+	// from vec2
+
+	// mag_sq
+	// from vec2
+
+	// mag
+	// from vec2
+
+	// dist
+	// from vec2
 
 	// cacule the power of the vector for each component
 	vec3 pow(T const &pow);
@@ -43,11 +92,24 @@ public:
 	vec3 map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst);
 	vec3 map(vec3<T> const &start_src, vec3<T> const &stop_src, vec3<T> const &start_dst, vec3<T> const &stop_dst);
 
+
+
+
+	//normalize
+	vec3 normalize();
+	static vec3 normalize(vec3<T> &target);
+
+
+	// limit
+	vec3 limit(T const &max);
 	// constrain
 	vec3 constrain(T const &min, T const &max);
 	vec3 constrain(vec3<T> const &min, vec3<T> const &max);
 
-	//   
+	// compare 
+	// from vec2
+
+	// rand
 	vec3 rand();
 	vec3 rand(T const &max);
 	vec3 rand(T const &min, T const &max);
@@ -63,6 +125,8 @@ public:
 						T const &x_max, T const &y_max, T const &z_max,
 						std::default_random_engine &generator);
 
+
+
 	// wave
 	vec3 wave(T const &value, T const &s);
 	vec3 wave(T const &value, T const &sx, T const &sy, T const &sz);
@@ -73,6 +137,24 @@ public:
 	vec3 sin_wave(T const &value, T const &s);
 	vec3 sin_wave(T const &value, T const &sx, T const &sy, T const &sz);
 
+
+	// op += *= /= -=
+	// from vec2
+
+	// other op
+	vec3 operator+(vec3<T> const &rhs) const;
+	vec3 operator+(T const &rhs) const;
+
+	vec3 operator-(vec3<T> const &rhs) const;
+	vec3 operator-(T const &rhs) const;
+
+	vec3 operator*(vec3<T> const &rhs) const;
+	vec3 operator*(T const &rhs) const;
+
+	vec3 operator/(vec3<T> const &rhs) const;
+	vec3 operator/(T const &rhs) const;
+
+
 	// info
 	static void warning(bool is);
 	static int get_instance();
@@ -81,20 +163,226 @@ public:
 template <class T>
 std::ostream & operator<<(std::ostream & out, vec3<T> const &rhs);
 
+
+
+
+
+
+
+
+
+
 /**
 * TEMPLATE DEFINITION
 */
-/**
-* DIRECTION NORMAL
-*/
+
+// CONSTRUCTOR + DESTRUCTOR
 template <class T>
-vec3<T>	vec3<T>::dir() {
-	return vec3<T>::dir(vec3<T>());
+vec3<T>::vec3() : vec2<T>(), _z(0) {
+	this->size = 3;
+	set_list(this->v_list, &this->_x, &this->_y, &_z);
+	if(vec3<T>::_warning) {
+		std::cout << "Default constructor vec3" << std::endl;
+		vec3<T>::instance++;
+	}	
+	return;
 }
 
 template <class T>
-vec3<T>	vec3<T>::dir(T const &a_x, T const &a_y, T const &a_z) {
-	return vec3<T>::dir(vec3<T>(a_x, a_y, a_z));
+vec3<T>::vec3(T const &arg) : vec2<T>(arg), _z(arg) {
+	this->size = 3;
+	set_list(this->v_list, &this->_x, &this->_y, &_z); 
+	if(vec3<T>::_warning) {
+		std::cout << "Parametric constructor vec3" << std::endl;
+		vec3<T>::instance++;
+	}
+	return;
+}
+
+template <class T>
+vec3<T>::vec3(T const &x, T const &y, T const &z) : vec2<T>(x,y), _z(z) {
+	this->size = 3;
+	set_list(this->v_list, &this->_x, &this->_y, &_z);
+	if(vec3<T>::_warning) {
+		std::cout << "Parametric constructor vec3" << std::endl;
+		vec3<T>::instance++;
+	}
+	return;
+}
+
+template <class T>
+vec3<T>::vec3(vec3<T> const &src) : vec2<T>(src.x(),src.y()), _z(src.z()) {
+	this->size = 3;
+	set_list(this->v_list, &this->_x, &this->_y, &_z); 
+	if(vec3<T>::_warning) {
+		std::cout << "Copy constructor vec3" << std::endl;
+		vec3<T>::instance++;
+	}
+	return;
+}
+	
+template <class T>
+vec3<T>::~vec3() {
+	if(vec3<T>::_warning) {
+		std::cout << "Destructor vec3" << std::endl;
+		vec3<T>::instance--;
+	}
+	return;
+}
+
+
+// SET
+template <class T>
+vec3<T> vec3<T>::set(T const &x, T const &y, T const &z) {
+	this->_x = x;
+	this->_y = y;
+	this->_z = z;
+	return *this;
+}
+
+// set xyz
+template <class T>
+vec3<T> vec3<T>::x(T const &x) {
+	this->_x = x;
+	return *this;
+}
+template <class T>
+vec3<T> vec3<T>::y(T const &y) {
+	this->_y = y;
+	return *this;
+}
+
+template <class T>
+vec3<T> vec3<T>::z(T const &z) {
+	this->_z = z;
+	return *this;
+}
+
+// set min max
+template <class T>
+vec3<T> vec3<T>::min(T const &x) {
+	this->_x = x;
+	return *this;
+}
+
+template <class T>
+vec3<T> vec3<T>::max(T const &y) {
+	this->_y = y;
+	return *this;
+}
+
+
+// set rgb
+template <class T>
+vec3<T> vec3<T>::red(T const &x) {
+	this->_x = x;
+	return *this;
+}
+
+template <class T>
+vec3<T> vec3<T>::gre(T const &y) {
+	this->_y = y;
+	return *this;
+}
+
+template <class T>
+vec3<T> vec3<T>::blu(T const &z) {
+	return this->z(z);
+}
+
+// set hsb
+template <class T>
+vec3<T> vec3<T>::hue(T const &x) {
+	this->_x = x;
+	return *this;
+
+}
+template <class T>
+vec3<T> vec3<T>::sat(T const &y) {
+	this->_y = y;
+	return *this;
+}
+
+template <class T>
+vec3<T> vec3<T>::bri(T const &z) {
+	return this->z(z);
+}
+
+
+
+
+// GET
+//get xyz
+template <class T>
+T vec3<T>::x() const {
+	return this->_x;
+}
+
+template <class T>
+T vec3<T>::y() const {
+	return this->_y;
+}
+
+template <class T>
+T vec3<T>::z() const {
+	return this->_z;
+}
+
+// get min max
+template <class T>
+T vec3<T>::min() const {
+	return this->_x;
+}
+
+template <class T>
+T vec3<T>::max() const {
+	return this->_y;
+}
+
+// get rgb
+template <class T>
+T vec3<T>::red() const {
+	return this->_x;
+}
+
+template <class T>
+T vec3<T>::gre() const {
+	return this->_zy;
+}
+
+template <class T>
+T vec3<T>::blu() const {
+	return this->_z;
+}
+
+// get hsb
+template <class T>
+T vec3<T>::hue() const {
+	return this->_x;
+}
+
+template <class T>
+T vec3<T>::sat() const {
+	return this->_y;
+}
+
+template <class T>
+T vec3<T>::bri() const {
+	return this->_z;
+}
+
+
+
+
+
+
+
+// COMMMON ALGORITHM FOR VEC
+// 
+// dir
+template <class T>
+vec3<T>	vec3<T>::dir() {
+	return vec3<T>::dir(vec3<T>());
 }
 
 template <class T>
@@ -104,6 +392,31 @@ vec3<T>	vec3<T>::dir(vec3<T> const &origin) {
 	temp -= origin;
 	temp /= dist;
 	return temp;
+}
+
+// cross
+template <class T>
+vec3<T>	vec3<T>::cross(vec3<T> const &v) {
+	T cross_x = this->y() * v.z() - v.y() * this->z();
+	T cross_y = this->z() * v.x() - v.z() * this->x();
+	T cross_z = this->x() * v.y() - v.x() * this->y();
+	return vec3<T>(cross_x, cross_y, cross_z);
+}
+
+
+
+// pow
+template <class T>
+vec3<T>	vec3<T>::pow(T const &pow) {
+	return vec3<T>::pow(pow, pow, pow);
+}
+
+template <class T>
+vec3<T>	vec3<T>::pow(T const &pow_x, T const &pow_y, T const &pow_z) {
+	this->_x = ::pow(this->x(), pow_x);
+	this->_y = ::pow(this->y(), pow_y);
+	this->_z = ::pow(this->z(), pow_z);
+	return *this;
 }
 
 
@@ -121,17 +434,38 @@ vec3<T>	vec3<T>::map(vec3<T> const &start_src, vec3<T> const &stop_src, vec3<T> 
 }
 
 
-// pow
+
+// normalize
 template <class T>
-vec3<T>	vec3<T>::pow(T const &pow) {
-	return vec3<T>::pow(pow, pow, pow);
+vec3<T>	vec3<T>::normalize() {
+	vec2<T>::normalize();
+	return *this;
 }
 
 template <class T>
-vec3<T>	vec3<T>::pow(T const &pow_x, T const &pow_y, T const &pow_z) {
-	this->_x = ::pow(this->x(), pow_x);
-	this->_y = ::pow(this->y(), pow_y);
-	this->_z = ::pow(this->z(), pow_z);
+vec3<T>	vec3<T>::normalize(vec3<T> &target) {
+	return target.normalize();
+}
+
+
+
+// limit
+template <class T>
+vec3<T>	vec3<T>::limit(T const &max) {
+	vec2<T>::limit(max);
+	return *this;
+}
+
+// constrain
+template <class T>
+vec3<T>	vec3<T>::constrain(T const &min, T const &max) {
+	vec2<T>::constrain(min,max);
+	return *this;
+}
+
+template <class T>
+vec3<T>	vec3<T>::constrain(vec3<T> const &min, vec3<T> const &max) {
+	vec2<T>::constrain(min,max);
 	return *this;
 }
 
@@ -248,18 +582,7 @@ vec3<T>	vec3<T>::rand(T const &x_min, T const &y_min, T const &z_min,
 
 
 
-// constrain
-template <class T>
-vec3<T>	vec3<T>::constrain(T const &min, T const &max) {
-	vec2<T>::constrain(min,max);
-	return *this;
-}
 
-template <class T>
-vec3<T>	vec3<T>::constrain(vec3<T> const &min, vec3<T> const &max) {
-	vec2<T>::constrain(min,max);
-	return *this;
-}
 
 
 // wave
@@ -299,80 +622,93 @@ vec3<T>	vec3<T>::sin_wave(T const &value, T const &sx, T const &sy, T const &sz)
 	return vec3<T>(tx,ty,tz);
 }
 
-// set
-template <class T>
-vec3<T> vec3<T>::set(T const &x, T const &y, T const &z) {
-	this->_x = x;
-	this->_y = y;
-	this->_z = z;
-	return *this;
-}
 
-template <class T>
-vec3<T> vec3<T>::z(T const &z) {
-	this->_z = z;
-	return *this;
-}
 
-// get
+// OPERATOR + - * /
+// op +
 template <class T>
-T vec3<T>::z() const {
-	return this->_z;
-}
-
-// CONSTRUCTOR + DESTRUCTOR
-template <class T>
-vec3<T>::vec3() : vec2<T>(), _z(0) {
-	this->size = 3;
-	set_list(this->v_list, &this->_x, &this->_y, &_z);
-	if(vec3<T>::_warning) {
-		std::cout << "Default constructor vec3" << std::endl;
-		vec3<T>::instance++;
-	}	
-	return;
-}
-
-template <class T>
-vec3<T>::vec3(T const &arg) : vec2<T>(arg), _z(arg) {
-	this->size = 3;
-	set_list(this->v_list, &this->_x, &this->_y, &_z); 
-	if(vec3<T>::_warning) {
-		std::cout << "Parametric constructor vec3" << std::endl;
-		vec3<T>::instance++;
+vec3<T> vec3<T>::operator+(vec3<T> const &rhs) const {
+	vec3<T> temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] + rhs.ref().at(i)[0];
 	}
-	return;
+	return temp;
 }
 
 template <class T>
-vec3<T>::vec3(T const &x, T const &y, T const &z) : vec2<T>(x,y), _z(z) {
-	this->size = 3;
-	set_list(this->v_list, &this->_x, &this->_y, &_z);
-	if(vec3<T>::_warning) {
-		std::cout << "Parametric constructor vec3" << std::endl;
-		vec3<T>::instance++;
+vec3<T> vec3<T>::operator+(T const &rhs) const {
+	vec3<T> temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] + rhs;
 	}
-	return;
+	return temp;
+}
+
+
+// op -
+template <class T>
+vec3<T> vec3<T>::operator-(vec3<T> const &rhs) const {
+	vec3<T> temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] - rhs.ref().at(i)[0];
+	}
+	return temp;
 }
 
 template <class T>
-vec3<T>::vec3(vec3<T> const &src) : vec2<T>(src.x(),src.y()), _z(src.z()) {
-	this->size = 3;
-	set_list(this->v_list, &this->_x, &this->_y, &_z); 
-	if(vec3<T>::_warning) {
-		std::cout << "Copy constructor vec3" << std::endl;
-		vec3<T>::instance++;
+vec3<T> vec3<T>::operator-(T const &rhs) const {
+	vec3<T> temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] - rhs;
 	}
-	return;
+	return temp;
 }
-	
+
+
+// op *
 template <class T>
-vec3<T>::~vec3() {
-	if(vec3<T>::_warning) {
-		std::cout << "Destructor vec3" << std::endl;
-		vec3<T>::instance--;
+vec3<T> vec3<T>::operator*(vec3<T> const &rhs) const {
+	vec3<T> temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] * rhs.ref().at(i)[0];
 	}
-	return;
+	return temp;
 }
+
+template <class T>
+vec3<T> vec3<T>::operator*(T const &rhs) const {
+	vec3<T> temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] * rhs;
+	}
+	return temp;
+}
+
+
+// op *
+template <class T>
+vec3<T> vec3<T>::operator/(vec3<T> const &rhs) const {
+	vec3<T> temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] / rhs.ref().at(i)[0];
+	}
+	return temp;
+}
+
+template <class T>
+vec3<T> vec3<T>::operator/(T const &rhs) const {
+	vec3<T> temp;
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		temp.ref().at(i)[0] = this->ref().at(i)[0] / rhs;
+	}
+	return temp;
+}
+
+
+
+
+
+
 
 
 // info

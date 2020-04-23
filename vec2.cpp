@@ -1,7 +1,7 @@
 #ifndef VEC2_H
 # define VEC2_H
 /**
-* vec2 0.0.1
+* vec2 0.0.2
 * 2020-2020
 */ 
 #include "vec.cpp"
@@ -27,6 +27,9 @@ public:
 	vec2 set(T const &x, T const &y);
 	vec2 x(T const &x);
 	vec2 y(T const &y);
+
+	vec2 min(T const &x);
+	vec2 max(T const &y);
   
   // get
 	T x() const;	
@@ -42,7 +45,6 @@ public:
 
 	// dir > return normal cartesian direction
 	vec2 dir();
-	vec2 dir(T const &a_x, T const &a_y);
 	vec2 dir(vec2<T> const &origin);
 
 	// square length can be usefull and faster when the real length is not necessary
@@ -61,13 +63,16 @@ public:
 	vec2 pow(T const &pow);
 	vec2 pow(T const &pow_x, T const &pow_y);
 
-	//normalize
-	vec2 normalize();
-	static vec2 normalize(vec2<T> &target);
-	
+
 	//map
 	vec2 map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst);
 	vec2 map(vec2<T> const &start_src, vec2<T> const &stop_src, vec2<T> const &start_dst, vec2<T> const &stop_dst);
+
+
+
+	//normalize
+	vec2 normalize();
+	static vec2 normalize(vec2<T> &target);
 
 	// limit
 	vec2 limit(T const &max);
@@ -76,9 +81,14 @@ public:
 	vec2 constrain(T const &min, T const &max);
 	vec2 constrain(vec2<T> const &min, vec2<T> const &max);
 	
-	// operator
+	// compare
   bool compare(vec2<T> const &target, vec2<T> const &area);
   bool compare(vec2<T> const &target, T const &area);
+
+
+
+
+
   // random
   vec2 rand();
 	vec2 rand(T const &max);
@@ -96,6 +106,10 @@ public:
 						std::default_random_engine &generator);
 
 
+
+
+
+
 	// wave
 	vec2 wave(T const &value, T const &s);
 	vec2 wave(T const &value, T const &sx, T const &sy);
@@ -105,6 +119,10 @@ public:
 
 	vec2 sin_wave(T const &value, T const &s);
 	vec2 sin_wave(T const &value, T const &sx, T const &sy);
+
+
+
+
 
 	// vec2 specialize trigonometry
 	vec2<double> tan();
@@ -224,21 +242,99 @@ vec2<T>::~vec2() {
 }
 
 
+// SET
+template <class T>
+vec2<T> vec2<T>::set(T const &arg) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] = arg;
+	}
+	return *this;
+}
+
+template <class T>
+vec2<T> vec2<T>::set(T const &x, T const &y) {
+	this->_x = x;
+	this->_y = y;
+	return *this;
+}
+
+template <class T>
+vec2<T> vec2<T>::x(T const &x) {
+	this->_x = x;
+	return *this;
+}
+
+template <class T>
+vec2<T> vec2<T>::y(T const &y) {
+	this->_y = y;
+	return *this;
+}
+
+
+template <class T>
+vec2<T> vec2<T>::min(T const &x) {
+	return this->x(x);
+}
+
+template <class T>
+vec2<T> vec2<T>::max(T const &y) {
+	return this->y(y);
+}
+
+
+
+// GET
+template <class T>
+T vec2<T>::x() const {
+	return this->_x;
+}
+
+template <class T>
+T vec2<T>::y() const {
+	return this->_y;
+}
+
+template <class T>
+T vec2<T>::min() const {
+	return this->_x;
+}
+
+template <class T>
+T vec2<T>::max() const {
+	return this->_y;
+}
+
+template <class T>
+vec2<T> vec2<T>::copy() const {
+	return *this;
+}
+
+template <class T>
+T * vec2<T>::array() const {
+	static T arg[2];
+	for(size_t i = 0 ; i < this->get_size() ; i++) {
+		arg[i] = *this->v_list.at(i);
+	}
+	return arg;
+}
+
+
 // COMMMON ALGORITHM FOR VEC
-/**
-* dot
-*/
+// 
+
+// dot
 template <class T>
 T vec2<T>::dot(vec2<T> const &v) const {
 	T res = 0;
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		res += this->ref().at(i)[0] * v.ref().at(i)[0];
 	}
-	return res;}
+	return res;
+}
 
 template <class T>
 T vec2<T>::dot(T const &x, T const &y) const {
-	return this->x()*x + this->y()*y;
+	return dot(vec2<T>(x,y));
 }
 
 /**
@@ -247,11 +343,6 @@ T vec2<T>::dot(T const &x, T const &y) const {
 template <class T>
 vec2<T>	vec2<T>::dir() {
 	return vec2<T>::dir(vec2<T>());
-}
-
-template <class T>
-vec2<T>	vec2<T>::dir(T const &a_x, T const &a_y) {
-	return vec2<T>::dir(vec2<T>(a_x, a_y));
 }
 
 template <class T>
@@ -309,9 +400,7 @@ double vec2<T>::heading() {
 
 
 
-/**
-* MAG / DIST
-*/
+// mag_sq
 template <class T>
 T vec2<T>::mag_sq() const {
 	return vec<T>::mag_sq();
@@ -361,6 +450,116 @@ vec2<T>	vec2<T>::pow(T const &pow_x, T const &pow_y) {
 	this->_y = ::pow(this->y(), pow_y);
 	return *this;
 }
+
+
+// map
+template <class T>
+vec2<T>	vec2<T>::map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] = ::map(	this->list().at(i),
+																	start_src,stop_src, 
+																	start_dst,stop_dst);
+	}
+	return *this;
+}
+
+template <class T>
+vec2<T>	vec2<T>::map(vec2<T> const &start_src, vec2<T> const &stop_src, vec2<T> const &start_dst, vec2<T> const &stop_dst) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] = ::map(	this->list().at(i), 
+																	start_src.ref().at(i)[0],stop_src.ref().at(i)[0], 
+																	start_dst.ref().at(i)[0],stop_dst.ref().at(i)[0]);
+	}
+	return *this;
+}
+
+
+
+
+
+
+// normalize
+template <class T>
+vec2<T>	vec2<T>::normalize() {
+	T m = vec<T>::mag();
+	if (m != 0 && m != 1) {
+		*this /= m;
+	}
+	return *this;
+}
+
+template <class T>
+vec2<T>	vec2<T>::normalize(vec2<T> &target) {
+	return target.normalize();
+}
+
+
+// limit
+template <class T>
+vec2<T>	vec2<T>::limit(T const &max) {
+	if (vec<T>::mag_sq() > max*max) {
+		vec2<T>::normalize();
+		*this *= max;
+	}
+	return *this;
+}
+
+
+// constrain
+template <class T>
+vec2<T>	vec2<T>::constrain(T const &min, T const &max) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		if(this->list().at(i) < min ) {
+			this->ref().at(i)[0] = min;
+		}
+		if(this->list().at(i) > max ) {
+			this->ref().at(i)[0] = max;
+		}
+	}
+	return *this;
+}
+
+template <class T>
+vec2<T>	vec2<T>::constrain(vec2<T> const &min, vec2<T> const &max) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		if(this->list().at(i) < min.ref().at(i)[0]) {
+			this->ref().at(i)[0] = min.ref().at(i)[0];
+		}
+		if(this->list().at(i) > max.ref().at(i)[0]) {
+			this->ref().at(i)[0] = max.ref().at(i)[0];
+		}
+	}
+	return *this;
+}
+
+
+
+// COMPARE
+template <class T>
+bool vec2<T>::compare(vec2<T> const &target, vec2<T> const &area) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		if((	this->ref().at(i)[0] < target.ref().at(i)[0] - area.ref().at(i)[0] 
+					|| this->ref().at(i)[0] > target.ref().at(i)[0] + area.ref().at(i)[0])) { 
+			return false;
+		}
+	}
+	return true;
+}
+
+template <class T>
+bool vec2<T>::compare(vec2<T> const &target, T const &area) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		if((	this->ref().at(i)[0] < target.ref().at(i)[0] - area 
+					|| this->ref().at(i)[0] > target.ref().at(i)[0] + area)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+
+
+
 
 
 // random
@@ -462,80 +661,6 @@ vec2<T>	vec2<T>::rand(T const &x_min, T const &y_min,
 }
 
 
-// normalize
-template <class T>
-vec2<T>	vec2<T>::normalize() {
-	T m = vec2<T>::mag();
-	if (m != 0 && m != 1) {
-		*this /= m;
-	}
-	return *this;
-}
-
-template <class T>
-vec2<T>	vec2<T>::normalize(vec2<T> &target) {
-	return target.normalize();
-}
-
-// map
-template <class T>
-vec2<T>	vec2<T>::map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst) {
-	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
-		this->ref().at(i)[0] = ::map(	this->list().at(i),
-																	start_src,stop_src, 
-																	start_dst,stop_dst);
-	}
-	return *this;
-}
-
-template <class T>
-vec2<T>	vec2<T>::map(vec2<T> const &start_src, vec2<T> const &stop_src, vec2<T> const &start_dst, vec2<T> const &stop_dst) {
-	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
-		this->ref().at(i)[0] = ::map(	this->list().at(i), 
-																	start_src.ref().at(i)[0],stop_src.ref().at(i)[0], 
-																	start_dst.ref().at(i)[0],stop_dst.ref().at(i)[0]);
-	}
-	return *this;
-}
-
-
-
-template <class T>
-vec2<T>	vec2<T>::limit(T const &max) {
-	if (vec2<T>::magSq() > max*max) {
-		vec2<T>::normalize();
-		*this *= max;
-	}
-	return *this;
-}
-
-
-// constrain
-template <class T>
-vec2<T>	vec2<T>::constrain(T const &min, T const &max) {
-	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
-		if(this->list().at(i) < min ) {
-			this->ref().at(i)[0] = min;
-		}
-		if(this->list().at(i) > max ) {
-			this->ref().at(i)[0] = max;
-		}
-	}
-	return *this;
-}
-
-template <class T>
-vec2<T>	vec2<T>::constrain(vec2<T> const &min, vec2<T> const &max) {
-	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
-		if(this->list().at(i) < min.ref().at(i)[0]) {
-			this->ref().at(i)[0] = min.ref().at(i)[0];
-		}
-		if(this->list().at(i) > max.ref().at(i)[0]) {
-			this->ref().at(i)[0] = max.ref().at(i)[0];
-		}
-	}
-	return *this;
-}
 
 
 // wave
@@ -573,6 +698,12 @@ vec2<T>	vec2<T>::sin_wave(T const &value, T const &sx, T const &sy) {
 	return vec2<T>(tx,ty);
 }
 
+
+
+
+
+
+
 // OPERATOR
 // op =
 template <class T>
@@ -587,7 +718,7 @@ vec2<T> & vec2<T>::operator=(vec2<T> const &rhs) {
 // op +
 template <class T>
 vec2<T> vec2<T>::operator+(vec2<T> const &rhs) const {
-	vec2 temp;
+	vec2<T> temp;
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		temp.ref().at(i)[0] = this->ref().at(i)[0] + rhs.ref().at(i)[0];
 	}
@@ -596,7 +727,7 @@ vec2<T> vec2<T>::operator+(vec2<T> const &rhs) const {
 
 template <class T>
 vec2<T> vec2<T>::operator+(T const &rhs) const {
-	vec2 temp;
+	vec2<T> temp;
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		temp.ref().at(i)[0] = this->ref().at(i)[0] + rhs;
 	}
@@ -622,7 +753,7 @@ vec2<T> & vec2<T>::operator+=(T const &rhs) {
 // op -
 template <class T>
 vec2<T> vec2<T>::operator-(vec2<T> const &rhs) const {
-	vec2 temp;
+	vec2<T> temp;
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		temp.ref().at(i)[0] = this->ref().at(i)[0] - rhs.ref().at(i)[0];
 	}
@@ -631,7 +762,7 @@ vec2<T> vec2<T>::operator-(vec2<T> const &rhs) const {
 
 template <class T>
 vec2<T> vec2<T>::operator-(T const &rhs) const {
-	vec2 temp;
+	vec2<T> temp;
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		temp.ref().at(i)[0] = this->ref().at(i)[0] - rhs;
 	}
@@ -660,7 +791,7 @@ vec2<T> & vec2<T>::operator-=(T const &rhs) {
 // op *
 template <class T>
 vec2<T> vec2<T>::operator*(vec2<T> const &rhs) const {
-	vec2 temp;
+	vec2<T> temp;
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		temp.ref().at(i)[0] = this->ref().at(i)[0] * rhs.ref().at(i)[0];
 	}
@@ -669,7 +800,7 @@ vec2<T> vec2<T>::operator*(vec2<T> const &rhs) const {
 
 template <class T>
 vec2<T> vec2<T>::operator*(T const &rhs) const {
-	vec2 temp;
+	vec2<T> temp;
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		temp.ref().at(i)[0] = this->ref().at(i)[0] * rhs;
 	}
@@ -697,7 +828,7 @@ vec2<T> & vec2<T>::operator*=(T const &rhs) {
 // op /
 template <class T>
 vec2<T> vec2<T>::operator/(vec2<T> const &rhs) const {
-	vec2 temp;
+	vec2<T> temp;
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		temp.ref().at(i)[0] = this->ref().at(i)[0] / rhs.ref().at(i)[0];
 	}
@@ -706,7 +837,7 @@ vec2<T> vec2<T>::operator/(vec2<T> const &rhs) const {
 
 template <class T>
 vec2<T> vec2<T>::operator/(T const &rhs) const {
-	vec2 temp;
+	vec2<T> temp;
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		temp.ref().at(i)[0] = this->ref().at(i)[0] / rhs;
 	}
@@ -771,96 +902,6 @@ bool vec2<T>::operator!=(T const &rhs) {
 	return false;
 }
 
-
-// COMPARE
-template <class T>
-bool vec2<T>::compare(vec2<T> const &target, vec2<T> const &area) {
-	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
-		if((	this->ref().at(i)[0] < target.ref().at(i)[0] - area.ref().at(i)[0] 
-					|| this->ref().at(i)[0] > target.ref().at(i)[0] + area.ref().at(i)[0])) { 
-			return false;
-		}
-	}
-	return true;
-}
-
-template <class T>
-bool vec2<T>::compare(vec2<T> const &target, T const &area) {
-	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
-		if((	this->ref().at(i)[0] < target.ref().at(i)[0] - area 
-					|| this->ref().at(i)[0] > target.ref().at(i)[0] + area)) {
-			return false;
-		}
-	}
-	return true;
-}
-
-
-
-// set
-template <class T>
-vec2<T> vec2<T>::set(T const &arg) {
-	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
-		this->ref().at(i)[0] = arg;
-	}
-	return *this;
-}
-
-template <class T>
-vec2<T> vec2<T>::set(T const &x, T const &y) {
-	this->_x = x;
-	this->_y = y;
-	return *this;
-}
-
-template <class T>
-vec2<T> vec2<T>::x(T const &x) {
-	this->_x = x;
-	return *this;
-}
-
-template <class T>
-vec2<T> vec2<T>::y(T const &y) {
-	this->_y = y;
-	return *this;
-}
-
-
-
-// get
-template <class T>
-T vec2<T>::x() const {
-	return this->_x;
-}
-
-template <class T>
-T vec2<T>::y() const {
-	return this->_y;
-}
-
-template <class T>
-T vec2<T>::min() const {
-	return this->_x;
-}
-
-template <class T>
-T vec2<T>::max() const {
-	return this->_y;
-}
-
-template <class T>
-vec2<T> vec2<T>::copy() const {
-	return *this;
-}
-
-template <class T>
-T * vec2<T>::array() const {
-	static T arg[2];
-	for(size_t i = 0 ; i < this->get_size() ; i++) {
-		arg[i] = *this->v_list.at(i);
-	}
-	return arg;
-}
 
 
 // info
