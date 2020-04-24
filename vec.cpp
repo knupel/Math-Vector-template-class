@@ -55,6 +55,8 @@ vec<T>::vec() {
 		type = 'f';
 	} else if(std::is_same<T, double>::value) {
 		type = 'd';
+	} else if(std::is_same<T, long double>::value) {
+		type = 'h';
 	} else {
 		type = 'x';
 	}

@@ -1,1 +1,1 @@
-clang++ -std=c++11 *.cpp *.hpp && ./a.out
+clang++ -std=c++11 misc/main_test/main.cpp *.cpp *.hpp && ./a.out

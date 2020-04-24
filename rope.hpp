@@ -29,6 +29,9 @@ float random(float min, float max, std::default_random_engine &generator);
 double random_double(double min, double max);
 double random_double(double min, double max, std::default_random_engine &generator);
 
+long double random_long_double(long double min, long double max);
+long double random_long_double(long double min, long double max, std::default_random_engine &generator);
+
 bool random_bool();
 bool random_bool(std::default_random_engine &generator);
 

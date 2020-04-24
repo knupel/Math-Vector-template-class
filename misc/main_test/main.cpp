@@ -1,7 +1,7 @@
-#include "vec.cpp"
-#include "vec2.cpp"
-#include "vec3.cpp"
-#include "vec4.cpp"
+#include "../../vec.cpp"
+#include "../../vec2.cpp"
+#include "../../vec3.cpp"
+#include "../../vec4.cpp"
 
 //#include "rt_utils.cpp"
 
@@ -60,12 +60,49 @@ int main() {
 	vec3<float> f_3(d1,d2,200);
 
 	vec4<long double> ld_4(10);
+	vec4<double> d_4(10);
+
+
+
 
   /**
   * DISPLAY
   */
-  // std::cout << "a:" << a << std::endl;
-  // std::cout << "a_3:" << a_3 << std::endl;
+  // std::cout << "a: " << a << std::endl;
+  // std::cout << "a_3: " << a_3 << std::endl;
+	// std::cout << "a.xy(): " << a.xy() << std::endl;
+	// std::cout << "a.yx(): " << a.yx() << std::endl;
+ //  std::cout << "a.xx(): " << a.xx() << std::endl;
+ //  std::cout << "a.yy(): " << a.yy() << std::endl;
+
+ //  std::cout << "a.xy().angle(): " << a.xy().angle() << std::endl;
+	// std::cout << "a.yx().angle(): " << a.yx().angle() << std::endl;
+ //  std::cout << "a.xx().angle(): " << a.xx().angle() << std::endl;
+ //  std::cout << "a.yy().angle(): " << a.yy().angle() << std::endl;
+
+
+	// std::cout << "f_3.xxx(): " << f_3.xxx() << std::endl;
+	// std::cout << "f_3.zz(): " << f_3.zz() << std::endl;
+	// std::cout << "f_3.xy(): " << f_3.xy() << std::endl;
+	// std::cout << "f_3.yx(): " << f_3.yx() << std::endl;
+ //  std::cout << "f_3.xx(): " << f_3.xx() << std::endl;
+ //  std::cout << "f_3.yy(): " << f_3.yy() << std::endl;
+	// std::random_device seed;
+	// std::default_random_engine generator(seed());
+	std::cout << "ld_4.get_type(): " << ld_4.get_type() << std::endl;
+	std::cout << "ld_4.rand(-10,10): " << ld_4.rand(-10,10) << std::endl;
+
+	// std::cout << "d_4.rand(-10,10): " << d_4.rand(-10,10) << std::endl;
+	// std::cout << "d_4.wzyx(): " << d_4.wzyx() << std::endl;
+	// std::cout << "d_4.zzzx(): " << d_4.zzzx() << std::endl;
+	// std::cout << "d_4.xxx(): " << d_4.xxx() << std::endl;
+	// std::cout << "d_4.zz(): " << d_4.zz() << std::endl;
+	// std::cout << "d_4.xy(): " << d_4.xy() << std::endl;
+	// std::cout << "d_4.yx(): " << d_4.yx() << std::endl;
+ //  std::cout << "d_4.xx(): " << d_4.xx() << std::endl;
+ //  std::cout << "d_4.yy(): " << d_4.yy() << std::endl;
+
+
 
   // std::cout << "vec4<long double> ld_4: " << ld_4 << std::endl;
 
@@ -190,8 +227,8 @@ int main() {
 	// std::cout << "f_3.limit(10): " << f_3.limit(10) << std::endl;
 
 
-	std::cout << "ld_4.set(10): " << ld_4.set(10) << std::endl;
-	std::cout << "ld_4.limit(10): " << ld_4.limit(10) << std::endl;
+	// std::cout << "ld_4.set(10): " << ld_4.set(10) << std::endl;
+	// std::cout << "ld_4.limit(10): " << ld_4.limit(10) << std::endl;
 
 
 	/**

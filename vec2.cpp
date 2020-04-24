@@ -38,6 +38,27 @@ public:
 	T max() const;
 	vec2 copy() const;
 	T * array() const;
+	// get exotic
+	vec2 xx() const;
+	vec2 xy() const;
+	vec2 yx() const;
+	vec2 yy() const;
+
+	// todo
+	// bool ofVec3f::align_is( const ofVec3f& vec, float tolerance ) const ;
+
+	// ofVec2f& rotate( float angle ) const;
+
+	// ofVec2f& rotate( float angle, const ofVec2f& pivot) const;
+
+	// vec2 barycenter(vec2<T> const &other) const;
+
+	// vec2 abs() const;
+
+	// get2D
+
+
+
 
 	// Calcule the dot product of the vector
 	T dot(vec2<T> const &v) const;
@@ -904,6 +925,7 @@ bool vec2<T>::operator!=(T const &rhs) {
 
 
 
+
 // info
 template <class T>
 void vec2<T>::warning(bool is) {
@@ -928,4 +950,26 @@ bool vec2<T>::_warning = false;
 
 template <class T>
 int vec2<T>::instance = 0;
+
+// get exotic > return copy vector of the arguments asked.
+template <class T>
+vec2<T> vec2<T>::xx() const {
+	return vec2<T>(this->x(),this->x());
+}
+
+
+template <class T>
+vec2<T> vec2<T>::xy() const {
+	return vec2<T>(this->x(),this->y());
+}
+
+template <class T>
+vec2<T> vec2<T>::yx() const {
+	return vec2<T>(this->y(),this->x());
+}
+
+template <class T>
+vec2<T> vec2<T>::yy() const {
+	return vec2<T>(this->y(),this->y());
+}
 #endif

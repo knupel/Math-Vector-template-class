@@ -56,6 +56,48 @@ public:
 	T sat() const;
 	T bri() const;
 
+	// get exotic
+	// special
+	vec3 rgb() const;
+	vec3 hsb() const;
+
+	vec2<T> xz() const;
+	vec2<T> yz() const;
+	vec2<T> zx() const;
+	vec2<T> zy() const;
+	vec2<T> zz() const;
+ 
+	// x3
+	vec3 xxx() const;
+	vec3 xxy() const;
+	vec3 xxz() const;
+	vec3 xyx() const;
+	vec3 xyy() const;
+	vec3 xyz() const;
+	vec3 xzx() const;
+	vec3 xzy() const;
+
+	// y3
+	vec3 yxx() const;
+	vec3 yxy() const;
+	vec3 yxz() const;
+	vec3 yyx() const;
+	vec3 yyy() const;
+	vec3 yyz() const;
+	vec3 yzx() const;
+	vec3 yzy() const;
+
+	// z3
+	vec3 zxx() const;
+	vec3 zxy() const;
+	vec3 zxz() const;
+	vec3 zyx() const;
+	vec3 zyy() const;
+	vec3 zyz() const;
+	vec3 zzx() const;
+	vec3 zzy() const;
+	vec3 zzz() const;
+
 
 	// dot 
 	// from vec2
@@ -743,4 +785,153 @@ bool vec3<T>::_warning = false;
 
 template <class T>
 int vec3<T>::instance = 0;
+
+
+// get exoctic
+// special
+template <class T>
+vec3<T> vec3<T>::rgb() const{
+	return vec3<T>(this->x(),this->y(),this->z());
+}
+template <class T>
+vec3<T> vec3<T>::hsb() const {
+	return vec3<T>(this->x(),this->y(),this->z());
+}
+
+
+template <class T>
+vec2<T> vec3<T>::xz() const {
+	return vec2<T>(this->x(),this->x());
+}
+template <class T>
+vec2<T> vec3<T>::yz() const {
+	return vec2<T>(this->y(),this->z());
+}
+template <class T>
+vec2<T> vec3<T>::zx() const {
+	return vec2<T>(this->z(),this->x());
+}
+template <class T>
+vec2<T> vec3<T>::zy() const {
+	return vec2<T>(this->z(),this->y());
+}
+template <class T>
+vec2<T> vec3<T>::zz() const {
+	return vec2<T>(this->z(),this->z());
+}
+
+// x3
+template <class T>
+vec3<T> vec3<T>::xxx() const {
+	return vec3<T>(this->x(),this->x(),this->x());
+}
+template <class T>
+vec3<T> vec3<T>::xxy() const {
+	return vec3<T>(this->x(),this->x(),this->y());
+}
+template <class T>
+vec3<T> vec3<T>::xxz() const {
+	return vec3<T>(this->x(),this->x(),this->z());
+}
+template <class T>
+vec3<T> vec3<T>::xyx() const {
+	return vec3<T>(this->x(),this->y(),this->x());
+}
+template <class T>
+vec3<T> vec3<T>::xyy() const {
+	return vec3<T>(this->x(),this->y(),this->y());
+}
+template <class T>
+vec3<T> vec3<T>::xyz() const {
+	return vec3<T>(this->x(),this->y(),this->z());
+}
+template <class T>
+vec3<T> vec3<T>::xzx() const {
+	return vec3<T>(this->x(),this->z(),this->x());
+}
+template <class T>
+vec3<T> vec3<T>::xzy() const {
+	return vec3<T>(this->x(),this->z(),this->y());
+}
+
+// y3
+template <class T>
+vec3<T> vec3<T>::yxx() const {
+	return vec3<T>(this->y(),this->x(),this->x());
+}
+template <class T>
+vec3<T> vec3<T>::yxy() const {
+	return vec3<T>(this->y(),this->x(),this->y());
+}
+template <class T>
+vec3<T> vec3<T>::yxz() const {
+	return vec3<T>(this->y(),this->x(),this->z());
+}
+template <class T>
+vec3<T> vec3<T>::yyx() const {
+	return vec3<T>(this->y(),this->y(),this->x());
+}
+template <class T>
+vec3<T> vec3<T>::yyy() const {
+	return vec3<T>(this->y(),this->y(),this->y());
+}
+template <class T>
+vec3<T> vec3<T>::yyz() const {
+	return vec3<T>(this->y(),this->y(),this->z());
+}
+template <class T>
+vec3<T> vec3<T>::yzx() const {
+	return vec3<T>(this->y(),this->z(),this->x());
+}
+template <class T>
+vec3<T> vec3<T>::yzy() const {
+	return vec3<T>(this->y(),this->z(),this->y());
+}
+
+// z3
+template <class T>
+vec3<T> vec3<T>::zxx() const {
+	return vec3<T>(this->z(),this->x(),this->x());
+}
+template <class T>
+vec3<T> vec3<T>::zxy() const {
+	return vec3<T>(this->z(),this->x(),this->y());
+}
+template <class T>
+vec3<T> vec3<T>::zxz() const {
+	return vec3<T>(this->z(),this->x(),this->z());
+}
+template <class T>
+vec3<T> vec3<T>::zyx() const {
+	return vec3<T>(this->z(),this->y(),this->x());
+}
+template <class T>
+vec3<T> vec3<T>::zyy() const {
+	return vec3<T>(this->z(),this->y(),this->y());
+}
+template <class T>
+vec3<T> vec3<T>::zyz() const {
+	return vec3<T>(this->z(),this->y(),this->z());
+}
+template <class T>
+vec3<T> vec3<T>::zzx() const {
+	return vec3<T>(this->z(),this->z(),this->x());
+}
+template <class T>
+vec3<T> vec3<T>::zzy() const {
+	return vec3<T>(this->z(),this->z(),this->y());
+}
+template <class T>
+vec3<T> vec3<T>::zzz() const {
+	return vec3<T>(this->z(),this->z(),this->z());
+}
+
+
+
 #endif
+
+
+
+
+
+
