@@ -45,13 +45,6 @@ public:
 	vec2 yx() const;
 	vec2 yy() const;
 
-	// todo
-
-	// vec2 abs() const;
-
-	// get2D
-
-
 
 	// Calcule the dot product of the vector
 	T dot(vec2<T> const &v) const;
@@ -60,6 +53,9 @@ public:
 	// dir > return normal cartesian direction
 	vec2 dir() const;
 	vec2 dir(vec2<T> const &origin) const;
+
+	// abs
+	vec2 & abs();
 
 	// rotate
 	vec2 & rotate(T angle);
@@ -115,15 +111,15 @@ public:
 	vec2 & rand(T const &min, T const &max);
 	vec2 & rand(vec2<T> const &min, vec2<T> const &max);
 	vec2 & rand(T const &x_min, T const &y_min, 
-						T const &x_max, T const &y_max);
+							T const &x_max, T const &y_max);
 
 	vec2 & rand(std::default_random_engine &generator);
 	vec2 & rand(T const &max, std::default_random_engine &generator);
 	vec2 & rand(T const &min, T const &max, std::default_random_engine &generator);
 	vec2 & rand(vec2<T> const &min, vec2<T> const &max, std::default_random_engine &generator);
 	vec2 & rand(T const &x_min, T const &y_min, 
-						T const &x_max, T const &y_max, 
-						std::default_random_engine &generator);
+							T const &x_max, T const &y_max, 
+							std::default_random_engine &generator);
 
 
 
@@ -367,12 +363,21 @@ vec2<T>	vec2<T>::dir(vec2<T> const &origin) const {
 	return temp;
 }
 
+// abs
+template <class T>
+vec2<T>	& vec2<T>::abs() {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] = std::abs(this->list().at(i));
+	}
+	return *this;
+}
+
 // rotate
 template <class T>
 vec2<T>	& vec2<T>::rotate(T angle) {
 	if(std::is_arithmetic<T>::value) {
-		T temp_x = this->_x * cos(angle) - this->_y * sin(angle);
-		this->_y = this->_x * sin(angle) + this->_y * cos(angle);
+		T temp_x = this->_x * std::cos(angle) - this->_y * std::sin(angle);
+		this->_y = this->_x * std::sin(angle) + this->_y * std::cos(angle);
 		this->_x = temp_x;
 	}
 	return *this;
@@ -382,8 +387,8 @@ vec2<T>	& vec2<T>::rotate(T angle) {
 template <class T>
 vec2<T>	& vec2<T>::rotate(T angle, vec2<T> const &origin) {
 	if(std::is_arithmetic<T>::value) {
-		T temp_x = (this->_x - origin.x()) * cos(angle) - (this->_y - origin.y()) * sin(angle);
-		this->_y = (this->_x - origin.x()) * sin(angle) + (this->_y - origin.y()) * cos(angle);
+		T temp_x = (this->_x - origin.x()) * std::cos(angle) - (this->_y - origin.y()) * std::sin(angle);
+		this->_y = (this->_x - origin.x()) * std::sin(angle) + (this->_y - origin.y()) * std::cos(angle);
 		this->_x = temp_x;
 	}
 	return *this;
@@ -393,12 +398,12 @@ vec2<T>	& vec2<T>::rotate(T angle, vec2<T> const &origin) {
 // vec2 specialize
 template <class T>
 vec2<double> vec2<T>::tan() const {
-	return tan(this->x(),this->y());
+	return std::tan(this->x(),this->y());
 }
 
 template <class T>
 vec2<double> vec2<T>::tan(vec2<T> const &target) const {
-	return tan(target.x(),target.y());
+	return std::tan(target.x(),target.y());
 }
 
 
@@ -416,12 +421,12 @@ vec2<double> vec2<T>::tan(T const &x, T const &y) const {
 
 template <class T>
 double vec2<T>::angle() const{
-	return atan2(this->y(),this->x());
+	return std::atan2(this->y(),this->x());
 }
 
 template <class T>
 double vec2<T>::angle(vec2<T> const &target) const{
-	return atan2(this->y() - target.y(),this->x() - target.x());
+	return std::atan2(this->y() - target.y(),this->x() - target.x());
 }
 
 template <class T>
@@ -741,8 +746,8 @@ vec2<T>	vec2<T>::sin_wave(T const &value, T const &s) {
 
 template <class T>
 vec2<T>	vec2<T>::sin_wave(T const &value, T const &sx, T const &sy) {
-	T tx = sin(value * sx) + this->x();
-	T ty = sin(value * sy) + this->y();
+	T tx = std::sin(value * sx) + this->x();
+	T ty = std::sin(value * sy) + this->y();
 	return vec2<T>(tx,ty);
 }
 

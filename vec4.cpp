@@ -428,6 +428,9 @@ public:
 	vec4 dir() const;
 	vec4 dir(vec4<T> const &origin) const;
 
+	// abs
+	vec4 & abs();
+
 	// tan
 	// from vec2
 
@@ -811,6 +814,16 @@ vec4<T>	vec4<T>::dir(vec4<T> const &origin) const {
 }
 
 
+// abs
+template <class T>
+vec4<T>	& vec4<T>::abs() {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] = std::abs(this->list().at(i));
+	}
+	return *this;
+}
+
+
 // pow
 template <class T>
 vec4<T>	& vec4<T>::pow(T const &pow) {
@@ -1044,6 +1057,9 @@ vec4<T>	vec4<T>::sin_wave(T const &value, T const &sx, T const &sy, T const &sz,
 
 
 
+
+
+
 // OPERATOR + - * /
 // op +
 template <class T>
@@ -1063,7 +1079,6 @@ vec4<T> vec4<T>::operator+(T const &rhs) const {
 	}
 	return temp;
 }
-
 
 // op -
 template <class T>
@@ -1207,16 +1222,6 @@ bool vec4<T>::_warning = false;
 
 template <class T>
 int vec4<T>::instance = 0;
-
-// IMPLEMENTATION
-
-
-
-
-
-
-
-
 
 
 

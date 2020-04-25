@@ -112,6 +112,9 @@ public:
 	vec3 dir() const;
 	vec3 dir(vec3<T> const &origin) const;
 
+	// abs
+	vec3 & abs();
+
 	// tan
 	// from vec2
 
@@ -470,6 +473,17 @@ vec3<T>	vec3<T>::dir(vec3<T> const &origin) const {
 	temp -= origin;
 	temp /= dist;
 	return temp;
+}
+
+
+// abs
+template <class T>
+vec3<T>	& vec3<T>::abs() {
+	// return ::abs();
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] = std::abs(this->list().at(i));
+	}
+	return *this;
 }
 
 // cross

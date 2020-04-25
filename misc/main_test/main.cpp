@@ -504,21 +504,35 @@ int main() {
 	/**
 	* BARYCENTER
 	*/
-	a.set(1);
-	b.set(3);
-	std::cout << "a.barycenter(b): " << a.barycenter(b) << std::endl;
-	std::cout << "a: " << a << std::endl;
-	std::cout << "b: " << b << std::endl;
+	// a.set(1);
+	// b.set(3);
+	// std::cout << "a.barycenter(b): " << a.barycenter(b) << std::endl;
+	// std::cout << "a: " << a << std::endl;
+	// std::cout << "b: " << b << std::endl;
 
-	a_3.set(1);
-	b_3.set(3);
-	std::cout << "a_3.barycenter(b_3): " << a_3.barycenter(b_3) << std::endl;
-	std::cout << "a_3: " << a << std::endl;
-	std::cout << "b_3: " << b << std::endl;
+	// a_3.set(1);
+	// b_3.set(3);
+	// std::cout << "a_3.barycenter(b_3): " << a_3.barycenter(b_3) << std::endl;
+	// std::cout << "a_3: " << a << std::endl;
+	// std::cout << "b_3: " << b << std::endl;
 
 
-	vec4<long double> ld_5 = ld_4;
-	std::cout << "ld_5 after copy: " << ld_5 << std::endl;
+	// vec4<long double> ld_5 = ld_4;
+	// std::cout << "ld_5 after copy: " << ld_5 << std::endl;
+
+
+
+	/**
+	* ABS
+	*/
+	std::cout << "a.rand(-1,1): " << a.rand(-1,1) << std::endl;
+	std::cout << "a.abs(): " << a.abs() << std::endl;
+
+	std::cout << "f_3.rand(-1,1): " << f_3.rand(-1,1) << std::endl;
+	std::cout << "f_3.abs(): " << f_3.abs() << std::endl;
+
+	std::cout << "ld_4.rand(-1,1): " << ld_4.rand(-1,1) << std::endl;
+	std::cout << "ld_4.abs(): " << ld_4.abs() << std::endl;
 
 
 
