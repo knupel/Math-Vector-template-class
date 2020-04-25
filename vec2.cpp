@@ -1,7 +1,7 @@
 #ifndef VEC2_H
 # define VEC2_H
 /**
-* vec2 0.0.2
+* vec2 0.0.3
 * 2020-2020
 */ 
 #include "vec.cpp"
@@ -23,13 +23,13 @@ public:
 	~vec2();
 
 	// set
-	vec2 set(T const &arg);
-	vec2 set(T const &x, T const &y);
-	vec2 x(T const &x);
-	vec2 y(T const &y);
+	vec2 & set(T const &arg);
+	vec2 & set(T const &x, T const &y);
+	vec2 & x(T const &x);
+	vec2 & y(T const &y);
 
-	vec2 min(T const &x);
-	vec2 max(T const &y);
+	vec2 & min(T const &x);
+	vec2 & max(T const &y);
   
   // get
 	T x() const;	
@@ -45,11 +45,9 @@ public:
 	vec2 yy() const;
 
 	// todo
-	// bool ofVec3f::align_is( const ofVec3f& vec, float tolerance ) const ;
 
-	// ofVec2f& rotate( float angle ) const;
 
-	// ofVec2f& rotate( float angle, const ofVec2f& pivot) const;
+
 
 	// vec2 barycenter(vec2<T> const &other) const;
 
@@ -65,8 +63,12 @@ public:
 	T dot(T const &x, T const &y) const;
 
 	// dir > return normal cartesian direction
-	vec2 dir();
-	vec2 dir(vec2<T> const &origin);
+	vec2 dir() const;
+	vec2 dir(vec2<T> const &origin) const;
+
+	// rotate
+	vec2 & rotate(T angle);
+	vec2 & rotate(T angle, vec2<T> const &origin);
 
 	// square length can be usefull and faster when the real length is not necessary
 	T mag_sq() const;
@@ -81,48 +83,47 @@ public:
 	double dist(vec2<T> const &v) const;
 
 	// cacule the power of the vector for each component
-	vec2 pow(T const &pow);
-	vec2 pow(T const &pow_x, T const &pow_y);
+	vec2 & pow(T const &pow);
+	vec2 & pow(T const &pow_x, T const &pow_y);
 
 
 	//map
-	vec2 map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst);
-	vec2 map(vec2<T> const &start_src, vec2<T> const &stop_src, vec2<T> const &start_dst, vec2<T> const &stop_dst);
+	vec2 & map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst);
+	vec2 & map(vec2<T> const &start_src, vec2<T> const &stop_src, vec2<T> const &start_dst, vec2<T> const &stop_dst);
 
 
 
 	//normalize
-	vec2 normalize();
+	vec2 & normalize();
 	static vec2 normalize(vec2<T> &target);
 
 	// limit
-	vec2 limit(T const &max);
+	vec2 & limit(T const &max);
 
 	// constrain
-	vec2 constrain(T const &min, T const &max);
-	vec2 constrain(vec2<T> const &min, vec2<T> const &max);
+	vec2 & constrain(T const &min, T const &max);
+	vec2 & constrain(vec2<T> const &min, vec2<T> const &max);
 	
 	// compare
   bool compare(vec2<T> const &target, vec2<T> const &area);
   bool compare(vec2<T> const &target, T const &area);
-
-
+  bool compare_angle(vec2<T> const &target, T const &area);
 
 
 
   // random
-  vec2 rand();
-	vec2 rand(T const &max);
-	vec2 rand(T const &min, T const &max);
-	vec2 rand(vec2<T> const &min, vec2<T> const &max);
-	vec2 rand(T const &x_min, T const &y_min, 
+  vec2 & rand();
+	vec2 & rand(T const &max);
+	vec2 & rand(T const &min, T const &max);
+	vec2 & rand(vec2<T> const &min, vec2<T> const &max);
+	vec2 & rand(T const &x_min, T const &y_min, 
 						T const &x_max, T const &y_max);
 
-	vec2 rand(std::default_random_engine &generator);
-	vec2 rand(T const &max, std::default_random_engine &generator);
-	vec2 rand(T const &min, T const &max, std::default_random_engine &generator);
-	vec2 rand(vec2<T> const &min, vec2<T> const &max, std::default_random_engine &generator);
-	vec2 rand(T const &x_min, T const &y_min, 
+	vec2 & rand(std::default_random_engine &generator);
+	vec2 & rand(T const &max, std::default_random_engine &generator);
+	vec2 & rand(T const &min, T const &max, std::default_random_engine &generator);
+	vec2 & rand(vec2<T> const &min, vec2<T> const &max, std::default_random_engine &generator);
+	vec2 & rand(T const &x_min, T const &y_min, 
 						T const &x_max, T const &y_max, 
 						std::default_random_engine &generator);
 
@@ -146,13 +147,13 @@ public:
 
 
 	// vec2 specialize trigonometry
-	vec2<double> tan();
-	vec2<double> tan(vec2<T> const &target);
-	vec2<double> tan(T const &a_x, T const &a_y);
+	vec2<double> tan() const;
+	vec2<double> tan(vec2<T> const &target) const;
+	vec2<double> tan(T const &a_x, T const &a_y) const;
 
-	double angle();
-	double angle(vec2<T> const &target);
-	double heading();
+	double angle() const;
+	double angle(vec2<T> const &target) const;
+	double heading() const;
 
 	// op
 	bool operator==(vec2<T> const &rhs);
@@ -165,29 +166,25 @@ public:
 
 	vec2 operator+(vec2<T> const &rhs) const;
 	vec2 operator+(T const &rhs) const;
-	// vec2 add(vec2<T> const &rhs) const;
-	// vec2 add(T const &rhs) const;
+
 	vec2 & operator+=(vec2<T> const &rhs);
 	vec2 & operator+=(T const &rhs);
 
 	vec2 operator-(vec2<T> const &rhs) const;
 	vec2 operator-(T const &rhs) const;
-	// vec2 sub(vec2<T> const &rhs) const;
-	// vec2 sub(T const &rhs) const;
+
 	vec2 & operator-=(vec2<T> const &rhs);
 	vec2 & operator-=(T const &rhs);
 
 	vec2 operator*(vec2<T> const &rhs) const;
 	vec2 operator*(T const &rhs) const;
-	// vec2 mult(vec2<T> const &rhs) const;
-	// vec2 mult(T const &rhs) const;
+
 	vec2 & operator*=(vec2<T> const &rhs);
 	vec2 & operator*=(T const &rhs);
 
 	vec2 operator/(vec2<T> const &rhs) const;
 	vec2 operator/(T const &rhs) const;
-	// vec2 div(vec2<T> const &rhs) const;
-	// vec2 div(T const &rhs) const;
+
 	vec2 & operator/=(vec2<T> const &rhs);
 	vec2 & operator/=(T const &rhs);
 
@@ -265,7 +262,7 @@ vec2<T>::~vec2() {
 
 // SET
 template <class T>
-vec2<T> vec2<T>::set(T const &arg) {
+vec2<T> & vec2<T>::set(T const &arg) {
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		this->ref().at(i)[0] = arg;
 	}
@@ -273,32 +270,32 @@ vec2<T> vec2<T>::set(T const &arg) {
 }
 
 template <class T>
-vec2<T> vec2<T>::set(T const &x, T const &y) {
+vec2<T> & vec2<T>::set(T const &x, T const &y) {
 	this->_x = x;
 	this->_y = y;
 	return *this;
 }
 
 template <class T>
-vec2<T> vec2<T>::x(T const &x) {
+vec2<T> & vec2<T>::x(T const &x) {
 	this->_x = x;
 	return *this;
 }
 
 template <class T>
-vec2<T> vec2<T>::y(T const &y) {
+vec2<T> & vec2<T>::y(T const &y) {
 	this->_y = y;
 	return *this;
 }
 
 
 template <class T>
-vec2<T> vec2<T>::min(T const &x) {
+vec2<T> & vec2<T>::min(T const &x) {
 	return this->x(x);
 }
 
 template <class T>
-vec2<T> vec2<T>::max(T const &y) {
+vec2<T> & vec2<T>::max(T const &y) {
 	return this->y(y);
 }
 
@@ -362,12 +359,12 @@ T vec2<T>::dot(T const &x, T const &y) const {
 * DIRECTION NORMAL
 */
 template <class T>
-vec2<T>	vec2<T>::dir() {
+vec2<T>	vec2<T>::dir() const {
 	return vec2<T>::dir(vec2<T>());
 }
 
 template <class T>
-vec2<T>	vec2<T>::dir(vec2<T> const &origin) {
+vec2<T>	vec2<T>::dir(vec2<T> const &origin) const {
 	vec2 temp = *this;
 	T dist = vec2<T>::dist(origin);
 	temp -= origin;
@@ -375,21 +372,42 @@ vec2<T>	vec2<T>::dir(vec2<T> const &origin) {
 	return temp;
 }
 
+// rotate
+template <class T>
+vec2<T>	& vec2<T>::rotate(T angle) {
+	if(std::is_arithmetic<T>::value) {
+		T temp_x = this->_x * cos(angle) - this->_y * sin(angle);
+		this->_y = this->_x * sin(angle) + this->_y * cos(angle);
+		this->_x = temp_x;
+	}
+	return *this;
+}
+
+template <class T>
+vec2<T>	& vec2<T>::rotate(T angle, vec2<T> const &origin) {
+	if(std::is_arithmetic<T>::value) {
+		T temp_x = (this->_x - origin.x()) * cos(angle) - (this->_y - origin.y()) * sin(angle);
+		this->_y = (this->_x - origin.x()) * sin(angle) + (this->_y - origin.y()) * cos(angle);
+		this->_x = temp_x;
+	}
+	return *this;
+}
+
 
 // vec2 specialize
 template <class T>
-vec2<double> vec2<T>::tan() {
+vec2<double> vec2<T>::tan() const {
 	return tan(this->x(),this->y());
 }
 
 template <class T>
-vec2<double> vec2<T>::tan(vec2<T> const &target) {
+vec2<double> vec2<T>::tan(vec2<T> const &target) const {
 	return tan(target.x(),target.y());
 }
 
 
 template <class T>
-vec2<double> vec2<T>::tan(T const &x, T const &y) {
+vec2<double> vec2<T>::tan(T const &x, T const &y) const {
 	double tx = x;
 	double ty = y;
 	double mag = vec<T>::mag();
@@ -401,19 +419,18 @@ vec2<double> vec2<T>::tan(T const &x, T const &y) {
 
 
 template <class T>
-double vec2<T>::angle() {
+double vec2<T>::angle() const{
 	return atan2(this->y(),this->x());
 }
 
 template <class T>
-double vec2<T>::angle(vec2<T> const &target) {
+double vec2<T>::angle(vec2<T> const &target) const{
 	return atan2(this->y() - target.y(),this->x() - target.x());
 }
 
 template <class T>
-double vec2<T>::heading() {
+double vec2<T>::heading() const {
 	return angle();
-
 }
 
 
@@ -461,12 +478,12 @@ double vec2<T>::dist(vec2<T> const &v) const {
 
 // pow
 template <class T>
-vec2<T>	vec2<T>::pow(T const &pow) {
+vec2<T>	& vec2<T>::pow(T const &pow) {
 	return vec2<T>::pow(pow, pow);
 }
 
 template <class T>
-vec2<T>	vec2<T>::pow(T const &pow_x, T const &pow_y) {
+vec2<T>	& vec2<T>::pow(T const &pow_x, T const &pow_y) {
 	this->_x = ::pow(this->x(), pow_x);
 	this->_y = ::pow(this->y(), pow_y);
 	return *this;
@@ -475,7 +492,7 @@ vec2<T>	vec2<T>::pow(T const &pow_x, T const &pow_y) {
 
 // map
 template <class T>
-vec2<T>	vec2<T>::map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst) {
+vec2<T>	& vec2<T>::map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst) {
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		this->ref().at(i)[0] = ::map(	this->list().at(i),
 																	start_src,stop_src, 
@@ -485,7 +502,7 @@ vec2<T>	vec2<T>::map(T const &start_src, T const &stop_src, T const &start_dst, 
 }
 
 template <class T>
-vec2<T>	vec2<T>::map(vec2<T> const &start_src, vec2<T> const &stop_src, vec2<T> const &start_dst, vec2<T> const &stop_dst) {
+vec2<T>	& vec2<T>::map(vec2<T> const &start_src, vec2<T> const &stop_src, vec2<T> const &start_dst, vec2<T> const &stop_dst) {
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		this->ref().at(i)[0] = ::map(	this->list().at(i), 
 																	start_src.ref().at(i)[0],stop_src.ref().at(i)[0], 
@@ -501,7 +518,7 @@ vec2<T>	vec2<T>::map(vec2<T> const &start_src, vec2<T> const &stop_src, vec2<T> 
 
 // normalize
 template <class T>
-vec2<T>	vec2<T>::normalize() {
+vec2<T>	& vec2<T>::normalize() {
 	T m = vec<T>::mag();
 	if (m != 0 && m != 1) {
 		*this /= m;
@@ -517,7 +534,7 @@ vec2<T>	vec2<T>::normalize(vec2<T> &target) {
 
 // limit
 template <class T>
-vec2<T>	vec2<T>::limit(T const &max) {
+vec2<T>	& vec2<T>::limit(T const &max) {
 	if (vec<T>::mag_sq() > max*max) {
 		vec2<T>::normalize();
 		*this *= max;
@@ -528,7 +545,7 @@ vec2<T>	vec2<T>::limit(T const &max) {
 
 // constrain
 template <class T>
-vec2<T>	vec2<T>::constrain(T const &min, T const &max) {
+vec2<T>	& vec2<T>::constrain(T const &min, T const &max) {
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		if(this->list().at(i) < min ) {
 			this->ref().at(i)[0] = min;
@@ -541,7 +558,7 @@ vec2<T>	vec2<T>::constrain(T const &min, T const &max) {
 }
 
 template <class T>
-vec2<T>	vec2<T>::constrain(vec2<T> const &min, vec2<T> const &max) {
+vec2<T>	& vec2<T>::constrain(vec2<T> const &min, vec2<T> const &max) {
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		if(this->list().at(i) < min.ref().at(i)[0]) {
 			this->ref().at(i)[0] = min.ref().at(i)[0];
@@ -578,6 +595,10 @@ bool vec2<T>::compare(vec2<T> const &target, T const &area) {
 	return true;
 }
 
+template <class T>
+bool vec2<T>::compare_angle(vec2<T> const &target, T const &area) {
+	return abs(this->angle(target)) < area;
+}
 
 
 
@@ -585,51 +606,51 @@ bool vec2<T>::compare(vec2<T> const &target, T const &area) {
 
 // random
 template <class T>
-vec2<T>	vec2<T>::rand() {
+vec2<T>	& vec2<T>::rand() {
 	return rand(0,0, 1,1);
 }
 
 template <class T>
-vec2<T>	vec2<T>::rand(std::default_random_engine &generator) {
+vec2<T>	& vec2<T>::rand(std::default_random_engine &generator) {
 	return rand(0,0, 1,1, generator);
 }
 
 //
 template <class T>
-vec2<T>	vec2<T>::rand(T const &max) {
+vec2<T>	& vec2<T>::rand(T const &max) {
 	return rand(0,0, max,max);
 }
 
 template <class T>
-vec2<T>	vec2<T>::rand(T const &max, std::default_random_engine &generator) {
+vec2<T>	& vec2<T>::rand(T const &max, std::default_random_engine &generator) {
 	return rand(0,0, max,max, generator);
 }
 
 //
 template <class T>
-vec2<T>	vec2<T>::rand(T const &min, T const &max) {
+vec2<T>	& vec2<T>::rand(T const &min, T const &max) {
 	return rand(min,min, max,max);
 }
 
 template <class T>
-vec2<T>	vec2<T>::rand(T const &min, T const &max, std::default_random_engine &generator) {
+vec2<T>	& vec2<T>::rand(T const &min, T const &max, std::default_random_engine &generator) {
 	return rand(min,min, max,max, generator);
 }
 
 //
 template <class T>
-vec2<T>	vec2<T>::rand(vec2<T> const &min, vec2<T> const &max) {
+vec2<T>	& vec2<T>::rand(vec2<T> const &min, vec2<T> const &max) {
 	return rand(min.x(),min.y(), max.x(),max.y());
 }
 
 template <class T>
-vec2<T>	vec2<T>::rand(vec2<T> const &min, vec2<T> const &max, std::default_random_engine &generator) {
+vec2<T>	& vec2<T>::rand(vec2<T> const &min, vec2<T> const &max, std::default_random_engine &generator) {
 	return rand(min.x(),min.y(), max.x(),max.y(), generator);
 }
 
 //
 template <class T>
-vec2<T>	vec2<T>::rand(T const &x_min, T const &y_min, 
+vec2<T>	& vec2<T>::rand(T const &x_min, T const &y_min, 
 											T const &x_max, T const &y_max) {
 	std::random_device seed;
 	std::default_random_engine generator(seed());
@@ -640,7 +661,7 @@ vec2<T>	vec2<T>::rand(T const &x_min, T const &y_min,
 
 
 template <class T>
-vec2<T>	vec2<T>::rand(T const &x_min, T const &y_min, 
+vec2<T>	& vec2<T>::rand(T const &x_min, T const &y_min, 
 											T const &x_max, T const &y_max,
 											std::default_random_engine &generator) {
 	switch(vec<T>::get_type()) {
@@ -671,6 +692,10 @@ vec2<T>	vec2<T>::rand(T const &x_min, T const &y_min,
 		case 'd':
 			this->_x = random_double(x_min, x_max);
 			this->_y = random_double(y_min, y_max);
+			break;
+		case 'h':
+			this->_x = random_long_double(x_min, x_max);
+			this->_y = random_long_double(y_min, y_max);
 			break;
 		default:
 			if(vec2<T>::_warning) {

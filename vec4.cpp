@@ -1,9 +1,8 @@
 #ifndef VEC4_H
 # define VEC4_H
 
-// #pragma once
 /**
-* vec3 0.0.1
+* vec3 0.0.2
 * 2020-2020
 */
 #include "vec3.cpp"
@@ -23,25 +22,25 @@ public:
 	~vec4();
 
   // set
-  vec4 set(T const &arg);
-  vec4 set(T const &x, T const &y, T const &z, T const &w);
-  vec4 x(T const &x);
-  vec4 y(T const &y);
-	vec4 z(T const &z);
-	vec4 w(T const &w);
+  vec4 & set(T const &arg);
+  vec4 & set(T const &x, T const &y, T const &z, T const &w);
+  vec4 & x(T const &x);
+  vec4 & y(T const &y);
+	vec4 & z(T const &z);
+	vec4 & w(T const &w);
 
-	vec4 min(T const &x);
-	vec4 max(T const &y);
+	vec4 & min(T const &x);
+	vec4 & max(T const &y);
 
-	vec4 red(T const &x);
-	vec4 gre(T const &y);
-	vec4 blu(T const &z);
+	vec4 & red(T const &x);
+	vec4 & gre(T const &y);
+	vec4 & blu(T const &z);
 
-	vec4 hue(T const &x);
-	vec4 sat(T const &y);
-	vec4 bri(T const &z);
+	vec4 & hue(T const &x);
+	vec4 & sat(T const &y);
+	vec4 & bri(T const &z);
 
-	vec4 alp(T const &w);
+	vec4 & alp(T const &w);
 
 	//get
 	T x() const;	
@@ -67,7 +66,6 @@ public:
 	vec4 rgba() const;
 	vec4 hsba() const;
 
-
 	// XYZW
 	vec2<T> ww() const;
 	vec2<T> wx() const;
@@ -76,7 +74,6 @@ public:
 	vec2<T> xw() const;
 	vec2<T> yw() const;
 	vec2<T> zw() const;
-
 
 	// w3
 	vec3<T> www() const;
@@ -123,9 +120,7 @@ public:
 	vec3<T> zyw() const;
 	vec3<T> zzw() const;
 
-
-
-	// W4
+	//// W4
 	// w3
 	vec4 wwww() const;
 	vec4 wwwx() const;
@@ -199,10 +194,7 @@ public:
 	vec4 wzzz() const;
 
 
-
-
-
-	// X4
+	//// X4
 	// w3
 	vec4 xwww() const;
 	vec4 xwwx() const;
@@ -275,10 +267,7 @@ public:
 	vec4 xzzy() const;
 	vec4 xzzz() const;
 
-
-
-
-	// Y4
+	//// Y4
 	// w3
 	vec4 ywww() const;
 	vec4 ywwx() const;
@@ -352,11 +341,7 @@ public:
 	vec4 yzzz() const;
 
 
-
-
-
-
-	// Z4
+	//// Z4
 	// w3
 	vec4 zwww() const;
 	vec4 zwwx() const;
@@ -437,8 +422,8 @@ public:
 	// from vec3
 
 	// dir
-	vec4 dir();
-	vec4 dir(vec4<T> const &origin);
+	vec4 dir() const;
+	vec4 dir(vec4<T> const &origin) const;
 
 	// tan
 	// from vec2
@@ -459,43 +444,43 @@ public:
 	// from vec2
 
 	// cacule the power of the vector for each component
-	vec4 pow(T const &pow);
-	vec4 pow(T const &pow_x, T const &pow_y, T const &pow_z, T const &pow_w);
+	vec4 & pow(T const &pow);
+	vec4 & pow(T const &pow_x, T const &pow_y, T const &pow_z, T const &pow_w);
 
 	//map
-	vec4 map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst);
-	vec4 map(vec4<T> const &start_src, vec4<T> const &stop_src, vec4<T> const &start_dst, vec4<T> const &stop_dst);
+	vec4 & map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst);
+	vec4 & map(vec4<T> const &start_src, vec4<T> const &stop_src, vec4<T> const &start_dst, vec4<T> const &stop_dst);
 
 
 
 
 	//normalize
-	vec4 normalize();
+	vec4 & normalize();
 	static vec4 normalize(vec4<T> &target);
 
 
 	// limit
-	vec4 limit(T const &max);
+	vec4 & limit(T const &max);
 	// constrain
-	vec4 constrain(T const &min, T const &max);
-	vec4 constrain(vec4<T> const &min, vec4<T> const &max);
+	vec4 & constrain(T const &min, T const &max);
+	vec4 & constrain(vec4<T> const &min, vec4<T> const &max);
 
 	// compare 
 	// from vec2
 
 	// rand
-	vec4 rand();
-	vec4 rand(T const &max);
-	vec4 rand(T const &min, T const &max);
-	vec4 rand(vec4<T> const &min, vec4<T> const &max);
-	vec4 rand(T const &x_min, T const &y_min, T const &z_min, T const &w_min,
+	vec4 & rand();
+	vec4 & rand(T const &max);
+	vec4 & rand(T const &min, T const &max);
+	vec4 & rand(vec4<T> const &min, vec4<T> const &max);
+	vec4 & rand(T const &x_min, T const &y_min, T const &z_min, T const &w_min,
 						T const &x_max, T const &y_max, T const &z_max, T const &w_max);
 
-	vec4 rand(std::default_random_engine &generator);
-	vec4 rand(T const &max, std::default_random_engine &generator);
-	vec4 rand(T const &min, T const &max, std::default_random_engine &generator);
-	vec4 rand(vec4<T> const &min, vec4<T> const &max, std::default_random_engine &generator);
-	vec4 rand(T const &x_min, T const &y_min, T const &z_min, T const &w_min, 
+	vec4 & rand(std::default_random_engine &generator);
+	vec4 & rand(T const &max, std::default_random_engine &generator);
+	vec4 & rand(T const &min, T const &max, std::default_random_engine &generator);
+	vec4 & rand(vec4<T> const &min, vec4<T> const &max, std::default_random_engine &generator);
+	vec4 & rand(T const &x_min, T const &y_min, T const &z_min, T const &w_min, 
 						T const &x_max, T const &y_max, T const &z_max, T const &w_max,
 						std::default_random_engine &generator);
 
@@ -607,7 +592,7 @@ vec4<T>::~vec4() {
 
 // SET
 template <class T>
-vec4<T> vec4<T>::set(T const &arg) {
+vec4<T> & vec4<T>::set(T const &arg) {
 	this->_x = arg;
 	this->_y = arg;
 	this->_z = arg;
@@ -617,7 +602,7 @@ vec4<T> vec4<T>::set(T const &arg) {
 
 
 template <class T>
-vec4<T> vec4<T>::set(T const &x, T const &y, T const &z, T const &w) {
+vec4<T> & vec4<T>::set(T const &x, T const &y, T const &z, T const &w) {
 	this->_x = x;
 	this->_y = y;
 	this->_z = z;
@@ -627,81 +612,80 @@ vec4<T> vec4<T>::set(T const &x, T const &y, T const &z, T const &w) {
 
 // set xyzw
 template <class T>
-vec4<T> vec4<T>::x(T const &x) {
+vec4<T> & vec4<T>::x(T const &x) {
 	this->_x = x;
 	return *this;
 }
 template <class T>
-vec4<T> vec4<T>::y(T const &y) {
+vec4<T> & vec4<T>::y(T const &y) {
 	this->_y = y;
 	return *this;
 }
 
 template <class T>
-vec4<T> vec4<T>::z(T const &z) {
+vec4<T> & vec4<T>::z(T const &z) {
 	this->_z = z;
 	return *this;
 }
 
 template <class T>
-vec4<T> vec4<T>::w(T const &w) {
+vec4<T> & vec4<T>::w(T const &w) {
 	this->_w = w;
 	return *this;
 }
 
 // set min max
 template <class T>
-vec4<T> vec4<T>::min(T const &x) {
+vec4<T> & vec4<T>::min(T const &x) {
 	this->_x = x;
 	return *this;
 }
 
 template <class T>
-vec4<T> vec4<T>::max(T const &y) {
+vec4<T> & vec4<T>::max(T const &y) {
 	this->_y = y;
 	return *this;
 }
-
 
 // set rgb
 template <class T>
-vec4<T> vec4<T>::red(T const &x) {
+vec4<T> & vec4<T>::red(T const &x) {
 	this->_x = x;
 	return *this;
 }
 
 template <class T>
-vec4<T> vec4<T>::gre(T const &y) {
+vec4<T> & vec4<T>::gre(T const &y) {
 	this->_y = y;
 	return *this;
 }
 
 template <class T>
-vec4<T> vec4<T>::blu(T const &z) {
+vec4<T> & vec4<T>::blu(T const &z) {
 	return this->z(z);
 }
 
 // set hsb
 template <class T>
-vec4<T> vec4<T>::hue(T const &x) {
+vec4<T> & vec4<T>::hue(T const &x) {
 	this->_x = x;
 	return *this;
 
 }
 template <class T>
-vec4<T> vec4<T>::sat(T const &y) {
+vec4<T> & vec4<T>::sat(T const &y) {
 	this->_y = y;
 	return *this;
 }
 
 template <class T>
-vec4<T> vec4<T>::bri(T const &z) {
+vec4<T> & vec4<T>::bri(T const &z) {
 	return this->z(z);
 }
 
 // alpha
 template <class T>
-vec4<T> vec4<T>::alp(T const &w) {
+vec4<T> & vec4<T>::alp(T const &w) {
 	return this->w(w);
 }
 
@@ -789,12 +773,12 @@ T vec4<T>::alp() const {
 // 
 // dir
 template <class T>
-vec4<T>	vec4<T>::dir() {
+vec4<T>	vec4<T>::dir() const {
 	return vec4<T>::dir(vec4<T>());
 }
 
 template <class T>
-vec4<T>	vec4<T>::dir(vec4<T> const &origin) {
+vec4<T>	vec4<T>::dir(vec4<T> const &origin) const {
 	vec4 temp = *this;
 	T dist = vec4<T>::dist(origin);
 	temp -= origin;
@@ -805,12 +789,12 @@ vec4<T>	vec4<T>::dir(vec4<T> const &origin) {
 
 // pow
 template <class T>
-vec4<T>	vec4<T>::pow(T const &pow) {
+vec4<T>	& vec4<T>::pow(T const &pow) {
 	return vec4<T>::pow(pow, pow, pow, pow);
 }
 
 template <class T>
-vec4<T>	vec4<T>::pow(T const &pow_x, T const &pow_y, T const &pow_z, T const &pow_w) {
+vec4<T>	& vec4<T>::pow(T const &pow_x, T const &pow_y, T const &pow_z, T const &pow_w) {
 	this->_x = ::pow(this->x(), pow_x);
 	this->_y = ::pow(this->y(), pow_y);
 	this->_z = ::pow(this->z(), pow_z);
@@ -821,13 +805,13 @@ vec4<T>	vec4<T>::pow(T const &pow_x, T const &pow_y, T const &pow_z, T const &po
 
 //map
 template <class T>
-vec4<T>	vec4<T>::map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst) {
+vec4<T>	& vec4<T>::map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst) {
 	vec2<T>::map(start_src, stop_src, start_dst, stop_dst);
 	return *this;
 }
 
 template <class T>
-vec4<T>	vec4<T>::map(vec4<T> const &start_src, vec4<T> const &stop_src, vec4<T> const &start_dst, vec4<T> const &stop_dst) {
+vec4<T>	& vec4<T>::map(vec4<T> const &start_src, vec4<T> const &stop_src, vec4<T> const &start_dst, vec4<T> const &stop_dst) {
 	vec2<T>::map(start_src, stop_src, start_dst, stop_dst);
 	return *this;
 }
@@ -836,7 +820,7 @@ vec4<T>	vec4<T>::map(vec4<T> const &start_src, vec4<T> const &stop_src, vec4<T> 
 
 // normalize
 template <class T>
-vec4<T>	vec4<T>::normalize() {
+vec4<T>	& vec4<T>::normalize() {
 	vec2<T>::normalize();
 	return *this;
 }
@@ -850,20 +834,20 @@ vec4<T>	vec4<T>::normalize(vec4<T> &target) {
 
 // limit
 template <class T>
-vec4<T>	vec4<T>::limit(T const &max) {
+vec4<T>	& vec4<T>::limit(T const &max) {
 	vec2<T>::limit(max);
 	return *this;
 }
 
 // constrain
 template <class T>
-vec4<T>	vec4<T>::constrain(T const &min, T const &max) {
+vec4<T>	& vec4<T>::constrain(T const &min, T const &max) {
 	vec2<T>::constrain(min,max);
 	return *this;
 }
 
 template <class T>
-vec4<T>	vec4<T>::constrain(vec4<T> const &min, vec4<T> const &max) {
+vec4<T>	& vec4<T>::constrain(vec4<T> const &min, vec4<T> const &max) {
 	vec2<T>::constrain(min,max);
 	return *this;
 }
@@ -872,46 +856,46 @@ vec4<T>	vec4<T>::constrain(vec4<T> const &min, vec4<T> const &max) {
 
 // random
 template <class T>
-vec4<T>	vec4<T>::rand() {
+vec4<T>	& vec4<T>::rand() {
 	return rand(0,0,0,0, 1,1,1,1);
 }
 
 template <class T>
-vec4<T>	vec4<T>::rand(std::default_random_engine &generator) {
+vec4<T>	& vec4<T>::rand(std::default_random_engine &generator) {
 	return rand(0,0,0,0, 1,1,1,1, generator);
 }
 
 //
 template <class T>
-vec4<T>	vec4<T>::rand(T const &max) {
+vec4<T>	& vec4<T>::rand(T const &max) {
 	return rand(0,0,0,0, max,max,max,max);
 }
 
 template <class T>
-vec4<T>	vec4<T>::rand(T const &max, std::default_random_engine &generator) {
+vec4<T>	& vec4<T>::rand(T const &max, std::default_random_engine &generator) {
 	return rand(0,0,0,0, max,max,max,max, generator);
 }
 
 //
 template <class T>
-vec4<T>	vec4<T>::rand(T const &min, T const &max) {
+vec4<T>	& vec4<T>::rand(T const &min, T const &max) {
 	return rand(min,min,min,min, max,max,max,max);
 }
 
 template <class T>
-vec4<T>	vec4<T>::rand(T const &min, T const &max, std::default_random_engine &generator) {
+vec4<T>	& vec4<T>::rand(T const &min, T const &max, std::default_random_engine &generator) {
 	return rand(min,min,min,min, max,max,max,max, generator);
 }
 
 //
 template <class T>
-vec4<T>	vec4<T>::rand(vec4<T> const &min, vec4<T> const &max) {
+vec4<T>	& vec4<T>::rand(vec4<T> const &min, vec4<T> const &max) {
 	return rand(min.x(), min.y(), min.z(), min.w(),
 							max.x(), max.y(), max.z(), max.w());
 }
 
 template <class T>
-vec4<T>	vec4<T>::rand(vec4<T> const &min, vec4<T> const &max, std::default_random_engine &generator) {
+vec4<T>	& vec4<T>::rand(vec4<T> const &min, vec4<T> const &max, std::default_random_engine &generator) {
 	return rand(min.x(), min.y(), min.z(), min.w(),
 							max.x(), max.y(), max.z(), max.w(),
 							generator);
@@ -919,7 +903,7 @@ vec4<T>	vec4<T>::rand(vec4<T> const &min, vec4<T> const &max, std::default_rando
 
 //
 template <class T>
-vec4<T>	vec4<T>::rand(T const &x_min, T const &y_min, T const &z_min, T const &w_min,
+vec4<T>	& vec4<T>::rand(T const &x_min, T const &y_min, T const &z_min, T const &w_min,
 											T const &x_max, T const &y_max, T const &z_max, T const &w_max) {
 	std::random_device seed;
 	std::default_random_engine generator(seed());
@@ -930,7 +914,7 @@ vec4<T>	vec4<T>::rand(T const &x_min, T const &y_min, T const &z_min, T const &w
 
 
 template <class T>
-vec4<T>	vec4<T>::rand(T const &x_min, T const &y_min, T const &z_min, T const &w_min,
+vec4<T>	& vec4<T>::rand(T const &x_min, T const &y_min, T const &z_min, T const &w_min,
 											T const &x_max, T const &y_max, T const &z_max, T const &w_max,
 											std::default_random_engine &generator) {
 	switch(vec<T>::get_type()) {
@@ -1148,6 +1132,26 @@ template <class T>
 int vec4<T>::instance = 0;
 
 // IMPLEMENTATION
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// GET EXOTIC
 // special
 template <class T>
 vec4<T> vec4<T>::rgba() const {

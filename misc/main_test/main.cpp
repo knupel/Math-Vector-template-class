@@ -68,6 +68,13 @@ int main() {
   /**
   * DISPLAY
   */
+
+  // printf("ptr a: %p\n", &a);
+  // std::cout << a << std::endl;
+  // //a.set(1);
+  // printf("ptr a.rand(1): %p\n", &a.rand(1));
+  // printf("ptr a: %p\n", &a);
+  // std::cout << a << std::endl;
   // std::cout << "a: " << a << std::endl;
   // std::cout << "a_3: " << a_3 << std::endl;
 	// std::cout << "a.xy(): " << a.xy() << std::endl;
@@ -89,8 +96,8 @@ int main() {
  //  std::cout << "f_3.yy(): " << f_3.yy() << std::endl;
 	// std::random_device seed;
 	// std::default_random_engine generator(seed());
-	std::cout << "ld_4.get_type(): " << ld_4.get_type() << std::endl;
-	std::cout << "ld_4.rand(-10,10): " << ld_4.rand(-10,10) << std::endl;
+	// std::cout << "ld_4.get_type(): " << ld_4.get_type() << std::endl;
+	// std::cout << "ld_4.rand(-10,10): " << ld_4.rand(-10,10) << std::endl;
 
 	// std::cout << "d_4.rand(-10,10): " << d_4.rand(-10,10) << std::endl;
 	// std::cout << "d_4.wzyx(): " << d_4.wzyx() << std::endl;
@@ -162,6 +169,12 @@ int main() {
 	// std::cout << "a_3.cross(b_3): " << a_3.cross(b_3) << std::endl;
 
 	// std::cout << "ld_4.cross(vec4<long double>(1,2,3,4)): " << ld_4.cross(vec4<long double>(1,2,3,4)) << std::endl;
+
+	std::cout << "ld_4: " << ld_4 << std::endl;
+	float step = 0.1;
+	for(float f = 0 ; f < 6.28 ; f += step) {
+		std::cout << "ld_4.rotate(1.4): " << ld_4.rotate(step) << std::endl;
+	}
 
 	/**
 	* TAN
@@ -350,6 +363,26 @@ int main() {
  
 	// vec3<float> fff = f_3 + 0.1f;
 	// std::cout << "f_3.compare(fff, 0.25f) > " << f_3.compare(fff, 0.25f) << std::endl;
+
+
+
+	/**
+	* COMPARE ANGLE
+	*/
+	// float area = 0.2;
+	// vec2<float> target = a;
+	// vec2<float> range;
+	// range.rand(-0.5,0.5);
+	
+	// std::cout << "target: " << target << std::endl;
+	// std::cout << "a += range: " << (a += range) << std::endl;
+	// std::cout << "a.angle(): " << a.angle() << std::endl;
+	// std::cout << "target.angle(): " << target.angle() << std::endl;
+	// std::cout << "range: " << range << std::endl;
+	// std::cout << "area: " <<  area << std::endl;
+	// std::cout << "a is aligne with target " << a.compare_angle(target, area) << std::endl;
+
+
 
 
 

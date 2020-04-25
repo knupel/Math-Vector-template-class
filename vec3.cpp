@@ -3,7 +3,7 @@
 
 // #pragma once
 /**
-* vec3 0.0.1
+* vec3 0.0.2
 * 2020-2020
 */
 #include "vec2.cpp"
@@ -23,22 +23,22 @@ public:
 	~vec3();
 
   // set
-  vec3 set(T const &arg);
-  vec3 set(T const &x, T const &y, T const &z);
-  vec3 x(T const &x);
-  vec3 y(T const &y);
-	vec3 z(T const &z);
+  vec3 & set(T const &arg);
+  vec3 & set(T const &x, T const &y, T const &z);
+  vec3 & x(T const &x);
+  vec3 & y(T const &y);
+	vec3 & z(T const &z);
 
-	vec3 min(T const &x);
-	vec3 max(T const &y);
+	vec3 & min(T const &x);
+	vec3 & max(T const &y);
 
-	vec3 red(T const &x);
-	vec3 gre(T const &y);
-	vec3 blu(T const &z);
+	vec3 & red(T const &x);
+	vec3 & gre(T const &y);
+	vec3 & blu(T const &z);
 
-	vec3 hue(T const &x);
-	vec3 sat(T const &y);
-	vec3 bri(T const &z);
+	vec3 & hue(T const &x);
+	vec3 & sat(T const &y);
+	vec3 & bri(T const &z);
 
 	//get
 	T x() const;	
@@ -103,11 +103,11 @@ public:
 	// from vec2
 
 	// cross
-	vec3 cross(vec3<T> const &v);
+	vec3 cross(vec3<T> const &v)  const;
 
 	// dir
-	vec3 dir();
-	vec3 dir(vec3<T> const &origin);
+	vec3 dir() const;
+	vec3 dir(vec3<T> const &origin) const;
 
 	// tan
 	// from vec2
@@ -127,44 +127,44 @@ public:
 	// dist
 	// from vec2
 
-	// cacule the power of the vector for each component
-	vec3 pow(T const &pow);
-	vec3 pow(T const &pow_x, T const &pow_y, T const &pow_z);
+	// calcule the power of the vector for each component
+	vec3 & pow(T const &pow);
+	vec3 & pow(T const &pow_x, T const &pow_y, T const &pow_z);
 
 	//map
-	vec3 map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst);
-	vec3 map(vec3<T> const &start_src, vec3<T> const &stop_src, vec3<T> const &start_dst, vec3<T> const &stop_dst);
+	vec3 & map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst);
+	vec3 & map(vec3<T> const &start_src, vec3<T> const &stop_src, vec3<T> const &start_dst, vec3<T> const &stop_dst);
 
 
 
 
 	//normalize
-	vec3 normalize();
+	vec3 & normalize();
 	static vec3 normalize(vec3<T> &target);
 
 
 	// limit
-	vec3 limit(T const &max);
+	vec3 & limit(T const &max);
 	// constrain
-	vec3 constrain(T const &min, T const &max);
-	vec3 constrain(vec3<T> const &min, vec3<T> const &max);
+	vec3 & constrain(T const &min, T const &max);
+	vec3 & constrain(vec3<T> const &min, vec3<T> const &max);
 
 	// compare 
 	// from vec2
 
 	// rand
-	vec3 rand();
-	vec3 rand(T const &max);
-	vec3 rand(T const &min, T const &max);
-	vec3 rand(vec3<T> const &min, vec3<T> const &max);
-	vec3 rand(T const &x_min, T const &y_min, T const &z_min,
+	vec3 & rand();
+	vec3 & rand(T const &max);
+	vec3 & rand(T const &min, T const &max);
+	vec3 & rand(vec3<T> const &min, vec3<T> const &max);
+	vec3 & rand(T const &x_min, T const &y_min, T const &z_min,
 						T const &x_max, T const &y_max, T const &z_max);
 
-	vec3 rand(std::default_random_engine &generator);
-	vec3 rand(T const &max, std::default_random_engine &generator);
-	vec3 rand(T const &min, T const &max, std::default_random_engine &generator);
-	vec3 rand(vec3<T> const &min, vec3<T> const &max, std::default_random_engine &generator);
-	vec3 rand(T const &x_min, T const &y_min, T const &z_min, 
+	vec3 & rand(std::default_random_engine &generator);
+	vec3 & rand(T const &max, std::default_random_engine &generator);
+	vec3 & rand(T const &min, T const &max, std::default_random_engine &generator);
+	vec3 & rand(vec3<T> const &min, vec3<T> const &max, std::default_random_engine &generator);
+	vec3 & rand(T const &x_min, T const &y_min, T const &z_min, 
 						T const &x_max, T const &y_max, T const &z_max,
 						std::default_random_engine &generator);
 
@@ -276,7 +276,7 @@ vec3<T>::~vec3() {
 
 // SET
 template <class T>
-vec3<T> vec3<T>::set(T const &arg) {
+vec3<T> & vec3<T>::set(T const &arg) {
 	this->_x = arg;
 	this->_y = arg;
 	this->_z = arg;
@@ -284,7 +284,7 @@ vec3<T> vec3<T>::set(T const &arg) {
 }
 
 template <class T>
-vec3<T> vec3<T>::set(T const &x, T const &y, T const &z) {
+vec3<T> & vec3<T>::set(T const &x, T const &y, T const &z) {
 	this->_x = x;
 	this->_y = y;
 	this->_z = z;
@@ -293,31 +293,31 @@ vec3<T> vec3<T>::set(T const &x, T const &y, T const &z) {
 
 // set xyz
 template <class T>
-vec3<T> vec3<T>::x(T const &x) {
+vec3<T> & vec3<T>::x(T const &x) {
 	this->_x = x;
 	return *this;
 }
 template <class T>
-vec3<T> vec3<T>::y(T const &y) {
+vec3<T> & vec3<T>::y(T const &y) {
 	this->_y = y;
 	return *this;
 }
 
 template <class T>
-vec3<T> vec3<T>::z(T const &z) {
+vec3<T> & vec3<T>::z(T const &z) {
 	this->_z = z;
 	return *this;
 }
 
 // set min max
 template <class T>
-vec3<T> vec3<T>::min(T const &x) {
+vec3<T> & vec3<T>::min(T const &x) {
 	this->_x = x;
 	return *this;
 }
 
 template <class T>
-vec3<T> vec3<T>::max(T const &y) {
+vec3<T> & vec3<T>::max(T const &y) {
 	this->_y = y;
 	return *this;
 }
@@ -325,37 +325,37 @@ vec3<T> vec3<T>::max(T const &y) {
 
 // set rgb
 template <class T>
-vec3<T> vec3<T>::red(T const &x) {
+vec3<T> & vec3<T>::red(T const &x) {
 	this->_x = x;
 	return *this;
 }
 
 template <class T>
-vec3<T> vec3<T>::gre(T const &y) {
+vec3<T> & vec3<T>::gre(T const &y) {
 	this->_y = y;
 	return *this;
 }
 
 template <class T>
-vec3<T> vec3<T>::blu(T const &z) {
+vec3<T> & vec3<T>::blu(T const &z) {
 	return this->z(z);
 }
 
 // set hsb
 template <class T>
-vec3<T> vec3<T>::hue(T const &x) {
+vec3<T> & vec3<T>::hue(T const &x) {
 	this->_x = x;
 	return *this;
 
 }
 template <class T>
-vec3<T> vec3<T>::sat(T const &y) {
+vec3<T> & vec3<T>::sat(T const &y) {
 	this->_y = y;
 	return *this;
 }
 
 template <class T>
-vec3<T> vec3<T>::bri(T const &z) {
+vec3<T> & vec3<T>::bri(T const &z) {
 	return this->z(z);
 }
 
@@ -432,12 +432,12 @@ T vec3<T>::bri() const {
 // 
 // dir
 template <class T>
-vec3<T>	vec3<T>::dir() {
+vec3<T>	vec3<T>::dir() const {
 	return vec3<T>::dir(vec3<T>());
 }
 
 template <class T>
-vec3<T>	vec3<T>::dir(vec3<T> const &origin) {
+vec3<T>	vec3<T>::dir(vec3<T> const &origin) const {
 	vec3 temp = *this;
 	T dist = vec3<T>::dist(origin);
 	temp -= origin;
@@ -447,7 +447,7 @@ vec3<T>	vec3<T>::dir(vec3<T> const &origin) {
 
 // cross
 template <class T>
-vec3<T>	vec3<T>::cross(vec3<T> const &v) {
+vec3<T>	vec3<T>::cross(vec3<T> const &v) const {
 	T cross_x = this->y() * v.z() - v.y() * this->z();
 	T cross_y = this->z() * v.x() - v.z() * this->x();
 	T cross_z = this->x() * v.y() - v.x() * this->y();
@@ -458,12 +458,12 @@ vec3<T>	vec3<T>::cross(vec3<T> const &v) {
 
 // pow
 template <class T>
-vec3<T>	vec3<T>::pow(T const &pow) {
+vec3<T>	& vec3<T>::pow(T const &pow) {
 	return vec3<T>::pow(pow, pow, pow);
 }
 
 template <class T>
-vec3<T>	vec3<T>::pow(T const &pow_x, T const &pow_y, T const &pow_z) {
+vec3<T>	& vec3<T>::pow(T const &pow_x, T const &pow_y, T const &pow_z) {
 	this->_x = ::pow(this->x(), pow_x);
 	this->_y = ::pow(this->y(), pow_y);
 	this->_z = ::pow(this->z(), pow_z);
@@ -473,13 +473,13 @@ vec3<T>	vec3<T>::pow(T const &pow_x, T const &pow_y, T const &pow_z) {
 
 //map
 template <class T>
-vec3<T>	vec3<T>::map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst) {
+vec3<T>	& vec3<T>::map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst) {
 	vec2<T>::map(start_src, stop_src, start_dst, stop_dst);
 	return *this;
 }
 
 template <class T>
-vec3<T>	vec3<T>::map(vec3<T> const &start_src, vec3<T> const &stop_src, vec3<T> const &start_dst, vec3<T> const &stop_dst) {
+vec3<T>	& vec3<T>::map(vec3<T> const &start_src, vec3<T> const &stop_src, vec3<T> const &start_dst, vec3<T> const &stop_dst) {
 	vec2<T>::map(start_src, stop_src, start_dst, stop_dst);
 	return *this;
 }
@@ -488,7 +488,7 @@ vec3<T>	vec3<T>::map(vec3<T> const &start_src, vec3<T> const &stop_src, vec3<T> 
 
 // normalize
 template <class T>
-vec3<T>	vec3<T>::normalize() {
+vec3<T>	& vec3<T>::normalize() {
 	vec2<T>::normalize();
 	return *this;
 }
@@ -502,20 +502,20 @@ vec3<T>	vec3<T>::normalize(vec3<T> &target) {
 
 // limit
 template <class T>
-vec3<T>	vec3<T>::limit(T const &max) {
+vec3<T>	& vec3<T>::limit(T const &max) {
 	vec2<T>::limit(max);
 	return *this;
 }
 
 // constrain
 template <class T>
-vec3<T>	vec3<T>::constrain(T const &min, T const &max) {
+vec3<T>	& vec3<T>::constrain(T const &min, T const &max) {
 	vec2<T>::constrain(min,max);
 	return *this;
 }
 
 template <class T>
-vec3<T>	vec3<T>::constrain(vec3<T> const &min, vec3<T> const &max) {
+vec3<T>	& vec3<T>::constrain(vec3<T> const &min, vec3<T> const &max) {
 	vec2<T>::constrain(min,max);
 	return *this;
 }
@@ -524,46 +524,46 @@ vec3<T>	vec3<T>::constrain(vec3<T> const &min, vec3<T> const &max) {
 
 // random
 template <class T>
-vec3<T>	vec3<T>::rand() {
+vec3<T>	& vec3<T>::rand() {
 	return rand(0,0,0, 1,1,1);
 }
 
 template <class T>
-vec3<T>	vec3<T>::rand(std::default_random_engine &generator) {
+vec3<T>	& vec3<T>::rand(std::default_random_engine &generator) {
 	return rand(0,0,0, 1,1,1, generator);
 }
 
 //
 template <class T>
-vec3<T>	vec3<T>::rand(T const &max) {
+vec3<T>	& vec3<T>::rand(T const &max) {
 	return rand(0,0,0, max,max,max);
 }
 
 template <class T>
-vec3<T>	vec3<T>::rand(T const &max, std::default_random_engine &generator) {
+vec3<T>	& vec3<T>::rand(T const &max, std::default_random_engine &generator) {
 	return rand(0,0,0, max,max,max, generator);
 }
 
 //
 template <class T>
-vec3<T>	vec3<T>::rand(T const &min, T const &max) {
+vec3<T>	& vec3<T>::rand(T const &min, T const &max) {
 	return rand(min,min,min, max,max,max);
 }
 
 template <class T>
-vec3<T>	vec3<T>::rand(T const &min, T const &max, std::default_random_engine &generator) {
+vec3<T>	& vec3<T>::rand(T const &min, T const &max, std::default_random_engine &generator) {
 	return rand(min,min,min, max,max,max, generator);
 }
 
 //
 template <class T>
-vec3<T>	vec3<T>::rand(vec3<T> const &min, vec3<T> const &max) {
+vec3<T>	& vec3<T>::rand(vec3<T> const &min, vec3<T> const &max) {
 	return rand(min.x(), min.y(), min.z(), 
 							max.x(), max.y(), max.z());
 }
 
 template <class T>
-vec3<T>	vec3<T>::rand(vec3<T> const &min, vec3<T> const &max, std::default_random_engine &generator) {
+vec3<T>	& vec3<T>::rand(vec3<T> const &min, vec3<T> const &max, std::default_random_engine &generator) {
 	return rand(min.x(), min.y(), min.z(),
 							max.x(), max.y(), max.z(),
 							generator);
@@ -571,7 +571,7 @@ vec3<T>	vec3<T>::rand(vec3<T> const &min, vec3<T> const &max, std::default_rando
 
 //
 template <class T>
-vec3<T>	vec3<T>::rand(T const &x_min, T const &y_min, T const &z_min,
+vec3<T>	& vec3<T>::rand(T const &x_min, T const &y_min, T const &z_min,
 											T const &x_max, T const &y_max, T const &z_max) {
 	std::random_device seed;
 	std::default_random_engine generator(seed());
@@ -582,7 +582,7 @@ vec3<T>	vec3<T>::rand(T const &x_min, T const &y_min, T const &z_min,
 
 
 template <class T>
-vec3<T>	vec3<T>::rand(T const &x_min, T const &y_min, T const &z_min, 
+vec3<T>	& vec3<T>::rand(T const &x_min, T const &y_min, T const &z_min, 
 											T const &x_max, T const &y_max, T const &z_max,
 											std::default_random_engine &generator) {
 	switch(vec<T>::get_type()) {
@@ -620,6 +620,11 @@ vec3<T>	vec3<T>::rand(T const &x_min, T const &y_min, T const &z_min,
 			this->_x = random_double(x_min, x_max);
 			this->_y = random_double(y_min, y_max);
 			this->_z = random_double(z_min, z_max);
+			break;
+		case 'h':
+			this->_x = random_long_double(x_min, x_max);
+			this->_y = random_long_double(y_min, y_max);
+			this->_z = random_long_double(z_min, z_max);
 			break;
 		default:
 			if(vec3<T>::_warning) {
