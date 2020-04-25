@@ -51,6 +51,9 @@ public:
 	T min() const;	
 	T max() const;
 
+	vec4 copy() const;
+	T * array() const;
+
 	T red() const;
 	T gre() const;
 	T blu() const;
@@ -503,15 +506,21 @@ public:
 	// other op
 	vec4 operator+(vec4<T> const &rhs) const;
 	vec4 operator+(T const &rhs) const;
-
 	vec4 operator-(vec4<T> const &rhs) const;
 	vec4 operator-(T const &rhs) const;
-
 	vec4 operator*(vec4<T> const &rhs) const;
 	vec4 operator*(T const &rhs) const;
-
 	vec4 operator/(vec4<T> const &rhs) const;
 	vec4 operator/(T const &rhs) const;
+
+	vec4 & operator+=(vec4<T> const &rhs);
+	vec4 & operator+=(T const &rhs);
+	vec4 & operator-=(vec4<T> const &rhs);
+	vec4 & operator-=(T const &rhs);
+	vec4 & operator*=(vec4<T> const &rhs);
+	vec4 & operator*=(T const &rhs);
+	vec4 & operator/=(vec4<T> const &rhs);
+	vec4 & operator/=(T const &rhs);
 
 
 	// info
@@ -645,6 +654,21 @@ template <class T>
 vec4<T> & vec4<T>::max(T const &y) {
 	this->_y = y;
 	return *this;
+}
+
+
+template <class T>
+vec4<T> vec4<T>::copy() const {
+	return *this;
+}
+
+template <class T>
+T * vec4<T>::array() const {
+	static T arg[4];
+	for(size_t i = 0 ; i < this->get_size() ; i++) {
+		arg[i] = *this->v_list.at(i);
+	}
+	return arg;
 }
 
 // set rgb
@@ -1098,6 +1122,59 @@ vec4<T> vec4<T>::operator/(T const &rhs) const {
 		temp.ref().at(i)[0] = this->ref().at(i)[0] / rhs;
 	}
 	return temp;
+}
+
+
+
+// op +=
+template <class T>
+vec4<T> & vec4<T>::operator+=(vec4<T> const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] += rhs.ref().at(i)[0];
+	}
+	return *this;
+}
+
+template <class T>
+vec4<T> & vec4<T>::operator+=(T const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] += rhs;
+	}
+	return *this;
+}
+
+// op -=
+template <class T>
+vec4<T> & vec4<T>::operator-=(vec4<T> const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] -= rhs.ref().at(i)[0];
+	}
+	return *this;
+}
+
+template <class T>
+vec4<T> & vec4<T>::operator-=(T const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] -= rhs;
+	}
+	return *this;
+}
+
+// op *=
+template <class T>
+vec4<T> & vec4<T>::operator*=(vec4<T> const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] *= rhs.ref().at(i)[0];
+	}
+	return *this;
+}
+
+template <class T>
+vec4<T> & vec4<T>::operator*=(T const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] *= rhs;
+	}
+	return *this;
 }
 
 

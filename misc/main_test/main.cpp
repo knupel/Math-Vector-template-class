@@ -26,6 +26,8 @@ void show_data(vec<T> &v) {
 }
 
 
+
+
 int main() {
 	// set static warning to display info about Constructor and destructor
 	// vec2<double>::warning(true);
@@ -140,7 +142,6 @@ int main() {
 	/**
 	* TIME
 	*/
-	// start
 	// auto start = std::chrono::system_clock::now();
 
 	// end
@@ -170,11 +171,32 @@ int main() {
 
 	// std::cout << "ld_4.cross(vec4<long double>(1,2,3,4)): " << ld_4.cross(vec4<long double>(1,2,3,4)) << std::endl;
 
-	std::cout << "ld_4: " << ld_4 << std::endl;
-	float step = 0.1;
-	for(float f = 0 ; f < 6.28 ; f += step) {
-		std::cout << "ld_4.rotate(1.4): " << ld_4.rotate(step) << std::endl;
-	}
+	// std::cout << "ld_4: " << ld_4 << std::endl;
+	// vec4 <long double> ld_5 = ld_4;
+	// float step = 0.1;
+	// float max = 50000.0f;
+	// int n = 0;
+	// // for(float f = 0 ; f < max ; f += step) {
+	// // 	n++;
+	// // 	// std::cout << "ld_4.rotate(1.4): " << ld_4.rotate(step) << std::endl;
+	// // 	ld_4.rotate(step);
+	// // }
+
+	// auto end = std::chrono::system_clock::now();
+	// std::chrono::duration<double> elapsed_seconds = end-start;
+	// std::cout << "loop: " << n << " | elapsed time: " << elapsed_seconds.count() << std::endl;
+
+	// n = 0;
+	// start = std::chrono::system_clock::now();
+	// for(float f = 0 ; f < max ; f += step) {
+	// 	n++;
+	// 	// std::cout << "ld_5.xy().rotate(1.4): " << ld_5.xy().rotate(1.4) << std::endl;
+	// 	ld_5.xy().rotate(step);
+	// }
+
+	// end = std::chrono::system_clock::now();
+	// elapsed_seconds = end-start;
+	// std::cout << "loop: " << n << " | elapsed time: " << elapsed_seconds.count() << std::endl;
 
 	/**
 	* TAN
@@ -477,6 +499,26 @@ int main() {
 	// std::cout << "sum int: " << vec3<int>(i1,i2,i3).sum() << std::endl;
 	// std::cout << "average int: " << vec3<int> (2,1,1).average() << std::endl;
 	// std::cout << "average float: " << vec3<float> (2,1,3).average() << std::endl;
+
+
+	/**
+	* BARYCENTER
+	*/
+	a.set(1);
+	b.set(3);
+	std::cout << "a.barycenter(b): " << a.barycenter(b) << std::endl;
+	std::cout << "a: " << a << std::endl;
+	std::cout << "b: " << b << std::endl;
+
+	a_3.set(1);
+	b_3.set(3);
+	std::cout << "a_3.barycenter(b_3): " << a_3.barycenter(b_3) << std::endl;
+	std::cout << "a_3: " << a << std::endl;
+	std::cout << "b_3: " << b << std::endl;
+
+
+	vec4<long double> ld_5 = ld_4;
+	std::cout << "ld_5 after copy: " << ld_5 << std::endl;
 
 
 

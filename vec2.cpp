@@ -36,6 +36,7 @@ public:
 	T y() const;
 	T min() const;	
 	T max() const;
+	
 	vec2 copy() const;
 	T * array() const;
 	// get exotic
@@ -46,15 +47,9 @@ public:
 
 	// todo
 
-
-
-
-	// vec2 barycenter(vec2<T> const &other) const;
-
 	// vec2 abs() const;
 
 	// get2D
-
 
 
 
@@ -82,9 +77,12 @@ public:
 	double dist() const;
 	double dist(vec2<T> const &v) const;
 
-	// cacule the power of the vector for each component
+	// caccule the power of the vector for each component
 	vec2 & pow(T const &pow);
 	vec2 & pow(T const &pow_x, T const &pow_y);
+
+	// barycenter
+	vec2 barycenter(vec2<T> const &other) const;
 
 
 	//map
@@ -166,27 +164,24 @@ public:
 
 	vec2 operator+(vec2<T> const &rhs) const;
 	vec2 operator+(T const &rhs) const;
-
-	vec2 & operator+=(vec2<T> const &rhs);
-	vec2 & operator+=(T const &rhs);
-
 	vec2 operator-(vec2<T> const &rhs) const;
 	vec2 operator-(T const &rhs) const;
-
-	vec2 & operator-=(vec2<T> const &rhs);
-	vec2 & operator-=(T const &rhs);
-
 	vec2 operator*(vec2<T> const &rhs) const;
 	vec2 operator*(T const &rhs) const;
-
-	vec2 & operator*=(vec2<T> const &rhs);
-	vec2 & operator*=(T const &rhs);
-
 	vec2 operator/(vec2<T> const &rhs) const;
 	vec2 operator/(T const &rhs) const;
 
+	vec2 & operator+=(vec2<T> const &rhs);
+	vec2 & operator+=(T const &rhs);
+	vec2 & operator-=(vec2<T> const &rhs);
+	vec2 & operator-=(T const &rhs);
+	vec2 & operator*=(vec2<T> const &rhs);
+	vec2 & operator*=(T const &rhs);
 	vec2 & operator/=(vec2<T> const &rhs);
 	vec2 & operator/=(T const &rhs);
+
+
+
 
 	// info
 	static void warning(bool is);
@@ -383,6 +378,7 @@ vec2<T>	& vec2<T>::rotate(T angle) {
 	return *this;
 }
 
+// rotate
 template <class T>
 vec2<T>	& vec2<T>::rotate(T angle, vec2<T> const &origin) {
 	if(std::is_arithmetic<T>::value) {
@@ -487,6 +483,12 @@ vec2<T>	& vec2<T>::pow(T const &pow_x, T const &pow_y) {
 	this->_x = ::pow(this->x(), pow_x);
 	this->_y = ::pow(this->y(), pow_y);
 	return *this;
+}
+
+template <class T>
+vec2<T>	vec2<T>::barycenter(vec2<T> const &other) const {
+	vec2<T> temp = *this;
+	return (temp += other) / 2;
 }
 
 
@@ -780,21 +782,7 @@ vec2<T> vec2<T>::operator+(T const &rhs) const {
 	return temp;
 }
 
-template <class T>
-vec2<T> & vec2<T>::operator+=(vec2<T> const &rhs) {
-	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
-		this->ref().at(i)[0] += rhs.ref().at(i)[0];
-	}
-	return *this;
-}
 
-template <class T>
-vec2<T> & vec2<T>::operator+=(T const &rhs) {
-	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
-		this->ref().at(i)[0] += rhs;
-	}
-	return *this;
-}
 
 // op -
 template <class T>
@@ -816,21 +804,6 @@ vec2<T> vec2<T>::operator-(T const &rhs) const {
 }
 
 
-template <class T>
-vec2<T> & vec2<T>::operator-=(vec2<T> const &rhs) {
-	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
-		this->ref().at(i)[0] -= rhs.ref().at(i)[0];
-	}
-	return *this;
-}
-
-template <class T>
-vec2<T> & vec2<T>::operator-=(T const &rhs) {
-	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
-		this->ref().at(i)[0] -= rhs;
-	}
-	return *this;
-}
 
 
 
@@ -853,21 +826,8 @@ vec2<T> vec2<T>::operator*(T const &rhs) const {
 	return temp;
 }
 
-template <class T>
-vec2<T> & vec2<T>::operator*=(vec2<T> const &rhs) {
-	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
-		this->ref().at(i)[0] *= rhs.ref().at(i)[0];
-	}
-	return *this;
-}
 
-template <class T>
-vec2<T> & vec2<T>::operator*=(T const &rhs) {
-	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
-		this->ref().at(i)[0] *= rhs;
-	}
-	return *this;
-}
+
 
 
 
@@ -890,6 +850,58 @@ vec2<T> vec2<T>::operator/(T const &rhs) const {
 	return temp;
 }
 
+// op +=
+template <class T>
+vec2<T> & vec2<T>::operator+=(vec2<T> const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] += rhs.ref().at(i)[0];
+	}
+	return *this;
+}
+
+template <class T>
+vec2<T> & vec2<T>::operator+=(T const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] += rhs;
+	}
+	return *this;
+}
+
+// op -=
+template <class T>
+vec2<T> & vec2<T>::operator-=(vec2<T> const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] -= rhs.ref().at(i)[0];
+	}
+	return *this;
+}
+
+template <class T>
+vec2<T> & vec2<T>::operator-=(T const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] -= rhs;
+	}
+	return *this;
+}
+
+// op *=
+template <class T>
+vec2<T> & vec2<T>::operator*=(vec2<T> const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] *= rhs.ref().at(i)[0];
+	}
+	return *this;
+}
+
+template <class T>
+vec2<T> & vec2<T>::operator*=(T const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] *= rhs;
+	}
+	return *this;
+}
+
+// op /=
 template <class T>
 vec2<T> & vec2<T>::operator/=(vec2<T> const &rhs) {
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {

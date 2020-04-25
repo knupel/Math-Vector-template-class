@@ -48,6 +48,9 @@ public:
 	T min() const;	
 	T max() const;
 
+	vec3 copy() const;
+	T * array() const;
+
 	T red() const;
 	T gre() const;
 	T blu() const;
@@ -131,6 +134,9 @@ public:
 	vec3 & pow(T const &pow);
 	vec3 & pow(T const &pow_x, T const &pow_y, T const &pow_z);
 
+	// barycenter
+	vec3 barycenter(vec3<T> const &other) const;
+
 	//map
 	vec3 & map(T const &start_src, T const &stop_src, T const &start_dst, T const &stop_dst);
 	vec3 & map(vec3<T> const &start_src, vec3<T> const &stop_src, vec3<T> const &start_dst, vec3<T> const &stop_dst);
@@ -187,15 +193,21 @@ public:
 	// other op
 	vec3 operator+(vec3<T> const &rhs) const;
 	vec3 operator+(T const &rhs) const;
-
 	vec3 operator-(vec3<T> const &rhs) const;
 	vec3 operator-(T const &rhs) const;
-
 	vec3 operator*(vec3<T> const &rhs) const;
 	vec3 operator*(T const &rhs) const;
-
 	vec3 operator/(vec3<T> const &rhs) const;
 	vec3 operator/(T const &rhs) const;
+
+	vec3 & operator+=(vec3<T> const &rhs);
+	vec3 & operator+=(T const &rhs);
+	vec3 & operator-=(vec3<T> const &rhs);
+	vec3 & operator-=(T const &rhs);
+	vec3 & operator*=(vec3<T> const &rhs);
+	vec3 & operator*=(T const &rhs);
+	vec3 & operator/=(vec3<T> const &rhs);
+	vec3 & operator/=(T const &rhs);
 
 
 	// info
@@ -320,6 +332,21 @@ template <class T>
 vec3<T> & vec3<T>::max(T const &y) {
 	this->_y = y;
 	return *this;
+}
+
+
+template <class T>
+vec3<T> vec3<T>::copy() const {
+	return *this;
+}
+
+template <class T>
+T * vec3<T>::array() const {
+	static T arg[3];
+	for(size_t i = 0 ; i < this->get_size() ; i++) {
+		arg[i] = *this->v_list.at(i);
+	}
+	return arg;
 }
 
 
@@ -468,6 +495,13 @@ vec3<T>	& vec3<T>::pow(T const &pow_x, T const &pow_y, T const &pow_z) {
 	this->_y = ::pow(this->y(), pow_y);
 	this->_z = ::pow(this->z(), pow_z);
 	return *this;
+}
+
+
+template <class T>
+vec3<T>	vec3<T>::barycenter(vec3<T> const &other) const {
+	vec3<T> temp = *this;
+	return (temp += other) / 2;
 }
 
 
@@ -700,7 +734,6 @@ vec3<T> vec3<T>::operator+(T const &rhs) const {
 	return temp;
 }
 
-
 // op -
 template <class T>
 vec3<T> vec3<T>::operator-(vec3<T> const &rhs) const {
@@ -758,6 +791,75 @@ vec3<T> vec3<T>::operator/(T const &rhs) const {
 		temp.ref().at(i)[0] = this->ref().at(i)[0] / rhs;
 	}
 	return temp;
+}
+
+
+// op +=
+template <class T>
+vec3<T> & vec3<T>::operator+=(vec3<T> const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] += rhs.ref().at(i)[0];
+	}
+	return *this;
+}
+
+template <class T>
+vec3<T> & vec3<T>::operator+=(T const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] += rhs;
+	}
+	return *this;
+}
+
+// op -=
+template <class T>
+vec3<T> & vec3<T>::operator-=(vec3<T> const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] -= rhs.ref().at(i)[0];
+	}
+	return *this;
+}
+
+template <class T>
+vec3<T> & vec3<T>::operator-=(T const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] -= rhs;
+	}
+	return *this;
+}
+
+// op *=
+template <class T>
+vec3<T> & vec3<T>::operator*=(vec3<T> const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] *= rhs.ref().at(i)[0];
+	}
+	return *this;
+}
+
+template <class T>
+vec3<T> & vec3<T>::operator*=(T const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] *= rhs;
+	}
+	return *this;
+}
+
+// op /=
+template <class T>
+vec3<T> & vec3<T>::operator/=(vec3<T> const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] /= rhs.ref().at(i)[0];
+	}
+	return *this;
+}
+
+template <class T>
+vec3<T> & vec3<T>::operator/=(T const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] /= rhs;
+	}
+	return *this;
 }
 
 

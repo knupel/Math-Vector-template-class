@@ -33,6 +33,12 @@ public:
 	T min() const;
 	T max() const;
 
+	vec & operator+=(vec<T> const &rhs);
+	vec & operator+=(T const &rhs);
+
+	vec barycenter(vec<T> const &other) const;
+
+
 	T mag_sq() const;
 	double mag() const;
 
@@ -67,6 +73,30 @@ vec<T>::~vec() {
 	//
 }
 
+
+
+
+
+// op
+template <class T>
+vec<T> & vec<T>::operator+=(vec<T> const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] += rhs.ref().at(i)[0];
+	}
+	return *this;
+}
+
+template <class T>
+vec<T> & vec<T>::operator+=(T const &rhs) {
+	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
+		this->ref().at(i)[0] += rhs;
+	}
+	return *this;
+}
+
+
+
+// get size
 template <class T>
 unsigned short vec<T>::get_size() const {
 	return size;
@@ -122,6 +152,13 @@ T vec<T>::max() const {
 	}
 	return *std::max_element(temp.begin(), temp.end());
 }
+
+template <class T>
+vec<T>	vec<T>::barycenter(vec<T> const &other) const {
+	vec<T> temp = *this;
+	return (temp += other) / 2;
+}
+
 
 
 template <class T>
