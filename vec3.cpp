@@ -479,7 +479,6 @@ vec3<T>	vec3<T>::dir(vec3<T> const &origin) const {
 // abs
 template <class T>
 vec3<T>	& vec3<T>::abs() {
-	// return ::abs();
 	for(unsigned short i = 0 ; i < this->get_size() ; i++) {
 		this->ref().at(i)[0] = std::abs(this->list().at(i));
 	}
