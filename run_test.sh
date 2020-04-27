@@ -1,1 +1,0 @@
-clang++ -std=c++11 -Wall -Wextra -Werror -Wconversion main/test.cpp *.cpp *.hpp && ./a.out

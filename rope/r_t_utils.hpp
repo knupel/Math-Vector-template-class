@@ -4,11 +4,6 @@
 * 2020-2020
 */
 #include "rope.hpp"
-// #include <iostream>
-// #include <vector>
-// #include <cmath>
-// #include <limits>
-// #include <string>
 
 /**
 * set list from variadic argument

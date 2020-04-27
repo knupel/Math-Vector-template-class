@@ -1,1 +1,6 @@
-clang++ -std=c++11 -Wall -Wextra -Werror -Wconversion main/main.cpp *.cpp *.hpp && ./a.out
+clang++ -std=c++11 \
+main.cpp *.hpp \
+-Wall -Wextra -Werror -Wconversion \
+rope/*.cpp rope/*.hpp \
+rope/vec/*.hpp \
+&& ./a.out

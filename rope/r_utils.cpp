@@ -1,7 +1,7 @@
 #include "rope.hpp"
 /**
 * rope utils
-* v 0.0.1
+* v 0.0.2
 * 2020-2020
 */
 
@@ -71,8 +71,8 @@ char random_char(char min, char max) {
 }
 
 char random_char(char min, char max, std::default_random_engine &generator) {
-	std::uniform_int_distribution<int> gen_rand_int(min,max);
-	return gen_rand_int(generator);
+	std::uniform_int_distribution<char> gen_rand_int(min,max);
+	return (gen_rand_int(generator));
 }
 
 // rand int

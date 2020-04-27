@@ -1,12 +1,8 @@
-#include "../vec.hpp"
-#include "../vec2.hpp"
-#include "../vec3.hpp"
-#include "../vec4.hpp"
+#include "rope/vec/vec.hpp"
+#include "rope/vec/vec2.hpp"
+#include "rope/vec/vec3.hpp"
+#include "rope/vec/vec4.hpp"
 
-#include "../vec.cpp"
-#include "../vec2.cpp"
-#include "../vec3.cpp"
-#include "../vec4.cpp"
 
 #include <iostream>
 #include <cstdio>
@@ -52,19 +48,37 @@ void print_instance() {
 int main() {
 	// print_warning();
 
-	vec2<float> f_2(13.03f,1.0f);
-	std::cout << f_2 << std::endl;
-	vec3<float> f_3(1);
-	std::cout << f_3 << std::endl;
-	vec4<float> f_4(1);
-	std::cout << f_4 << std::endl;
-	std::cout << f_4.rand(1) << std::endl;
-	vec4<long double> ld_4;
-	std::cout << ld_4 << std::endl;
-	std::cout << "ld_4.rand(): " << ld_4.rand(-1000,1000) << std::endl;
-	std::cout << "ld_4.abs(): " << ld_4.abs() << std::endl;
-	std::cout << "ld_4.dist(): " << ld_4.dist() << std::endl;
-	std::cout << "ld_4.normalize(): " << ld_4.normalize() << std::endl;
+	// vec2<float> f_2;
+	// std::cout << "f_2.rand(1): " << f_2.rand(1) << std::endl;
+
+
+		vec2<int> i_2;
+	std::cout << "i_2.rand(10): " << i_2.rand(10) << std::endl;
+	// vec3<float> f_3(1);
+	// std::cout << f_3 << std::endl;
+	// vec4<float> f_4(1);
+	// std::cout << f_4 << std::endl;
+	// std::cout << f_4.rand(1) << std::endl;
+	// vec4<long double> ld_4;
+	// std::cout << ld_4 << std::endl;
+	// std::cout << "ld_4.rand(): " << ld_4.rand(-1000,1000) << std::endl;
+	// std::cout << "ld_4.abs(): " << ld_4.abs() << std::endl;
+	// std::cout << "ld_4.dist(): " << ld_4.dist() << std::endl;
+	// std::cout << "ld_4.normalize(): " << ld_4.normalize() << std::endl;
+
+	// time test
+	// auto start = std::chrono::system_clock::now();
+	// vec4<long double> ld_4;
+	// std::random_device seed;
+	// std::default_random_engine generator(seed());
+	// for(int i = 0 ; i < 1000000 ; i++) {
+	// 	ld_4.rand(-1000,1000,generator);
+	// 	// ld_4.rand(-1000,1000);
+	// }
+	// auto end = std::chrono::system_clock::now();
+	// std::chrono::duration<double> elapsed_seconds = end-start;
+	// std::cout << "elapsed time: " << elapsed_seconds.count() << std::endl;
+
 
 	// print_instance();
 
