@@ -13,7 +13,7 @@
 #include <random>
 
 #include "../rope.hpp"
-#include "../r_t_utils.hpp"
+#include "../r_utils_template.hpp"
 
 template <class T>
 class vec {

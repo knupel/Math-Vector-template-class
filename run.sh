@@ -3,4 +3,5 @@ main.cpp *.hpp \
 -Wall -Wextra -Werror -Wconversion \
 rope/*.cpp rope/*.hpp \
 rope/vec/*.hpp \
-&& ./a.out
+&& ./a.out \
+&& rm rope/*.gch rope/vec/*.gch 
